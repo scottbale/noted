@@ -1,0 +1,91 @@
+                  previous
+                     M-<
+                     M-v
+                     C-p
+back M-a C-a M-b C-b C-l C-f M-f C-e M-e forward
+                     C-n
+                     C-v
+                     M->
+                    next
+
+goto line	 M-x goto-line
+
+get out	 ESC ESC ESC 
+
+undo	 C-x u	C-_  C-/
+quit	 C-x C-c
+cancel	 C-g
+help	 C-h
+center	 C-l
+# prefix	 [C-u #] cmd
+
+forward kil	 C-d
+kill word before	 M-<Delback>
+kill next word	 M-d
+kill to EOL	 C-k
+kill to EOsentence	M-k
+kill marked	C-w
+yank	 C-y
+
+kill ring
+cycle earlier	M-y
+browse ring	C-h v kill-ring
+
+WINDOWS
+one window	 C-x 1
+two windows	 C-x 2
+move cursor to	 C-x o ("other")
+
+FRAMES
+new frame	 M-x make-frame
+delete	 M-x delete-frame
+
+BUFFERS
+find file/buffer	 C-x C-f	minibuffer
+save	 C-x C-s
+list buffers	 C-x C-b
+switch to buffer	 C-x b [buffer name]
+save buffer	 C-x s [buffer]
+close buffer	 C-x k
+emacs shell	 C-x m
+
+HELP
+tutorial	 C-h t
+all purpose	 C-h a (keyword)
+bindings	 C-h b
+current mode	 C-h m
+desc function	 C-h f [function name]
+key (brief)	 C-h c [key or key combo]
+key	 C-h k [key or key combo]
+
+MODES
+switch mode	 M-x [mode]
+
+SEARCH
+forward	 C-s
+reverse	 C-r
+
+SWANK
+eval buffer	C-c v
+eval expr	C-x C-e
+load		C-c C-k
+repl->ns	C-c M-p
+goto src	M-.
+slime		M-x slime-connect
+
+MISC
+shell		M-x shell
+shell cmd	M-!
+VC-diff		C-x v D
+expand macro	C-c Enter
+hippie complete	M-/
+rgrep		M-x rgrep
+pop tag mark	M-*
+mark		M-space
+reload          C-c r
+Git             C-x g
+mark whole buf  C-x h
+slime repl clear buffer                C-c M-o
+REPL
+(in-ns 'foo-bar)
+
