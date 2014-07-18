@@ -551,3 +551,14 @@ list processes by user
 
     git config --global -l
     git config --local -l
+
+7/16/14
+
+backup Jenkins, Nexus
+
+    /usr/local/revelytix_data/hudson-backups
+    /usr/local/revelytix_data/sonatype-work/nexus
+
+tar/gzip director(ies)
+
+    tar czvf foo.tar.gz folder1 folder2... folderN
