@@ -562,3 +562,11 @@ backup Jenkins, Nexus
 tar/gzip director(ies)
 
     tar czvf foo.tar.gz folder1 folder2... folderN
+
+8/5/14
+
+change Grub default
+
+    fgrep menuentry /boot/grub/grub.cfg
+    sudo zile /etc/default/grub 
+    sudo update-grub
