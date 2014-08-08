@@ -197,3 +197,14 @@ find what process is using a port (precede all with `sudo`)
     netstat -tulpn | grep 80
     ls -l /proc/<pid>/exe
     fuser 80/tcp
+
+cp Music -> Important
+diff and cp commands:
+
+    diff -qr temp1/ temp2/
+    cp -nRv temp1/ temp2/ > report.txt
+
+but instead of temp2, target directory is:
+
+    /Volumes/Important/Music/ALL/
+
