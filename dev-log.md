@@ -570,3 +570,14 @@ change Grub default
     fgrep menuentry /boot/grub/grub.cfg
     sudo zile /etc/default/grub 
     sudo update-grub
+
+## 8/19/14
+
+ubuntu node ppa https://launchpad.net/~chris-lea/+archive/ubuntu/node.js
+
+    sudo apt-add-repository ppa:chris-lea/node.js
+    sudo apt-get install nodejs
+
+(nodejs includes npm)
+
+    sudo npm install -g grunt-cli

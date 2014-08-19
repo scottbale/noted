@@ -1,4 +1,4 @@
 noted
 =====
 
-my notes
+copious notes
