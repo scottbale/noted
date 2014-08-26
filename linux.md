@@ -2,6 +2,9 @@
 
 ## Basic
 
+    uname -a
+    lsb_release -d
+
 alt-F2 launches application
 make Caps Lock key another ctrl key System->Preferences->Keyboard Layouts Options "Ctrl Key position"
 
