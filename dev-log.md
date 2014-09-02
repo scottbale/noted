@@ -581,3 +581,25 @@ ubuntu node ppa https://launchpad.net/~chris-lea/+archive/ubuntu/node.js
 (nodejs includes npm)
 
     sudo npm install -g grunt-cli
+
+## 8/23/14 minecraft mods
+
+minecraft forge-src
+
+    ./gradlew setupDecompWorkspace --refresh-dependencies
+
+### server
+
+install installer http://files.minecraftforge.net/
+
+    wget http://files.minecraftforge.net/maven/net/minecraftforge/forge/1.7.10-10.13.0.1208/forge-1.7.10-10.13.0.1208-installer.jar
+
+run installer (headless)
+
+    java -jar forge-1.7.10-10.13.0.1208-installer.jar --installServer
+
+run universal jar (note manifest file defines a classpath, dependent on libraries/ folder)
+
+    java -jar forge-1.7.10-10.13.0.1208-universal.jar
+
+### client
