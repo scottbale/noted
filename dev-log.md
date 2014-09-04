@@ -602,4 +602,37 @@ run universal jar (note manifest file defines a classpath, dependent on librarie
 
     java -jar forge-1.7.10-10.13.0.1208-universal.jar
 
-### client
+## 8/28/14
+
+rpm - list files in a package
+
+    rpm -qlp foo.rpm
+
+use different leiningen version: just edit header of `~/bin/lein` and re-run. It will install to `~/.lein/self-installs/~.
+
+command line `if`
+
+    if id -u foo; then echo "true"; else echo "false"; fi
+
+display the return status of most recently executed foreground command or pipeline:
+
+    echo $?
+
+## 9/3/14 - rpm
+
+build
+
+    lein do clean, with-profile rpm-generic install
+
+install
+
+    sudo rpm -v -i target/foo.rpm
+
+check install
+
+    rpm -q foo
+
+uninstall
+
+    rpm -e foo
+

@@ -211,3 +211,6 @@ but instead of temp2, target directory is:
 
     /Volumes/Important/Music/ALL/
 
+update default editor
+
+    sudo update-alternatives --config editor
