@@ -636,3 +636,48 @@ uninstall
 
     rpm -e foo
 
+## 9/8/14
+
+hdfs
+
+    sudo -u hdfs hadoop fs -mkdir /data
+    sudo -u hdfs hadoop fs -mkdir /data/sources
+
+Copy Folders from Local Directories to HDFS Source Directory
+
+    sudo -u hdfs hadoop fs -copyFromLocal /home/bob/data/sources/aviz_datasets /data/sources
+
+single path
+
+    sudo -u hdfs hadoop fs -put <localfile> <hdfspath>
+
+
+## 9/13/14 putty notes
+
+### create Windows shortcut
+
+modify properties; shortcut should read something like
+
+    "C:\Program Files (x86)\putty\putty.exe" -load foo
+
+### for terminal emacs
+
+http://www.emacswiki.org/emacs/PuTTY
+
+change term colors 
+
+    Connection->Data->Terminal-type string = "xterm-256color"
+
+make both 'alt' keys be 'meta' keys; regedit
+
+    Windows Registry Editor Version 5.00
+    [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Keyboard Layout]
+    "Scancode Map"=hex:00,00,00,00,00,00,00,00,03,00,00,00,1d,00,3a,00,38,00,38,e0,00,00,00,00
+
+Explained here http://smallvoid.com/article/winnt-scancode-map.html
+
+* first 8 bytes are headers
+* `03 00 00 00` indicates 3 entries in map (including null entry)
+* `1d 00 3a 00` makes right Alt key work as a meta key
+* `38 00 38 e0` makes Caps Lock key another Ctrl key
+* null entry at the end
