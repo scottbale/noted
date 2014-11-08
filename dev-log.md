@@ -681,3 +681,59 @@ Explained here http://smallvoid.com/article/winnt-scancode-map.html
 * `1d 00 3a 00` makes right Alt key work as a meta key
 * `38 00 38 e0` makes Caps Lock key another Ctrl key
 * null entry at the end
+
+## 9/25/14
+
+Gnu screen quick notes
+
+Config file: `~/.screenrc`
+
+| task          | binding     |
+| ------------- | ----------- |
+| split         | `M-S`       |
+| rename window | `M-A`       |
+| focus region  | `M-tab`     |
+| window list   | `M-"`       |
+
+## 9/29/14
+
+Needed to use `eval` to start ssh-agent, something to do with env variable(s) that running `ssh-agent` exports, and which `ssh-add` needs.
+
+    eval `ssh-agent -s`
+    ssh-add foo
+
+## 10/5/14
+
+post JSON via curl
+
+    curl -X POST -H "Content-Type: application/json" -d @file.json http://hostname:8080/api/v1/foo/bar
+
+reboot vm
+
+    sudo reboot
+
+## 10/28/14
+
+Emacs tramp mode
+
+    C-x C-f /ssh:user@hostname:/path/to/file
+
+## 10/29/14
+
+Logged in as root, create a user account for myself (RHEL)
+
+    useradd -m -s /bin/bash sbale
+    mkdir /home/sbale/.ssh
+    ...
+    chown -R sbale:sbale /home/sbale/.ssh/
+    chmod 600 /home/sbale/.ssh/*
+    passwd -S sbale
+
+See process using port `8083`
+
+    sudo netstat -tapen | grep 8083
+    ps -fp [pid]
+
+## 11/3/14
+
+    sudo hadoop fs -rm -f -r -skipTrash /user/foo
