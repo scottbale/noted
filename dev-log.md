@@ -563,13 +563,53 @@ tar/gzip director(ies)
 
     tar czvf foo.tar.gz folder1 folder2... folderN
 
-8/5/14
+## 8/5/14
 
 change Grub default
 
     fgrep menuentry /boot/grub/grub.cfg
     sudo zile /etc/default/grub 
     sudo update-grub
+
+## 8/8/14 setup new ubuntu vm
+
+Ubuntu git maintainers team has a PPA
+
+    sudo add-apt-repository ppa:git-core/ppa
+    sudo apt-get update
+    sudo apt-get install git
+    
+emacs 24 ppa
+
+    sudo add-apt-repository ppa:cassou/emacs
+    sudo apt-get update
+    sudo apt-get install emacs24 emacs24-el emacs24-common-non-dfsg
+    
+git checkout files from other branches into index
+
+    git checkout <branch_name> -- <paths>
+
+install git
+install emacs24
+git clone dotfiles (some tweaking)
+install zile, openjdk-7-jdk, maven2, tree, lein (2.2 initially), 
+
+emacs right Meta key not working: http://www.emacswiki.org/emacs/PuTTY#toc7
+
+emacs color theme not displaying
+
+configure test git repo
+build server cert, import to java keystore
+
+    curl -v -u [QID] http://[location of cert file]
+    sudo keytool -import -alias build_self_signed -keystore /etc/ssl/certs/java/cacerts -file foo.cert
+
+cant figure out `wget` or `curl` from wiki page to vm due to
+authentication failure. Resorting to `scp` from desktop.
+
+git clone Alex's test repo
+git clone assembla repo; test lein compile
+working on public key authentication w/ putty
 
 ## 8/19/14
 
