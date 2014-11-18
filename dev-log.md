@@ -777,3 +777,32 @@ See process using port `8083`
 ## 11/3/14
 
     sudo hadoop fs -rm -f -r -skipTrash /user/foo
+
+## 11/13/14
+
+### rejigger linux users & groups
+
+UIDs and GIDs
+
+    id -u username
+    id -g username
+    id -G username
+    getent group [gid]
+    getent group [groupname]
+    getent passwd [id]
+    getent passwd [uname]
+
+change user UID, GID
+
+    usermod -u [new uid] -g [new gid]
+    groupmod -g [new gid]
+
+new user foo
+
+    groupadd -g 2112 foo
+    useradd -g 2112 -u 5150 foo
+
+modify user foo
+
+    groupmod -g 2112 foo
+    usermod -u 5150 -g 2112 foo
