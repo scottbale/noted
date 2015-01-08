@@ -487,7 +487,9 @@ password
 
 7/7/14 Wordpress
 
-'home' and 'site' urls can be stored either in `wp-config.php` (`WP_HOME`, `WP_SITEURL`) or in mysql `kwcoc_options` table with `option_name` column of `home` and `siteurl`.
+'home' and 'site' urls can be stored either in `wp-config.php`
+(`WP_HOME`, `WP_SITEURL`) or in mysql `kwcoc_options` table with
+`option_name` column of `home` and `siteurl`.
 
 Assembla->Git Migration
 
@@ -638,7 +640,8 @@ run installer (headless)
 
     java -jar forge-1.7.10-10.13.0.1208-installer.jar --installServer
 
-run universal jar (note manifest file defines a classpath, dependent on libraries/ folder)
+run universal jar (note manifest file defines a classpath, dependent
+on libraries/ folder)
 
     java -jar forge-1.7.10-10.13.0.1208-universal.jar
 
@@ -648,13 +651,15 @@ rpm - list files in a package
 
     rpm -qlp foo.rpm
 
-use different leiningen version: just edit header of `~/bin/lein` and re-run. It will install to `~/.lein/self-installs/~.
+use different leiningen version: just edit header of `~/bin/lein` and
+re-run. It will install to `~/.lein/self-installs/~.
 
 command line `if`
 
     if id -u foo; then echo "true"; else echo "false"; fi
 
-display the return status of most recently executed foreground command or pipeline:
+display the return status of most recently executed foreground command
+or pipeline:
 
     echo $?
 
@@ -737,7 +742,9 @@ Config file: `~/.screenrc`
 
 ## 9/29/14
 
-Needed to use `eval` to start ssh-agent, something to do with env variable(s) that running `ssh-agent` exports, and which `ssh-add` needs.
+Needed to use `eval` to start ssh-agent, something to do with env
+variable(s) that running `ssh-agent` exports, and which `ssh-add`
+needs (`env | grep SSH_`)
 
     eval `ssh-agent -s`
     ssh-add foo
@@ -806,3 +813,41 @@ modify user foo
 
     groupmod -g 2112 foo
     usermod -u 5150 -g 2112 foo
+
+remove user
+
+    userdel foo
+
+## 12/4/14
+
+truncate lines returned by `grep` by piping through `cut`
+
+    grep whatever | cut -c1-170
+
+## 12/24/14
+
+yum package manager
+
+    yum | more
+    yum list installed emacs*
+    reposync
+
+    /etc/yum.repos.d/
+
+    yum upgrade foo
+
+## 1/5/15
+
+SUSE Linux equivalent to `yum` is `yast2` or `zypper`
+
+## 1/6/15
+
+List contents of RPM package
+
+    rpm -qlp package.rpm
+
+## 1/7/15
+
+cider-repl-set-ns
+
+    C-c M-n
