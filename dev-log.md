@@ -780,6 +780,11 @@ See process using port `8083`
 
     sudo netstat -tapen | grep 8083
     ps -fp [pid]
+    
+or Mac OS X
+
+    sudo lsof -n -i4TCP:8083 | grep LISTEN
+    sudo lsof -i -n -P | grep TCP | grep LISTEN
 
 ## 11/3/14
 
