@@ -632,7 +632,8 @@ minecraft forge-src
 
 ### server
 
-install installer http://files.minecraftforge.net/
+install installer http://files.minecraftforge.net/ (remove `adfly` prefix
+from URL)
 
     wget http://files.minecraftforge.net/maven/net/minecraftforge/forge/1.7.10-10.13.0.1208/forge-1.7.10-10.13.0.1208-installer.jar
 
@@ -644,6 +645,35 @@ run universal jar (note manifest file defines a classpath, dependent
 on libraries/ folder)
 
     java -jar forge-1.7.10-10.13.0.1208-universal.jar
+    
+### client, mac os x
+
+for each logged in user:
+
+First, user must play the version of Minecraft (1.7.10 in this
+example) at least once prior to installing forge. This can be done by
+creating an alternate profile, in which the (older) version of
+Minecraft can be specified.
+
+    java -jar forge-1.7.10-10.13.0.1208-installer.jar
+    
+starts GUI, prompts to install to
+
+    /Users/[username]/Library/Application Support/minecraft
+    
+I stashed the MC forge universal installer on iMac at
+
+    /usr/local/minecraft-forge/
+    
+### install a mod
+
+http://minecraft.gamepedia.com/Mods/Installing_forge_mods
+
+Shift-Cmd-G in `Finder` prompts for path
+
+get mod `zip` file, install to
+
+    /Users/[username]/Library/Application Support/minecraft/mods/
 
 ## 8/28/14
 
