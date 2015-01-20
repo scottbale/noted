@@ -906,3 +906,12 @@ git push select commit to remote branch `2.3.x`:
 
     git push origin 2.3.x^^:2.3.x
     git push origin 235a3sd:2.3.x
+
+git, find commit with `blarg` in commit message
+
+    git log --grep="blarg"
+
+Assuming a commit `a21bf32` is found, see what (local and remote)
+branches it's in:
+
+    git branch -r --contains a21bf32
