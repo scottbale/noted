@@ -899,3 +899,10 @@ SUSE Linux equivalent to `yum` is `yast2` or `zypper`
 cider-repl-set-ns
 
     C-c M-n
+
+## 1/19/15
+
+git push select commit to remote branch `2.3.x`:
+
+    git push origin 2.3.x^^:2.3.x
+    git push origin 235a3sd:2.3.x
