@@ -711,6 +711,18 @@ uninstall
 
     rpm -e foo
 
+examine file metadata
+
+    rpm -qp foo.rpm --qf "%{name} %{url}\n"
+
+see all possible metadata tags
+
+    rpm --querytags
+
+List contents of RPM package
+
+    rpm -qlp package.rpm
+
 ## 9/8/14
 
 hdfs
@@ -866,20 +878,21 @@ yum package manager
     yum | more
     yum list installed emacs*
     reposync
+    yum info hadoop-hdfs
 
     /etc/yum.repos.d/
 
     yum upgrade foo
 
+compare with zypper
+
+    zypper search --installed emacs*
+    zypper se -i emacs*
+    zypper info hadoop-hdfs
+
 ## 1/5/15
 
 SUSE Linux equivalent to `yum` is `yast2` or `zypper`
-
-## 1/6/15
-
-List contents of RPM package
-
-    rpm -qlp package.rpm
 
 ## 1/7/15
 
