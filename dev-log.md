@@ -900,6 +900,15 @@ cider-repl-set-ns
 
     C-c M-n
 
+## 1/18/15
+
+OS X - run Minecraft jar via command line
+
+    java -d64 -jar /Applications/Minecraft.app/Contents/Resources/Java/Bootstrap.jar
+    
+Save to file called `something.command`, `chmod a+x` on it. (I stashed
+it in `/Applications/`, then dragged onto the dock.)
+
 ## 1/19/15
 
 git push select commit to remote branch `2.3.x`:
