@@ -624,57 +624,6 @@ ubuntu node ppa https://launchpad.net/~chris-lea/+archive/ubuntu/node.js
 
     sudo npm install -g grunt-cli
 
-## 8/23/14 minecraft mods
-
-minecraft forge-src
-
-    ./gradlew setupDecompWorkspace --refresh-dependencies
-
-### server
-
-install installer http://files.minecraftforge.net/ (remove `adfly` prefix
-from URL)
-
-    wget http://files.minecraftforge.net/maven/net/minecraftforge/forge/1.7.10-10.13.0.1208/forge-1.7.10-10.13.0.1208-installer.jar
-
-run installer (headless)
-
-    java -jar forge-1.7.10-10.13.0.1208-installer.jar --installServer
-
-run universal jar (note manifest file defines a classpath, dependent
-on libraries/ folder)
-
-    java -jar forge-1.7.10-10.13.0.1208-universal.jar
-    
-### client, mac os x
-
-for each logged in user:
-
-First, user must play the version of Minecraft (1.7.10 in this
-example) at least once prior to installing forge. This can be done by
-creating an alternate profile, in which the (older) version of
-Minecraft can be specified.
-
-    java -jar forge-1.7.10-10.13.0.1208-installer.jar
-    
-starts GUI, prompts to install to
-
-    /Users/[username]/Library/Application Support/minecraft
-    
-I stashed the MC forge universal installer on iMac at
-
-    /usr/local/minecraft-forge/
-    
-### install a mod
-
-http://minecraft.gamepedia.com/Mods/Installing_forge_mods
-
-Shift-Cmd-G in `Finder` prompts for path
-
-get mod `zip` file, install to
-
-    /Users/[username]/Library/Application Support/minecraft/mods/
-
 ## 8/28/14
 
 rpm - list files in a package
@@ -899,15 +848,6 @@ SUSE Linux equivalent to `yum` is `yast2` or `zypper`
 cider-repl-set-ns
 
     C-c M-n
-
-## 1/18/15
-
-OS X - run Minecraft jar via command line
-
-    java -d64 -jar /Applications/Minecraft.app/Contents/Resources/Java/Bootstrap.jar
-    
-Save to file called `something.command`, `chmod a+x` on it. (I stashed
-it in `/Applications/`, then dragged onto the dock.)
 
 ## 1/19/15
 
