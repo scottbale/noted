@@ -86,6 +86,8 @@ http://blog.dskang.com/2011/05/14/fixing-the-color-theme-problem-with-the-emacs-
     libtiff-dev libxpm-dev libtinfo-dev
     ./configure --with-x-toolkit=gtk
     make
+    src/emacs -Q    <-- test
+    sudo make install
 
 test
     

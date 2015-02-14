@@ -833,6 +833,9 @@ yum package manager
 
     yum upgrade foo
 
+    yum install yum-utils
+    repoquery --list packagename
+
 compare with zypper
 
     zypper search --installed emacs*
@@ -864,3 +867,24 @@ Assuming a commit `a21bf32` is found, see what (local and remote)
 branches it's in:
 
     git branch -r --contains a21bf32
+
+## 2/14/15
+
+setting up new ec2 instance for development, quick checklist
+
+1. launch instance (Amazon linux)
+1. ssh `ec2-user`
+1. create `scott` user (see above)
+1. scp `authorized_keys` file to `/home/scott/.ssh/`
+1. add `scott` to `/etc/sudoers.d/` somewhere
+1. ssh `scott`
+1. `yum install tmux git`
+1. generate new key for github
+1. git clone stuff (dotfiles, website)
+1. build emacs from src (see above or `emacs.md`)
+    a. `yum install gcc autoconf automake texinfo ncurses-devel
+    pkgconfig`
+1. apache2 `yum install httpd mod_ssl`
+1. make user dir readable, executable `chmod`
+1. mod_php
+1. mysql
