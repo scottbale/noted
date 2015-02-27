@@ -221,6 +221,7 @@ start
 end
 
     M-x kmacro-end-macro
+    C-x )
 
 call
 

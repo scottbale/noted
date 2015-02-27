@@ -868,6 +868,20 @@ branches it's in:
 
     git branch -r --contains a21bf32
 
+## 2/10/15
+
+show disk usage
+
+    df -h
+
+disk usage
+
+    du -h /path/to
+
+disk usage with grand total
+
+    du -sh /path/to
+
 ## 2/14/15
 
 setting up new ec2 instance for development, quick checklist
@@ -888,3 +902,4 @@ setting up new ec2 instance for development, quick checklist
 1. make user dir readable, executable `chmod`
 1. mod_php
 1. mysql
+
