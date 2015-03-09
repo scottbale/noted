@@ -903,3 +903,6 @@ setting up new ec2 instance for development, quick checklist
 1. mod_php
 1. mysql
 
+## 3/09/15
+
+    pgrep -fl foo
