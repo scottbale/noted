@@ -667,6 +667,7 @@ examine file metadata
 see all possible metadata tags
 
     rpm --querytags
+    rpm --querytags | xargs -I tag rpm -qp foo.rpm --qf "tag: %{tag}\n"
 
 List contents of RPM package
 
@@ -906,3 +907,10 @@ setting up new ec2 instance for development, quick checklist
 ## 3/09/15
 
     pgrep -fl foo
+
+## 4/6/15
+
+deleting a git tag locally and remotely
+
+    git tag -d footag
+    git push --delete origin footag
