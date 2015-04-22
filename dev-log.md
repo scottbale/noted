@@ -827,6 +827,7 @@ yum package manager
 
     yum | more
     yum list installed emacs*
+    yum repolist
     reposync
     yum info hadoop-hdfs
 
@@ -892,6 +893,9 @@ setting up new ec2 instance for development, quick checklist
 1. create `scott` user (see above)
 1. scp `authorized_keys` file to `/home/scott/.ssh/`
 1. add `scott` to `/etc/sudoers.d/` somewhere
+
+        echo "scott ALL=(ALL) ALL" >> /etc/sudoers.d/00_foo
+
 1. ssh `scott`
 1. `yum install tmux git`
 1. generate new key for github
@@ -914,3 +918,44 @@ deleting a git tag locally and remotely
 
     git tag -d footag
     git push --delete origin footag
+
+## 4/9/15
+
+make an existing git branch track a remote branch
+
+    git branch -u origin/foo
+    git branch -u origin/foo foo
+    git branch --set-upstream-to origin/foo
+
+## 4/10/15
+
+tmux - search pane in copy mode (similar to emacs)
+
+Search down
+
+    Ctrl-s
+    [phrase]
+    Enter
+    n
+
+Search up
+
+    Ctrl-r
+
+## 4/13/15
+
+copy-paste in tmux: in copy mode select with `ctrl-space`, copy with
+`ctrl-w`, paste with `M-]`
+
+emacs replace-string with newline
+
+    C-q C-j return
+
+work vm quickstart - RHEL
+
+    yum install screen tree emacs-nox
+
+(currently version 23.1 of emacs - boo!)
+
+    echo "escape ^]]" > .screenrc
+    put key in ~/.ssh/ 
