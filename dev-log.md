@@ -904,6 +904,7 @@ setting up new ec2 instance for development, quick checklist
     a. `yum install gcc autoconf automake texinfo ncurses-devel
     pkgconfig`
 1. apache2 `yum install httpd mod_ssl`
+1. `yum install links`
 1. make user dir readable, executable `chmod`
 1. mod_php
 1. mysql
@@ -911,6 +912,20 @@ setting up new ec2 instance for development, quick checklist
 ## 3/09/15
 
     pgrep -fl foo
+
+## 3/16/15
+
+emacs tramp mode: using su to edit stuff as root
+
+    C-x C-f /su::/etc/hosts RET
+
+get fingerprint of httpd cert (see `ssl.conf`)
+
+    sudo openssl x509 -fingerprint -in foo.crt
+
+or
+
+    sudo openssl x509 -fingerprint -in foo.crt -sha256
 
 ## 4/6/15
 
@@ -959,3 +974,15 @@ work vm quickstart - RHEL
 
     echo "escape ^]]" > .screenrc
     put key in ~/.ssh/ 
+    
+## 4/18/15
+    
+ec2 instance updates - wrong httpd package
+
+http://serverfault.com/questions/570821/amazon-linux-lamp-with-php-5-5
+
+    repoquery --requires php55
+    yum list installed http*
+    sudo yum remove httpd.x86_64 httpd-tools-2.2.29-1.4.amzn1.x86_64
+    sudo yum install php55 httpd24 
+    
