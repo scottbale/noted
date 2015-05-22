@@ -728,6 +728,7 @@ Config file: `~/.screenrc`
 | task          | binding     |
 | ------------- | ----------- |
 | split         | `M-S`       |
+| close splits  | `M-Q`       |
 | rename window | `M-A`       |
 | focus region  | `M-tab`     |
 | window list   | `M-"`       |
@@ -986,3 +987,19 @@ http://serverfault.com/questions/570821/amazon-linux-lamp-with-php-5-5
     sudo yum remove httpd.x86_64 httpd-tools-2.2.29-1.4.amzn1.x86_64
     sudo yum install php55 httpd24 
     
+## 5/7/15
+
+Git - find first instance of token STATIC_PATH in commit history:
+
+    git log -S STATIC_PATH --source --all
+
+## 5/17/15
+
+Emacs line-wrapping and fill column: see `fill-column` variable
+
+    M-q
+    M-x fill-paragraph
+    C-x f
+    M-x set-fill-column
+    (setq-default fill-column 80)
+    M-x column-number-mode
