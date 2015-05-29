@@ -586,6 +586,10 @@ emacs 24 ppa
     sudo add-apt-repository ppa:cassou/emacs
     sudo apt-get update
     sudo apt-get install emacs24 emacs24-el emacs24-common-non-dfsg
+
+replaced by?
+
+    https://launchpad.net/~ubuntu-elisp/+archive/ppa.
     
 git checkout files from other branches into index
 
@@ -812,6 +816,10 @@ modify user foo
     groupmod -g 2112 foo
     usermod -u 5150 -g 2112 foo
 
+add user to group
+
+    usermod -a -G groupName userName
+
 remove user
 
     userdel foo
@@ -1003,3 +1011,22 @@ Emacs line-wrapping and fill column: see `fill-column` variable
     M-x set-fill-column
     (setq-default fill-column 80)
     M-x column-number-mode
+
+## 5/29/15
+
+git clone dotfiles into my existing home dir
+
+    git init
+    git remote add origin git@blahblahblah
+    git fetch origin
+    git checkout -b ubuntu-server --track origin/ubuntu-server
+
+a good sequence to migrate to a new jumpbox
+
+* setup ssh
+* install git, emacs24-nox, tmux, zile, tree
+* git clone dotfiles (see above)
+* exit, relaunch tmux
+* git clone dev project(s)
+* install java
+

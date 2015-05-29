@@ -4,6 +4,11 @@
 
     uname -a
     lsb_release -d
+    cat /proc/meminfo
+    cat /proc/cpuinfo
+    df -h
+    fdisk -l
+    hdparm -i /dev/device (for example sda1, hda3...)
 
 alt-F2 launches application
 make Caps Lock key another ctrl key System->Preferences->Keyboard Layouts Options "Ctrl Key position"
@@ -214,3 +219,80 @@ but instead of temp2, target directory is:
 update default editor
 
     sudo update-alternatives --config editor
+
+## package managers
+
+Guide to CLI package managers: `apt`, `yum`, `zypper`
+
+Note: `repoquery` is a `yum` util:
+
+    yum install yum-utils
+
+See installed repos:
+
+    apt-cache policy |grep http |awk '{print $2 $3}' |sort -u
+    /etc/apt/sources.list, sources.list.d/
+    yum repolist
+    /etc/yum.repos.d/
+    zypper lr [-d] [-u]
+
+Add repo:
+
+    zypper ar -f url
+
+update|refresh installed repos:
+
+    apt-get update
+    zypper refresh
+
+upgrade
+
+    apt-get [upgrade [--dry-run]|dist-upgrade]
+
+Search for package:
+
+    apt-cache search expr
+    yum search expr
+    zypper search expr
+
+Search for installed package:
+
+    dpkg-query -l [expr]
+    yum list installed pkg
+    zypper search --installed pkg
+
+See package details:
+
+    apt-cache showpkg pkg
+    yum info pkg
+    zypper info pkg
+
+Install package:
+
+    apt-get install pkg
+    yum install pkg
+    zypper install pkg
+
+Install package non-interactive:
+
+    apt-get
+    yum
+    zypper install --non-interactive pkg
+
+See package dependencies|requirements:
+
+    apt-cache depends pkg
+    repoquery --requires pkg
+    zypper
+
+Remove package:
+
+    apt-get purge
+    yum remove pkg
+    zypper
+
+See package installed contents:
+
+    dpkg-query -L pkg
+    repoquery --list pkg
+    zypper
