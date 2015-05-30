@@ -1012,6 +1012,59 @@ Emacs line-wrapping and fill column: see `fill-column` variable
     (setq-default fill-column 80)
     M-x column-number-mode
 
+## 5/24/15
+
+more on kirkwoodcoc ec2 instance...
+
+install: `php55`, `httpd24`, `mod24_ssl`, `mysql55`, `mysql55-server`, `php55-mysqlnd`
+
+    sudo service mysqld start|status|stop
+
+
+output from starting:
+{quote}
+PLEASE REMEMBER TO SET A PASSWORD FOR THE MySQL root USER !
+To do so, start the server, then issue the following commands:
+
+/usr/bin/mysqladmin -u root password 'new-password'
+/usr/bin/mysqladmin -u root -h ip-172-30-0-142 password 'new-password'
+
+Alternatively you can run:
+/usr/bin/mysql_secure_installation
+
+You can start the MySQL daemon with:
+cd /usr ; /usr/bin/mysqld_safe &
+
+You can test the MySQL daemon with mysql-test-run.pl
+cd /usr/mysql-test ; perl mysql-test-run.pl
+{quote}
+
+# install php mysql extension
+
+"Your PHP installation appears to be missing the MySQL extension which is required by WordPress."
+
+Find extensions dir:
+
+    sudo php -i | grep extension
+
+found
+
+    extension_dir => /usr/lib64/php/5.5/modules => /usr/lib64/php/5.5/modules
+
+install `php55-mysqlnd`
+
+apache logs: `/var/log/httpd/`
+
+## 5/25/15
+
+Back to php 5.3, httpd 2.2
+
+install: `php55`, `httpd24`, `mod24_ssl`, `mysql55`, `mysql55-server`, `php55-mysqlnd`
+
+    sudo yum remove httpd24 mod24_ssl php55-mysqlnd
+    sudo yum install httpd httpd-tools-2.2.29-1.4
+
+
 ## 5/29/15
 
 git clone dotfiles into my existing home dir
