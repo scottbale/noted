@@ -1028,5 +1028,8 @@ a good sequence to migrate to a new jumpbox
 * git clone dotfiles (see above)
 * exit, relaunch tmux
 * git clone dev project(s)
-* install java
+* install openjdk-7-jdk
+* lein self install
 
+maven2 wasn't needed
+openjdk-8 isn't available via ubuntu yet w/o ppa
