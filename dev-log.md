@@ -1033,3 +1033,20 @@ a good sequence to migrate to a new jumpbox
 
 maven2 wasn't needed
 openjdk-8 isn't available via ubuntu yet w/o ppa
+
+## 6/4/15
+
+lein-dist
+
+* lein-package plugin (user pliant on GitHub)
+* lein-dist teradata plugin, defines `dist`, `rpm` tasks
+* add hooks to project.clj, e.g.:
+
+        :hooks [leiningen.package.hooks.deploy leiningen.package.hooks.install]
+
+* define `:package` and `:dist` values in project.clj
+* invoke via hooked e.g. `install` or manually e.g.
+
+        lein package
+        lein dist
+        lein rpm
