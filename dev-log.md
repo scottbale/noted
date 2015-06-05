@@ -1062,7 +1062,7 @@ Back to php 5.3, httpd 2.2
 install: `php55`, `httpd24`, `mod24_ssl`, `mysql55`, `mysql55-server`, `php55-mysqlnd`
 
     sudo yum remove httpd24 mod24_ssl php55-mysqlnd
-    sudo yum install httpd httpd-tools-2.2.29-1.4
+    sudo yum install httpd httpd-tools-2.2.29-1.4 mod_ssl php php-mysqlnd
 
 
 ## 5/29/15
@@ -1087,6 +1087,18 @@ a good sequence to migrate to a new jumpbox
 maven2 wasn't needed
 openjdk-8 isn't available via ubuntu yet w/o ppa
 
+
+## 5/30/19
+
+more on kirkwoodcoc on ec2...
+
+* done migrating back to Apache 2.2, php 3
+* permalinks broken (404), had to change `AllowOverride None` to `AllowOverride All` in
+
+        /etc/httpd/conf/httpd.conf
+
+  Under `Directory` for kirkwoodcoc
+
 ## 6/4/15
 
 lein-dist
@@ -1103,3 +1115,4 @@ lein-dist
         lein package
         lein dist
         lein rpm
+ 
