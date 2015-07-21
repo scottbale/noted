@@ -257,6 +257,7 @@ Search for package:
 
 Search for installed package:
 
+    apt-cache policy [pkgname]
     dpkg-query -l [expr]
     yum list installed pkg
     zypper search --installed pkg

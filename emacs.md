@@ -211,6 +211,14 @@ terminfo? ncurses? tput
     C-q, tab, then spaces
     ! to accept all
 
+## Replace string w/ newline
+
+    M-x replace-str
+    foo
+    C-q C-j
+
+`C-q` is quoted insert, `C-j` is newline
+
 ## keyboard macro
 
 start

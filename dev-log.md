@@ -736,6 +736,7 @@ Config file: `~/.screenrc`
 | rename window | `M-A`       |
 | focus region  | `M-tab`     |
 | window list   | `M-"`       |
+| copy mode     | `M-[`       |
 
 ## 9/29/14
 
@@ -1116,3 +1117,127 @@ lein-dist
         lein dist
         lein rpm
  
+## 6/17/15
+
+mount the Linux-mountable share on a cloud VM:
+
+    sudo mount thehost:/vol/path/to /mnt/blah2
+    sudo umount /mnt/blah2
+
+## 7/1/15
+
+git export commit patch
+
+    git format-patch
+
+apply patch
+
+    git am
+
+## 7/6/15
+
+TEZ troubleshoot log checklist
+
+* loom-server.log
+
+* hive.log
+
+        /tmp/app.user.name/hive.log
+        ${java.io.tmpdir}/${user.name}
+
+* JobHistory logs
+
+        MapReduce2 service, History Server component
+        tdh125m2
+        /var/opt/teradata/log/hadoop-mapreduce/mapred/
+
+* ResourceManager and find the logs
+
+        YARN service, Resource Manager component
+        tdh125m1 (active)
+        /var/opt/teradata/log/hadoop-yarn/yarn/
+        ${yarn.nodemanager.log-dirs}
+        
+## 7/8/15
+
+docker
+
+    docker build -f tempfile -t nugent
+    docker build -f tempfile -t nugent .
+    docker run -t -i nugent /bin/bash
+    docker run -t -i nugent sudo -H -u docker /bin/bash
+ 
+## 7/10/15
+
+problem with certs in curl, ubuntu 14:
+
+    curl: (60) error setting certificate verify locations:
+      CAfile: /usr/share/centrifydc/apache/certs/ca-certs.crt
+      CApath: none
+
+    More details here: http://curl.haxx.se/docs/sslcerts.html
+
+try
+    curl -V
+
+temp workaround
+    export CURL_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt
+
+location of certs:
+    /etc/ssl/certs/
+
+Centrify OpenSSH replaces stock OpenSSH impl
+    dpkg -l | grep centrify
+
+    $ locate sshd_config
+    /etc/centrifydc/ssh/sshd_config
+    /etc/ssh/sshd_config
+
+* centrifydc - Centrify DirectControl infrastructure
+* adclient - centrify Active Directory support
+
+yields matches on new jumpbox, none on old.
+
+`ldd` - print shared library dependencies e.g.
+
+    ldd /usr/sbin/sshd | grep -i gssapi
+
+startup services
+
+    update-rc.d FOO defaults
+    update-rc.d -f FOO defaults
+
+    service --status-all
+
+## 7/14/15
+
+clone single branch of large project
+
+    git clone --single-branch --branch release-0.5.2 git@github.com:apache/tez.git
+
+java thread dump
+
+    kill -3 jvm-pid
+
+## 7/16/15
+
+epiphany about the purpose of shims: code may be compiled (javac) using
+completely different .jars|artifacts than are available at runtime (java);
+java classpath may be built dynamically, finding provided jars of differing
+versions. (Hadoop, Android, etc.)
+
+## 7/17/15
+
+running hive unit tests on the build box
+
+* ssh to build slave
+* switch to jenkins (assuming I'm a sudoer): `sudo su jenkins`
+* `cd /var/lib/jenkins/workspace/temp-loom/` (git clone if necessary)
+* `lein test :jenkins`
+* `./prebuilt-hive-tests.sh`
+
+applying a patch
+    git am patchfile.patch
+
+deleting a remote branch after merge
+    git push origin --delete foobranch
