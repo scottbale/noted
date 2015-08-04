@@ -747,6 +747,10 @@ needs (`env | grep SSH_`)
     eval `ssh-agent -s`
     ssh-add foo
 
+7/15 p.s.
+
+    env | grep SSH_A | awk '{print "export " $0}' > ~/ssh_agent
+
 ## 10/5/14
 
 post JSON via curl
@@ -811,6 +815,8 @@ new user foo
 
     groupadd -g 2112 foo
     useradd -g 2112 -u 5150 foo
+
+(`adduser` perl script, delegates to `useradd`)
 
 modify user foo
 
@@ -878,7 +884,7 @@ git, find commit with `blarg` in commit message
 Assuming a commit `a21bf32` is found, see what (local and remote)
 branches it's in:
 
-    git branch -r --contains a21bf32
+    git branch -a --contains a21bf32
 
 ## 2/10/15
 
@@ -1233,7 +1239,9 @@ running hive unit tests on the build box
 * ssh to build slave
 * switch to jenkins (assuming I'm a sudoer): `sudo su jenkins`
 * `cd /var/lib/jenkins/workspace/temp-loom/` (git clone if necessary)
-* `lein test :jenkins`
+* `export WORKSPACE=/var/lib/jenkins/workspace/temp-loom`
+* `./build-plugins`
+* `lein copylib`  (accomplishes same thing as `lein test :jenkins`)
 * `./prebuilt-hive-tests.sh`
 
 applying a patch
@@ -1241,3 +1249,43 @@ applying a patch
 
 deleting a remote branch after merge
     git push origin --delete foobranch
+
+## 7/23/15
+
+hive shell
+
+    /usr/hdp/current/hive-client/bin/hive -f hql.txt
+
+hive warehouse, HDP
+
+    hadoop fs -ls /apps/hive/warehouse/
+
+Cloudera (CDH)
+
+    hadoop fs -ls /user/hive/warehouse
+
+## 7/28/15
+
+    docker save --output=proto-jenkins-temp.tar proto-jenkins-temp:latest
+    docker load --input /tmp/proto-jenkins-temp.tar
+
+    docker run --entrypoint="" -t -i -v $WORKSPACE:/home/docker/workspace proto-jenkins-lein
+
+## 7/30/15
+
+ssh-agent revisited
+
+    ssh-agent -s > foo
+    source foo
+
+Now other terminals can `source foo` for the same env vars.
+
+## 7/31/15
+
+docker, enter running container interactively
+
+    docker exec -it [container-id] bash
+
+rename image
+
+    docker tag [currentname]:latest [newname]:latest

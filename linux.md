@@ -43,6 +43,10 @@ create new screen
 toggle next screen
 
     Ctrl-a n
+
+screenrc
+
+    echo "escape ^]]" > .screenrc
     
 ping localhost at interval of 10 sec
 
