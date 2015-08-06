@@ -1074,21 +1074,20 @@ install: `php55`, `httpd24`, `mod24_ssl`, `mysql55`, `mysql55-server`, `php55-my
 
 ## 5/29/15
 
-git clone dotfiles into my existing home dir
+git clone dotfiles into my existing home dir (may have to move files out of way)
 
     git init
     git remote add origin git@blahblahblah
     git fetch origin
     git checkout -b ubuntu-server --track origin/ubuntu-server
 
-a good sequence to migrate to a new jumpbox
+a good sequence to migrate to a new jumpbox virtual machine vm
 
 * setup ssh
-* install git, emacs24-nox, tmux, zile, tree
+* `sudo apt-get install git emacs24-nox tmux zile tree openjdk-7-jdk`
 * git clone dotfiles (see above)
 * exit, relaunch tmux
 * git clone dev project(s)
-* install openjdk-7-jdk
 * lein self install
 
 maven2 wasn't needed
@@ -1289,3 +1288,24 @@ docker, enter running container interactively
 rename image
 
     docker tag [currentname]:latest [newname]:latest
+
+## 8/5/15
+
+putty to virtualbox vm via port forwarding.
+
+* In vm,
+        sudo apt-get install openssh-server
+* In vm manager, settings->network, port forwarding button, add rule:
+  ssh, TCP, host port 3022, guest port 22
+* In putty, connect to 127.0.0.1 port 3022
+  under connection->ssh->tunnels, add a new rule:
+  source port: 3022
+  destination: 127.0.0.1:22
+
+## 8/6/15
+
+tmux, pop split pane out of window into its own window; join back to original
+window (window #2 in this example)
+
+    :break-pane
+    :join-pane -t 2
