@@ -8,6 +8,9 @@ install packages
 other (list packages, add/upgrade/delete them)
 
     M-x package-list-packages
+
+* mark upgrades: `U`
+* execute: `x`
     
 rgrep (plus forward, backward navigation of results)
 

@@ -301,3 +301,7 @@ See package installed contents:
     dpkg-query -L pkg
     repoquery --list pkg
     zypper
+
+create new repo out of directory containing .rpm's
+
+    zypper ar -t plaindir -n "My local directory of RPM's" /opt/foo/rpm "my-foo"

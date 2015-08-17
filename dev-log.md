@@ -831,6 +831,11 @@ remove user
 
     userdel foo
 
+what groups is user member of?
+
+    groups username
+    id username
+
 ## 12/4/14
 
 truncate lines returned by `grep` by piping through `cut`
@@ -1309,3 +1314,23 @@ window (window #2 in this example)
 
     :break-pane
     :join-pane -t 2
+
+git, change remote url
+
+    git remote set-url origin git@github.com:revelytix/rsc-ls.git
+
+## 8/10/15
+
+    netstat -pan | grep 10000
+
+## 8/17/15
+
+extract RPM contents w/o installing RPM
+
+    rpm2cpio foo.rpm | cpio -idmv
+
+where `cpio` args are:
+-i = extract
+-d = make directories
+-m = preserve modification time
+-v = verbose
