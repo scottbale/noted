@@ -25,9 +25,9 @@ https://help.github.com/articles/generating-ssh-keys
 
 git clone clojure; build from src
 
-* need to add repo 
-dropbox: http://www.dropbox.com/downloading?os=lnx
-chrome: http://www.google.com/linuxrepositories/ 
+need to add repo 
+* dropbox: http://www.dropbox.com/downloading?os=lnx
+* chrome: http://www.google.com/linuxrepositories/ 
 
 Install Leiningen (install script from github page into ~/bin/, chmod +x, add to $PATH, "lein self-install")
     lein deps
@@ -41,15 +41,15 @@ Install ~/.hgrc
 configure .m2 - copy settings.xml to ~/m2
 
 emacs
+
     M-x package-install then clojure-mode
 
 hg clone http://www.assembla.com/revelytix-common
 
-knoodel cert https://build.knoodel.net/maven-repo
-bottom-right corner->details->export .net file, then
-sudo keytool -import -alias root -file /home/scott/Downloads/gd_intermediate.crt -storepass changeit -trustcacerts -keystore /usr/lib/jvm/java-6-openjdk/jre/lib/security/cacerts
-sudo keytool -import -alias cross -file /home/scott/Downloads/gd_cross_intermediate.crt -storepass changeit -trustcacerts -keystore /usr/lib/jvm/java-6-openjdk/jre/lib/security/cacerts
+knoodel cert https://build.knoodel.net/maven-repo bottom-right corner->details->export .net file, then
 
+    sudo keytool -import -alias root -file /home/scott/Downloads/gd_intermediate.crt -storepass changeit -trustcacerts -keystore /usr/lib/jvm/java-6-openjdk/jre/lib/security/cacerts
+    sudo keytool -import -alias cross -file /home/scott/Downloads/gd_cross_intermediate.crt -storepass changeit -trustcacerts -keystore /usr/lib/jvm/java-6-openjdk/jre/lib/security/cacerts
     sudo updatedb
     locate foo
     locate bar
@@ -86,11 +86,11 @@ Emacs
 * Watch over Nate's shoulder for https://www.assembla.com/spaces/revelytix-spyder/tickets/356
 * did some Clojure scratch work ~/sandbox/scratch
 
-    lein test revelytix.spyder.endpoint.test-http
+        lein test revelytix.spyder.endpoint.test-http
 
 Clojure
-* replace "if (do (" with "when(" unless there's an "else"
-* "doseq" drop-in non-lazy replacement for "for"
+* replace `if (do (` with `when(` unless there's an `else`
+* `doseq` drop-in non-lazy replacement for `for`
 
 Emacs
 * paredit cheat sheet
@@ -100,10 +100,10 @@ tw There should be a Clojure Lint called Clint
 * vc-mode C-x V D
 * M-/ hippie complete
 * M-x rgrep
-** P N forward/back navigation of results
+  * P N forward/back navigation of results
 * emacs kill ring
-** M-y cycle through kill ring for yank
-** M-x browse-kill-ring (need to install module)
+  * M-y cycle through kill ring for yank
+  * M-x browse-kill-ring (need to install module)
 
 ## THURSDAY
 
@@ -166,7 +166,7 @@ install mysql thru synaptic
 
 ## TUESDAY 9/6/11
 
-hg glog -l 5
+    hg glog -l 5
 
 C-A-Backspace - ubuntu restart session (recover from crash)
 
@@ -174,9 +174,10 @@ C-A-Backspace - ubuntu restart session (recover from crash)
 
 Build
 https://wiki.revelytix.com:553/wiki/BuildServer
-ssh -p 3122 -i <build server key> -o "ServerAliveInterval=10" build@xxx.xxx.xxx.xxx
-screen [-r]
-jenkins@build:~/jobs/Spyder/workspace$ /usr/local/revelytix_data/lein test revelytix.spyder.tool.test-tool
+
+    ssh -p 3122 -i <build server key> -o "ServerAliveInterval=10" build@xxx.xxx.xxx.xxx
+    screen [-r]
+    jenkins@build:~/jobs/Spyder/workspace$ /usr/local/revelytix_data/lein test revelytix.spyder.tool.test-tool
 
 ## Wed 9/28
     (println "<!><!><!><!> ttl")
@@ -195,53 +196,54 @@ jenkins@build:~/jobs/Spyder/workspace$ /usr/local/revelytix_data/lein test revel
 ## Monday 10/24/11
 
 parser stuff (in repl)
-revelytix.grammar.sql> 
-(revelytix.parsergen.slr/output-canonical-states)
-(dbg-parse "sELeCt a from b")
-(apply dbg-parse *1)
-all-productions
+
+    revelytix.grammar.sql> 
+    (revelytix.parsergen.slr/output-canonical-states)
+    (dbg-parse "sELeCt a from b")
+    (apply dbg-parse *1)
+    all-productions
 
 ## Tuesday 11/1/11
 
 EC2 ops repl session:
 
-; SLIME 20100404
-user> 
-revelytix.ops> (init)
-#<AmazonEC2Client com.amazonaws.services.ec2.AmazonEC2Client@1652d654>
-revelytix.ops> aws
-#<AmazonEC2Client com.amazonaws.services.ec2.AmazonEC2Client@1652d654>
-revelytix.ops> (describe-instances (memfn getImageId) #(.. % getState getName))
-(["ami-4b4ba522" "stopped"] ["ami-5b799232" "stopped"] ["ami-56936b3f" "stopped"])
-revelytix.ops> (describe-images "ami-b62ac0df" "ami-4b4ba522" "ami-56936b3f" "ami-5b799232" [:imageId :name :description])
-({:description "Oracle on Ubuntu 10.04 Server 64-bit", :name "Oracle 112_P2 Ubuntu", :imageId "ami-5b799232"} {:description "Even better as now the startup script is executable. I'm a dumbass.", :name "Oracle 112_P2 WebLogic 40G Latest Aug24-2", :imageId "ami-b62ac0df"})
-revelytix.ops> (clojure.pprint/pprint (describe-images "ami-b62ac0df" "ami-4b4ba522" "ami-56936b3f" "ami-5b799232" [:imageId :name :description]))
-({:description "Oracle on Ubuntu 10.04 Server 64-bit",
-  :name "Oracle 112_P2 Ubuntu",
-  :imageId "ami-5b799232"}
- {:description
-  "Even better as now the startup script is executable. I'm a dumbass.",
-  :name "Oracle 112_P2 WebLogic 40G Latest Aug24-2",
-  :imageId "ami-b62ac0df"})
-nil
-revelytix.ops> (clojure.pprint/pprint (describe-images "ami-b62ac0df" "ami-4b4ba522" "ami-56936b3f" "blahblahblah" "ami-5b799232" [:imageId :name :description]))
-; Evaluation aborted.
-revelytix.ops> (clojure.pprint/pprint (describe-images "ami-b62ac0df" "ami-4b4ba522" [imageId :name :description]))
-; Evaluation aborted.
-revelytix.ops> (clojure.pprint/pprint (describe-images "ami-b62ac0df" "ami-4b4ba522" [:imageId :name :description]))
-({:description
-  "Even better as now the startup script is executable.",
-  :name "Oracle 112_P2 WebLogic 40G Latest Aug24-2",
-  :imageId "ami-b62ac0df"})
-nil
-revelytix.ops> (clojure.pprint/pprint (describe-images "ami-4b4ba522" [:imageId :name :description]))
-()
-nil
-revelytix.ops> (map (memfn getPublicDnsName) (running-instances))
-("ec2-174-129-187-23.compute-1.amazonaws.com")
-revelytix.ops> (terminate-running)
-#<TerminateInstancesResult {TerminatingInstances: [{InstanceId: i-cb02dea8, CurrentState: {Code: 32, Name: shutting-down, }, PreviousState: {Code: 16, Name: running, }, }], }>
-revelytix.ops> 
+    ; SLIME 20100404
+    user> 
+    revelytix.ops> (init)
+    #<AmazonEC2Client com.amazonaws.services.ec2.AmazonEC2Client@1652d654>
+    revelytix.ops> aws
+    #<AmazonEC2Client com.amazonaws.services.ec2.AmazonEC2Client@1652d654>
+    revelytix.ops> (describe-instances (memfn getImageId) #(.. % getState getName))
+    (["ami-4b4ba522" "stopped"] ["ami-5b799232" "stopped"] ["ami-56936b3f" "stopped"])
+    revelytix.ops> (describe-images "ami-b62ac0df" "ami-4b4ba522" "ami-56936b3f" "ami-5b799232" [:imageId :name :description])
+    ({:description "Oracle on Ubuntu 10.04 Server 64-bit", :name "Oracle 112_P2 Ubuntu", :imageId "ami-5b799232"} {:description "Even better as now the startup script is executable. I'm a dumbass.", :name "Oracle 112_P2 WebLogic 40G Latest Aug24-2", :imageId "ami-b62ac0df"})
+    revelytix.ops> (clojure.pprint/pprint (describe-images "ami-b62ac0df" "ami-4b4ba522" "ami-56936b3f" "ami-5b799232" [:imageId :name :description]))
+    ({:description "Oracle on Ubuntu 10.04 Server 64-bit",
+      :name "Oracle 112_P2 Ubuntu",
+      :imageId "ami-5b799232"}
+     {:description
+      "Even better as now the startup script is executable. I'm a dumbass.",
+      :name "Oracle 112_P2 WebLogic 40G Latest Aug24-2",
+      :imageId "ami-b62ac0df"})
+    nil
+    revelytix.ops> (clojure.pprint/pprint (describe-images "ami-b62ac0df" "ami-4b4ba522" "ami-56936b3f" "blahblahblah" "ami-5b799232" [:imageId :name :description]))
+    ; Evaluation aborted.
+    revelytix.ops> (clojure.pprint/pprint (describe-images "ami-b62ac0df" "ami-4b4ba522" [imageId :name :description]))
+    ; Evaluation aborted.
+    revelytix.ops> (clojure.pprint/pprint (describe-images "ami-b62ac0df" "ami-4b4ba522" [:imageId :name :description]))
+    ({:description
+      "Even better as now the startup script is executable.",
+      :name "Oracle 112_P2 WebLogic 40G Latest Aug24-2",
+      :imageId "ami-b62ac0df"})
+    nil
+    revelytix.ops> (clojure.pprint/pprint (describe-images "ami-4b4ba522" [:imageId :name :description]))
+    ()
+    nil
+    revelytix.ops> (map (memfn getPublicDnsName) (running-instances))
+    ("ec2-174-129-187-23.compute-1.amazonaws.com")
+    revelytix.ops> (terminate-running)
+    #<TerminateInstancesResult {TerminatingInstances: [{InstanceId: i-cb02dea8, CurrentState: {Code: 32, Name: shutting-down, }, PreviousState: {Code: 16, Name: running, }, }], }>
+    revelytix.ops> 
 
 ## Wed 11/2/11
 
@@ -250,74 +252,86 @@ acpi - check battery
 ## Thu 12/1/11
 
 ssh tunnelling for remote Amazon EC2 mysql box
-ssh -L 3360:localhost:3306 ubuntu@xxx.xx.xx.xxx
+
+    ssh -L 3360:localhost:3306 ubuntu@xxx.xx.xx.xxx
+    
 (see ~/bin/pf script for example)
 
 
-xmonad
-install xmonad (sudo apt-get install xmonad)
-Create /usr/share/xsessions/xmonad-gnome-session.desktop
-Create /usr/share/gnome-session/sessions/xmonad.session
-(maybe) Create /usr/share/applications/xmonad.desktop file
+### xmonad
+
+install xmonad (`sudo apt-get install xmonad`)
+Create `/usr/share/xsessions/xmonad-gnome-session.desktop`
+Create `/usr/share/gnome-session/sessions/xmonad.session`
+(maybe) Create `/usr/share/applications/xmonad.desktop` file
 
 ## Mon 4/23/12
-sudo rfkill list all
 
-export JDK_HOME=/home/scott/sandbox/sunjdk-7/jdk1.7.0
+    sudo rfkill list all
 
-trayer --edge top --align right --SetDockType true --SetPartialStrut false --expand true --width 5 --transparent true --tint 0x0000000 --height 18 --alpha 0 &
+    export JDK_HOME=/home/scott/sandbox/sunjdk-7/jdk1.7.0
 
-apt-get
-apt-cache
+    trayer --edge top --align right --SetDockType true --SetPartialStrut false --expand true --width 5 --transparent true --tint 0x0000000 --height 18 --alpha 0 &
 
-M-: (setq kill-ring nil)
+    apt-get
+    apt-cache
 
-Dropbox git remote steps:
-http://stackoverflow.com/questions/1960799/using-gitdropbox-together-effectively
-cd ~/Dropbox/git
-git init --bare foo.git
-cd ~/foo
-git remote add origin ~/Dropbox/git/foo.git
-git push -u origin master
+    M-: (setq kill-ring nil)
+
+Dropbox git remote steps: http://stackoverflow.com/questions/1960799/using-gitdropbox-together-effectively
+
+    cd ~/Dropbox/git
+    git init --bare foo.git
+    cd ~/foo
+    git remote add origin ~/Dropbox/git/foo.git
+    git push -u origin master
 
 ## Tue 1/22/2013
 
 upgrading to emacs 24, building from source
 (clone from github, cd into directory, then)
-sudo apt-get install autoconf automake
-./autogen.sh
-sudo apt-get install texinfo libgtk3-dev libgif-dev libjpeg-dev
-libtiff-dev libxpm-dev libtinfo-dev
-./configure --with-x-toolkit=gtk
-make
-src/emacs -Q    <-- test
-sudo make install
+
+    sudo apt-get install autoconf automake
+    ./autogen.sh
+    sudo apt-get install texinfo libgtk3-dev libgif-dev libjpeg-dev
+    libtiff-dev libxpm-dev libtinfo-dev
+    ./configure --with-x-toolkit=gtk
+    make
+    src/emacs -Q    <-- test
+    sudo make install
 
 terminal only (amazon aws microinstance):
-sudo apt-get install texinfo libtinfo-dev ncurses-dev
-./configure --without-x
+
+    sudo apt-get install texinfo libtinfo-dev ncurses-dev
+    ./configure --without-x
 
 ## Wed 1/23/2013
 
 Use different JDK:
 edit ~/.bashrc, set $JDK_HOME e.g.
+
     export JDK_HOME=/home/scott/sandbox/sunjdk-7/jdk1.7.0
     export JDK_HOME=/usr/lib/jvm/java-7-openjdk
+    
 set java in path
+
     ln -s /usr/lib/jvm/java-7-openjdk/jre/bin/java ~/bin/java
+    
 relaunch shell
+
     bash
 
 ## Thu 1/24/2013
 
 truncate long lines in a tail
-tail spyder.log | cut -b 1-80
+
+    tail spyder.log | cut -b 1-80
 
 ## Fri 1/25/2013
 
-grep -r -B 1 -A 80 something.something logs/spyder.log
+    grep -r -B 1 -A 80 something.something logs/spyder.log
 
-tar -czf foo.tar.gz bar/
+    tar -czf foo.tar.gz bar/
 
 ## Fri 2/8/2013
 
@@ -354,12 +368,19 @@ Sys admin tools: top, htop, w, iostat, nmap, du
 ## 2/19/13
 
 Install ssh daemon
+
     apt-get openssh-server
+    
 Restart
+
     sudo service ssh restart
+    
 ssh with X tunnelling
+
     ssh -X scott@your-dell-laptop
+
 Find hostname
+
     ifconfig
     `hostname`.local
 
@@ -368,40 +389,57 @@ emacs C-O all grep occurences
 ## 2/22/13
 
 gnome-terminal profiles
+
     ~/.gconf/apps/gnome-terminal/profiles/Solarized/
+    
 terminfo
+
     /usr/share/terminfo/
     /lib/terminfo/
+
 emacs terminal stuff
+
     ~/sandbox/emacs/lisp/term/
+    
 emacs color cells
+
     (display-color-cells (selected-frame))
 or
+
     (tty-display-color-cells (selected-frame))
     C-x C-e eval in scratch buffer
+
 colors
+
     M-x list-colors-display
+    
 terminfo? ncurses? tput
 
 ## 3/1/13
 
 create .tar.gz (gzipped) file of director(ies):
+
     tar -czvf archive.tar.gz foo/ bar/
+    
 extract tar
+
     tar -xzvf archive.tar.gz
 
 ## 3/7/13
 
 port forwarding script:
+
     #!/bin/sh
 
-HOST=ec2-107-21-140-138.compute-1.amazonaws.com
+    HOST=ec2-107-21-140-138.compute-1.amazonaws.com
     exec ssh -i ~/dev/revelytix-spyder/spyder-testing.pem -o ServerAliveInterval=10 ubuntu@$HOST -L 3360:localhost:3306
 
 update ubuntu JDK:
+
     sudo update-alternatives --config java ;; don't do this, do below instead
 
 http://askubuntu.com/questions/141791/is-there-a-way-to-update-all-java-related-alternatives
+
     update-alternatives --get-selections | grep java
     /usr/sbin/update-java-alternatives -l
     sudo apt-get install icedtea-7-plugin
@@ -410,23 +448,37 @@ http://askubuntu.com/questions/141791/is-there-a-way-to-update-all-java-related-
 ## 3/13/13
 
 Emacs global search and replace http://emacswiki.org/emacs/DiredSearchAndReplace
+
     C-u M-x
     Dired listing switches: -lR
+    
 in dired mode, mark directories:
+
     * /
+    
 then toggle marks to mark only files
+
     t
+    
 (or, mark files according to regexp % m)
 then do search replace regexp
+
     Q
 accept all
+
+
     Y
+    
 In IBuffer (C-x C-b), mark all unsaved
+
     * u
+    
 then save all marked
+
     S
     
 regexp search and replace "Query" with "Transform"
+
     M-x replace-regexp (also works in above dired steps)
     \([^a-zA-Z0-9]+\)Query+
     Ret
@@ -436,32 +488,37 @@ regexp search and replace "Query" with "Transform"
 ## 3/25/13
 
 start Loom transactor:
+
     ~/dev/revelytix-bigdata/fabric/bin/transactor ~/dev/revelytix-bigdata/fabric/conf/transactor.properties > /dev/null &
 
 ## 7/29/13
 
 getting Deech up-and-running
 
-install: hg, mvn, lein
-.hgrc
-.m2/settings.xml
-add Deech to big-data, common
-https://www.assembla.com/spaces/revelytix-common/wiki/Build_Server section 3.3.1
-clojure.complete license - lein version > 2.0.0 "include clojure-complete as a dependency in the :base profile, which we use to create the dist" -Alex
-- solution: downgrade leiningen
-- https://github.com/technomancy/leiningen/issues/1267 Alex logged
+* install: hg, mvn, lein
+* .hgrc
+* .m2/settings.xml
+* add Deech to big-data, common
+* https://www.assembla.com/spaces/revelytix-common/wiki/Build_Server section 3.3.1
+* clojure.complete license - lein version > 2.0.0 "include clojure-complete as a dependency in the :base profile, which we use to create the dist" -Alex
+  * solution: downgrade leiningen
+  * https://github.com/technomancy/leiningen/issues/1267 Alex logged
 
 ## 9/22/13 
 
-sudo apt-get autoremove
+    sudo apt-get autoremove
 
 http://artofsimplicity.co.uk/install-dropbox-on-a-headless-ubuntu-server/
-~/bin/dropbox.py help
+
+    ~/bin/dropbox.py help
+    
 https://www.dropbox.com/help/175/en
 
 scp .hgrc then
-hg clone https://hg.assembla.com/revelytix-bigdata/
-sudo apt-get install openjdk-7-jdk (hopefully has godaddy certs, for maven repo on build server - didn't work)
+
+    hg clone https://hg.assembla.com/revelytix-bigdata/
+    sudo apt-get install openjdk-7-jdk (hopefully has godaddy certs, for maven repo on build server - didn't work)
+    
 (needed to do import 2 godaddy cacerts steps from build server wiki page)
 
 ## 1/29/14
@@ -619,8 +676,11 @@ git checkout files from other branches into index
     git checkout <branch_name> -- <paths>
 
 install git
+
 install emacs24
+
 git clone dotfiles (some tweaking)
+
 install zile, openjdk-7-jdk, maven2, tree, lein (2.2 initially), 
 
 emacs right Meta key not working: http://www.emacswiki.org/emacs/PuTTY#toc7
