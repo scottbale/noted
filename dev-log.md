@@ -1,26 +1,27 @@
 # August 2011 - first days at Revelytix
-MONDAY
+
+## MONDAY
 
 Install ubuntu 10.10 full disk installation
 
 alt-F2 launches application
 make Caps Lock key another ctrl key System->Preferences->Keyboard Layouts Options "Ctrl Key position"
 
-sudo apt-get install
-git
-hg
-emacs
-maven2
-openjdk-6-jdk
-dropbox*
-google-chrome-stable*
-tree
-vim
-
+    sudo apt-get install
+    git
+    hg
+    emacs
+    maven2
+    openjdk-6-jdk
+    dropbox*
+    google-chrome-stable*
+    tree
+    vim
+     
 GitHub create new RSA public key, add to GitHub account
 https://help.github.com/articles/generating-ssh-keys
 
-skype
+    skype
 
 git clone clojure; build from src
 
@@ -29,18 +30,18 @@ dropbox: http://www.dropbox.com/downloading?os=lnx
 chrome: http://www.google.com/linuxrepositories/ 
 
 Install Leiningen (install script from github page into ~/bin/, chmod +x, add to $PATH, "lein self-install")
-lein deps
-lein compileDeps
-lein compile
-lein test
-lein upgrade
+    lein deps
+    lein compileDeps
+    lein compile
+    lein test
+    lein upgrade
 
 Install ~/.hgrc
 
 configure .m2 - copy settings.xml to ~/m2
 
 emacs
-M-x package-install then clojure-mode
+    M-x package-install then clojure-mode
 
 hg clone http://www.assembla.com/revelytix-common
 
@@ -49,43 +50,43 @@ bottom-right corner->details->export .net file, then
 sudo keytool -import -alias root -file /home/scott/Downloads/gd_intermediate.crt -storepass changeit -trustcacerts -keystore /usr/lib/jvm/java-6-openjdk/jre/lib/security/cacerts
 sudo keytool -import -alias cross -file /home/scott/Downloads/gd_cross_intermediate.crt -storepass changeit -trustcacerts -keystore /usr/lib/jvm/java-6-openjdk/jre/lib/security/cacerts
 
-sudo updatedb
-locate foo
-locate bar
+    sudo updatedb
+    locate foo
+    locate bar
 
-TUESDAY
+## TUESDAY
 
 * install IntelliJ idea Community edition (http://blog.kasunbg.org/2010/03/install-intellij-idea-in-linux.html) and La Clojure plugin
 * Ryan demo'd SLIME and swank
 * built Spyder snapshot dist, installed, began using
-** read some docs
-** ran some examples (see other notes)
+  * read some docs
+  * ran some examples (see other notes)
 
 Leiningen
-* lein new project-name
-* lein deps
-* lein compileDeps
-* lein compile
-* lein dist
-* lein swank
+    lein new project-name
+    lein deps
+    lein compileDeps
+    lein compile
+    lein dist
+    lein swank
 
 Emacs
-* M-x slime-connect
-* C-c C-k load/compile
-* C-c M-p repl at namespace
-* C-x C-e eval expr
-* C-c v eval buffer
-* M-. func src
-* M-* or C-x b ???
+    M-x slime-connect
+    C-c C-k load/compile
+    C-c M-p repl at namespace
+    C-x C-e eval expr
+    C-c v eval buffer
+    M-. func src
+    M-or C-x b ???
 
 
-WEDNESDAY
+## WEDNESDAY
 
 * play around with "spyder-tool demo"
 * Watch over Nate's shoulder for https://www.assembla.com/spaces/revelytix-spyder/tickets/356
 * did some Clojure scratch work ~/sandbox/scratch
 
-lein test revelytix.spyder.endpoint.test-http
+    lein test revelytix.spyder.endpoint.test-http
 
 Clojure
 * replace "if (do (" with "when(" unless there's an "else"
@@ -104,7 +105,7 @@ tw There should be a Clojure Lint called Clint
 ** M-y cycle through kill ring for yank
 ** M-x browse-kill-ring (need to install module)
 
-THURSDAY
+## THURSDAY
 
 * Sat in on engineering con call
 * Attempting an upgrade to Ubuntu 11.04 to deal with Intel Sandybridge video card issues (see http://blogs.intel.com/technology/2011/01/sandybridge_on_linux_-_it_will.php, http://www.phoronix.com/scan.php?page=article&item=intel_snb_natty&num=1)
@@ -116,13 +117,16 @@ Ubuntu crash, and recover w/ 11.04 install disk (and help from Ryan)
 
 Linux tips
 * Ctrl-Alt-F2 - bring up terminal [Ctrl-Alt-F1..F8 switch between terminals]
-* sudo /etc/init.d/gdm restart - restart Gnome display manager
+* restart Gnome display manager:
 
-FRIDAY
+        sudo /etc/init.d/gdm restart - restart Gnome display manager
+
+## FRIDAY
 
 install skype https://help.ubuntu.com/community/Skype
 enable Canonical partners repo (use Software Center)
-sudo apt-get install skype
+
+    sudo apt-get install skype
 
 wiki https://revelytix.servehttp.com:553/wiki/Human_Resources
 
@@ -135,38 +139,38 @@ http://blog.dskang.com/2011/05/14/fixing-the-color-theme-problem-with-the-emacs-
 
 correct Federator README
 
-MONDAY 8/29/11
+## MONDAY 8/29/11
 
 keytool -list -keystore /usr/lib/jvm/java-6-openjdk/jre/lib/security/cacerts -alias root -v
 
-sudo apt-get install tk8.5 (for wish)
+    sudo apt-get install tk8.5 (for wish)
 
 Mercurial commit:
-hg pull -u or hg in
-hg view
-hg heads
-hg rebase -b 2192 -d tip
-hg outgoing
-hg push
+    hg pull -u or hg in
+    hg view
+    hg heads
+    hg rebase -b 2192 -d tip
+    hg outgoing
+    hg push
 
-TUESDAY 8/30/11
+## TUESDAY 8/30/11
 
 backup 
-sudo apt-get install backintime-common
-sudo apt-get install backintime-gnome
-sudo apt-get install cryptsetup
+    sudo apt-get install backintime-common
+    sudo apt-get install backintime-gnome
+    sudo apt-get install cryptsetup
 
-WEDNESDAY 8/31/11
+## WEDNESDAY 8/31/11
 
 install mysql thru synaptic
 
-TUESDAY 9/6/11
+## TUESDAY 9/6/11
 
 hg glog -l 5
 
 C-A-Backspace - ubuntu restart session (recover from crash)
 
-FRIDAY 9/9/11
+## FRIDAY 9/9/11
 
 Build
 https://wiki.revelytix.com:553/wiki/BuildServer
@@ -174,12 +178,12 @@ ssh -p 3122 -i <build server key> -o "ServerAliveInterval=10" build@xxx.xxx.xxx.
 screen [-r]
 jenkins@build:~/jobs/Spyder/workspace$ /usr/local/revelytix_data/lein test revelytix.spyder.tool.test-tool
 
-Wed 9/28
-              (println "<!><!><!><!> ttl")
-              (clojure.stacktrace/print-stack-trace (Exception.))
+## Wed 9/28
+    (println "<!><!><!><!> ttl")
+    (clojure.stacktrace/print-stack-trace (Exception.))
 
 
-(comment (def tuple {
+    (comment (def tuple {
                      :b (new-literal*
                          {:lexical "2001-01-01 01:01:01.0",
                           :datatype (java.net.URI. "http://www.w3.org/2001/XMLSchema#dateTimeStamp")}),
@@ -188,7 +192,8 @@ Wed 9/28
                                           :datatype (java.net.URI. "http://www.w3.org/2001/XMLSchema#string")})})
 
 
-Monday 10/24/11
+## Monday 10/24/11
+
 parser stuff (in repl)
 revelytix.grammar.sql> 
 (revelytix.parsergen.slr/output-canonical-states)
@@ -196,7 +201,8 @@ revelytix.grammar.sql>
 (apply dbg-parse *1)
 all-productions
 
-Tuesday 11/1/11
+## Tuesday 11/1/11
+
 EC2 ops repl session:
 
 ; SLIME 20100404
@@ -237,10 +243,12 @@ revelytix.ops> (terminate-running)
 #<TerminateInstancesResult {TerminatingInstances: [{InstanceId: i-cb02dea8, CurrentState: {Code: 32, Name: shutting-down, }, PreviousState: {Code: 16, Name: running, }, }], }>
 revelytix.ops> 
 
-Wed 11/2/11
+## Wed 11/2/11
+
 acpi - check battery
 
-Thu 12/1/11
+## Thu 12/1/11
+
 ssh tunnelling for remote Amazon EC2 mysql box
 ssh -L 3360:localhost:3306 ubuntu@xxx.xx.xx.xxx
 (see ~/bin/pf script for example)
@@ -252,7 +260,7 @@ Create /usr/share/xsessions/xmonad-gnome-session.desktop
 Create /usr/share/gnome-session/sessions/xmonad.session
 (maybe) Create /usr/share/applications/xmonad.desktop file
 
-Mon 4/23/12
+## Mon 4/23/12
 sudo rfkill list all
 
 export JDK_HOME=/home/scott/sandbox/sunjdk-7/jdk1.7.0
@@ -272,7 +280,7 @@ cd ~/foo
 git remote add origin ~/Dropbox/git/foo.git
 git push -u origin master
 
-Tue 1/22/2013
+## Tue 1/22/2013
 
 upgrading to emacs 24, building from source
 (clone from github, cd into directory, then)
@@ -289,7 +297,8 @@ terminal only (amazon aws microinstance):
 sudo apt-get install texinfo libtinfo-dev ncurses-dev
 ./configure --without-x
 
-Wed 1/23/2013
+## Wed 1/23/2013
+
 Use different JDK:
 edit ~/.bashrc, set $JDK_HOME e.g.
     export JDK_HOME=/home/scott/sandbox/sunjdk-7/jdk1.7.0
@@ -299,41 +308,50 @@ set java in path
 relaunch shell
     bash
 
-Thu 1/24/2013
+## Thu 1/24/2013
 
 truncate long lines in a tail
 tail spyder.log | cut -b 1-80
 
-Fri 1/25/2013
+## Fri 1/25/2013
 
 grep -r -B 1 -A 80 something.something logs/spyder.log
 
 tar -czf foo.tar.gz bar/
 
-Fri 2/8/2013
+## Fri 2/8/2013
 
 Emacs
     M-: eval
     M-! shell command
 
-Fri 2/12/13 grep tricks
-# lines before/after a match
-    grep -r -B 1 -A 80 something.something logs/spyder.log
-# pattern is fixed string, match only whole line
-    grep -Fx "a whole line" file.log
-# remove dupes
-    grep yadda yadda yadda | sort | uniq
-# truncate lines
-    grep yadda yadda yadda | cut -b 1-10
+## Fri 2/12/13 grep tricks
+
+* lines before/after a match
+
+        grep -r -B 1 -A 80 something.something logs/spyder.log
+
+* pattern is fixed string, match only whole line
+
+        grep -Fx "a whole line" file.log
+
+* remove dupes
+
+        grep yadda yadda yadda | sort | uniq
+        
+* truncate lines
+
+        grep yadda yadda yadda | cut -b 1-10
 
 append to file
->> 
 
-2/13/13
+    >> 
+
+## 2/13/13
 
 Sys admin tools: top, htop, w, iostat, nmap, du
 
-2/19/13
+## 2/19/13
 
 Install ssh daemon
     apt-get openssh-server
@@ -347,7 +365,7 @@ Find hostname
 
 emacs C-O all grep occurences
 
-2/22/13
+## 2/22/13
 
 gnome-terminal profiles
     ~/.gconf/apps/gnome-terminal/profiles/Solarized/
@@ -365,31 +383,33 @@ colors
     M-x list-colors-display
 terminfo? ncurses? tput
 
-3/1/13
+## 3/1/13
+
 create .tar.gz (gzipped) file of director(ies):
     tar -czvf archive.tar.gz foo/ bar/
 extract tar
     tar -xzvf archive.tar.gz
 
-3/7/13
+## 3/7/13
+
 port forwarding script:
-#!/bin/sh
+    #!/bin/sh
 
 HOST=ec2-107-21-140-138.compute-1.amazonaws.com
-exec ssh -i ~/dev/revelytix-spyder/spyder-testing.pem -o ServerAliveInterval=10 ubuntu@$HOST -L 3360:localhost:3306
+    exec ssh -i ~/dev/revelytix-spyder/spyder-testing.pem -o ServerAliveInterval=10 ubuntu@$HOST -L 3360:localhost:3306
 
 update ubuntu JDK:
     sudo update-alternatives --config java ;; don't do this, do below instead
 
-    http://askubuntu.com/questions/141791/is-there-a-way-to-update-all-java-related-alternatives
+http://askubuntu.com/questions/141791/is-there-a-way-to-update-all-java-related-alternatives
     update-alternatives --get-selections | grep java
     /usr/sbin/update-java-alternatives -l
     sudo apt-get install icedtea-7-plugin
     sudo /usr/sbin/update-java-alternatives -s java-1.7.0-openjdk-amd64
 
-3/13/13
-Emacs global search and replace
-http://emacswiki.org/emacs/DiredSearchAndReplace
+## 3/13/13
+
+Emacs global search and replace http://emacswiki.org/emacs/DiredSearchAndReplace
     C-u M-x
     Dired listing switches: -lR
 in dired mode, mark directories:
@@ -413,11 +433,14 @@ regexp search and replace "Query" with "Transform"
     \1Transform
     Ret
 
-3/25/13
+## 3/25/13
+
 start Loom transactor:
     ~/dev/revelytix-bigdata/fabric/bin/transactor ~/dev/revelytix-bigdata/fabric/conf/transactor.properties > /dev/null &
 
-7/29/13 getting Deech up-and-running
+## 7/29/13
+
+getting Deech up-and-running
 
 install: hg, mvn, lein
 .hgrc
@@ -428,7 +451,7 @@ clojure.complete license - lein version > 2.0.0 "include clojure-complete as a d
 - solution: downgrade leiningen
 - https://github.com/technomancy/leiningen/issues/1267 Alex logged
 
-9/22/13 
+## 9/22/13 
 
 sudo apt-get autoremove
 
@@ -441,7 +464,7 @@ hg clone https://hg.assembla.com/revelytix-bigdata/
 sudo apt-get install openjdk-7-jdk (hopefully has godaddy certs, for maven repo on build server - didn't work)
 (needed to do import 2 godaddy cacerts steps from build server wiki page)
 
-1/29/14
+## 1/29/14
 
 Setup Docker:
 
@@ -456,17 +479,17 @@ Run hello world
 
     sudo docker run -i -t ubuntu /bin/bash
 
-5/9/14
+## 5/9/14
 
 count lines of code
 
     scott@scott-latitude:~/dev/revelytix-bigdata/fabric/src/main/resources/public/js/rvtx$ find . -name "*.html" -o -name "*.js" | xargs wc -l
 
-6/6/14 tag loom release
+## 6/6/14 tag loom release
 
     hg tag -m "tag Loom 2.2.0 release (re #3557)" 2.2.0
 
-6/9/14 update java cacerts - relevant directories
+## 6/9/14 update java cacerts - relevant directories
 
     ~/bin/java
     /usr/lib/jvm/
@@ -485,7 +508,7 @@ password
 
     <%=revelytix-jdk-certs%>
 
-7/7/14 Wordpress
+## 7/7/14 Wordpress
 
 'home' and 'site' urls can be stored either in `wp-config.php`
 (`WP_HOME`, `WP_SITEURL`) or in mysql `kwcoc_options` table with
@@ -539,22 +562,22 @@ Use 'https'
     git@git.assembla.com:revelytix-bigdata.git
 
 
-7/9/14
+## 7/9/14
  
 list processes by user
 
     ps -ef
 
-7/12/14 xargs example
+## 7/12/14 xargs example
 
     find . -name "*.bak" -print0 | xargs -0 -I file mv file ~/old.files
 
-7/14/14 git config
+## 7/14/14 git config
 
     git config --global -l
     git config --local -l
 
-7/16/14
+## 7/16/14
 
 backup Jenkins, Nexus
 
@@ -1334,3 +1357,28 @@ where `cpio` args are:
 -d = make directories
 -m = preserve modification time
 -v = verbose
+
+## 8/25/15
+
+start virtualbox vm headless on Windows
+
+    "C:\Program Files\Oracle\VirtualBox\VBoxManage.exe" startvm dev --type headless
+
+also
+
+    list vms
+    controlvm dev poweroff
+
+Quick Docker install - Ubuntu
+http://docs.docker.io/en/latest/installation/ubuntulinux/
+
+    sudo sh -c "echo deb http://get.docker.io/ubuntu docker main\
+    > /etc/apt/sources.list.d/docker.list"
+
+    sudo apt-get install lxc-docker
+
+## 8/26/15
+
+centrify authentication flush cache after changing password
+
+    sudo adflush
