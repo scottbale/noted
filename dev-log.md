@@ -1442,3 +1442,108 @@ http://docs.docker.io/en/latest/installation/ubuntulinux/
 centrify authentication flush cache after changing password
 
     sudo adflush
+
+docker-related networking
+
+    apt-get install iputils-ping
+
+* `resolveconf`
+* `dnsmasq`
+* Ubuntu's NetworkManager
+
+tmux change status bar color
+
+    set -g status-bg black
+    set -g status-fg white
+
+## 8/27/15
+
+on edge node, creating hbase table & corresponding hive external table
+
+https://github.com/romainr/hadoop-tutorials-examples/tree/master/hbase-tables
+
+1. Generate column names and data with create_schemas.py. Run it with ./create_schemas.py
+2. Upload the date data /tmp/hbase-analytics.tsv to HDFS with File Browser (same path)
+3. In HBase Browser create  table with
+4. Load the data into the analytics table with the HBase bulk import command.total3 , daycolumn , hourfamilies analyticsa 
+
+Useful commands
+
+    hbase shell
+    $ list
+    $ help cmd
+    $ create "mytable", "columnfamily1", ...
+    $ describe "mytable"
+    $ scan "mytable"
+    $ scan "mytable", {COLUMNS => "columnfamily1:"}
+    $ scan "mytable", {COLUMNS => "columnfamily1:columnname"}
+    $ version
+
+    hive --version
+    hive
+    $ use databasename;
+    $ show create table mytablename;
+    $ CREATE EXTERNAL TABLE analytics_total_us (key int, tot string)
+    ROW FORMAT SERDE 'org.apache.hadoop.hive.hbase.HBaseSerDe'
+    STORED BY 'org.apache.hadoop.hive.hbase.HBaseStorageHandler'
+    WITH SERDEPROPERTIES ("hbase.columns.mapping" = ":key,total:US")
+    TBLPROPERTIES("hbase.table.name" = "analytics");
+
+Debugging empty Hive external table (populated table in HBase)
+
+Jim recommends checking logs of: hive; metastore; resource manager or job
+history (if Hive submits a MR or Tez job)
+
+In Ambari
+* MapReduce2 QuickLinks contain JobHistory
+* YARN QuickLinks contain ResourceManager
+
+on tdh146m1:
+
+    tdh146m1:~ # locate tdh146m1.log
+    /var/opt/teradata/log/ambari-metrics-collector/hbase-ams-master-tdh146m1.log
+    /var/opt/teradata/log/hadoop-yarn/yarn/yarn-yarn-resourcemanager-tdh146m1.log
+    /var/opt/teradata/log/hadoop-yarn/yarn/yarn-yarn-timelineserver-tdh146m1.log
+    /var/opt/teradata/log/hadoop/hdfs/hadoop-hdfs-journalnode-tdh146m1.log
+    /var/opt/teradata/log/hadoop/hdfs/hadoop-hdfs-namenode-tdh146m1.log
+    /var/opt/teradata/log/hadoop/hdfs/hadoop-hdfs-zkfc-tdh146m1.log
+    /var/opt/teradata/log/hbase/hbase-hbase-master-tdh146m1.log
+
+on tdh146m2:
+
+    tdh146m2:~ # locate tdh146m2.log
+    /var/opt/teradata/log/hadoop-mapreduce/mapred/mapred-mapred-historyserver-tdh146m2.log
+    /var/opt/teradata/log/hadoop-yarn/yarn/yarn-yarn-resourcemanager-tdh146m2.log
+    /var/opt/teradata/log/hadoop/hdfs/hadoop-hdfs-journalnode-tdh146m2.log
+    /var/opt/teradata/log/hadoop/hdfs/hadoop-hdfs-namenode-tdh146m2.log
+    /var/opt/teradata/log/hadoop/hdfs/hadoop-hdfs-namenode-tdh146m2.log.1
+    /var/opt/teradata/log/hadoop/hdfs/hadoop-hdfs-zkfc-tdh146m2.log
+    /var/opt/teradata/log/hbase/hbase-hbase-master-tdh146m2.log
+
+also
+
+    /tmp/[username]/hive.log
+    /var/opt/teradata/log/hive/hivemetastore.log
+
+(The verdict: user error, duh. Bad external table column mapping.)
+
+## 8/28/15
+
+manual logrotate
+
+    logrotate --force /etc/logrotate.d/loom
+
+## 8/31/15
+
+curl foo to capture and use a session cookie in bash script (simple authentication)
+
+    read -p "username: " ACCOUNT
+    read -s -p "pwd: " PASSWORD
+
+    export SESSION=$(curl -s -i -X POST -d "{\"username\":\"${ACCOUNT}\",\"password\":\"${PASSWORD}\"}" \
+        -H "Content-type: application/json" http://${HOST}:${PORT}/api/path/to/login \
+        | grep -i Set-Cookie | cut -f1 -d\; | cut -f2 -d=)
+
+    curl --cookie session-id=$SESSION -H "Content-type: application/json" ...
+
+
