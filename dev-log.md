@@ -634,6 +634,8 @@ list processes by user
     git config --global -l
     git config --local -l
 
+    git config --local user.email "<my work email address>"
+
 ## 7/16/14
 
 backup Jenkins, Nexus
@@ -1546,4 +1548,12 @@ curl foo to capture and use a session cookie in bash script (simple authenticati
 
     curl --cookie session-id=$SESSION -H "Content-type: application/json" ...
 
+## 9/2/15
 
+    curl --manual | less
+
+## 9/3/15
+
+commit, name and tag a new image from a container:
+
+    docker commit <Container ID> <Name>:<Tag>
