@@ -901,6 +901,11 @@ new user foo
     groupadd -g 2112 foo
     useradd -g 2112 -u 5150 foo
 
+(w/o id)
+
+    groupadd foo
+    useradd -g foo foo
+
 (`adduser` perl script, delegates to `useradd`)
 
 modify user foo
@@ -1557,3 +1562,40 @@ curl foo to capture and use a session cookie in bash script (simple authenticati
 commit, name and tag a new image from a container:
 
     docker commit <Container ID> <Name>:<Tag>
+
+## 9/10/15
+
+emacs search, toggle case-sensitivity: `M-c`
+
+new group, add to `hdfs` group
+
+    groupadd foo
+    useradd -g foo -G hdfs foo
+
+## 9/11/15
+
+sent an e-mail from within emacs, `M-x mail` mode! Via smtp server.
+
+## 9/14/15
+
+temp lein test selector
+
+    :test-selectors { ...
+    :foo (fn [m] (and (.startsWith (str (:ns m)) "some.test.namespace") (:test-selector m)))
+
+## 9/18/15
+
+list open files: `lsof`
+
+    lsof -i :<port>
+
+set of file descriptors open in a process
+    ls -l /proc/<pid>/fd
+
+## 9/21/15
+
+add user to sudoers in SLES
+
+    visudo
+
+(edits `/etc/sudoers` file)
