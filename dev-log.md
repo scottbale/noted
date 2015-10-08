@@ -1599,3 +1599,85 @@ add user to sudoers in SLES
     visudo
 
 (edits `/etc/sudoers` file)
+
+## 9/25/15
+
+Python HTTP server from current working directory
+
+    python -m SimpleHTTPServer [port]
+
+Windows `hosts` file:
+
+    systemroot\System32\Drivers\Etc\hosts
+
+## 9/29/15
+
+`chkconfig` stuff
+
+    chkconfig --del loom
+
+    chkconfig --level 345 loom on
+
+    chkconfig --list loom
+    loom            0:off   1:off   2:off   3:on    4:on    5:on    6:off
+
+    find /etc/rc.d/ | grep loom
+
+## 9/30/15
+
+install pip using python easy_install; aws cli using pip
+
+    python --version
+    sudo easy_install pip
+    sudo pip install awscli
+
+upload to s3 bucket
+
+    aws configure
+    aws s3 ls
+    aws s3 ls s3://bucket-name/path/to/
+
+VirtualBoxHeadless configure, open a `.ova` image
+
+    apt-get install virtualbox, virtualbox-dkms
+    VBoxManage import foo.ovf
+    VBoxManage list vms
+
+set up port-forwarding rule:
+
+    VBoxManage modifyvm "foo-vm" --natpf1 "ssh,tcp,127.0.0.1,2222,,22"
+
+deactivate hardware virtualization acceleration
+
+    VBoxManage modifyvm "foo-vm" --hwvirtex off
+
+Set password for VNC connection. (If Oracle's proprietary extension pack isn't
+installed, then we are limited to VNC connection. Otherwise the better `VRDE`
+protocol is enabled. Windows can connect via native `mstsc` client.)
+
+    vboxmanage modifyvm "foo-vm" --vrdeproperty VNCPassword=nuuuge
+
+    VBoxManage showvminfo "foo-vm"
+    VBoxManage controlvm "foo-vm" poweroff
+
+flag `--vrde` controls vrde|vnc server
+
+    VBoxHeadless -startvm "foo-vm" --vrde off
+
+D'oh: https://www.virtualbox.org/manual/ch03.html#intro-64bitguests
+
+## 10/6/15
+
+aws s3 cli
+
+see ACL for bucket
+
+    aws s3api get-object-acl --bucket foo-bucket --key path/to/
+    aws s3api get-object-acl --bucket foo-bucket --key path/to/filename
+
+set ACL, grant permissions
+
+    aws s3api set-object-acl --bucket foo-bucket --key path/to/filename --grant-read 'uri="http://acs.amazonaws.com/groups/global/AllUsers",uri="http://acs.amazonaws.com/groups/global/AuthenticatedUsers"' --grant-full-control 'id="longhexuuid"'
+    
+
+    
