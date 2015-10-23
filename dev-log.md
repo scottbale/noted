@@ -1343,6 +1343,7 @@ applying a patch
 
 deleting a remote branch after merge
     git push origin --delete foobranch
+    git push origin :foobranch
 
 ## 7/23/15
 
@@ -1383,6 +1384,10 @@ docker, enter running container interactively
 rename image
 
     docker tag [currentname]:latest [newname]:latest
+
+remove image tag (leaving image intact)
+
+    docker rmi [tag]
 
 ## 8/5/15
 
@@ -1679,5 +1684,28 @@ set ACL, grant permissions
 
     aws s3api set-object-acl --bucket foo-bucket --key path/to/filename --grant-read 'uri="http://acs.amazonaws.com/groups/global/AllUsers",uri="http://acs.amazonaws.com/groups/global/AuthenticatedUsers"' --grant-full-control 'id="longhexuuid"'
     
+## 10/15/15-21
 
-    
+### Leiningen upgrade
+
+* Currently on `2.0.0`
+* want `2.5.1` (latest still using Clojure 1.6)
+* `2.4.3` works w/o mods
+* plugin `[lein-pprint "1.1.1"]`
+* `2.0.0` -> `2.4.3`
+  * lein included version of cemerick's `pomegranate` goes from `0.0.13` to `0.3.0`
+  * upgrade `lein-package` from `2.0.1` to `2.1.0`
+* `DEBUG=y lein foo` prints lein debug output
+* run leiningen locally
+  * `cd [project]/leiningen-core`
+  * `lein bootstrap`
+  * then invoke `[project]/bin/lein`
+
+questions
+* reduce compilations
+  * `lein-package` plugin - reuse compilations?
+  * `project.clj` - change `:prep-tasks` ?
+
+inside docker container, hadoop pseudo-cluster, found logs at:
+
+    tar czvf hadoop-logs.tar.gz /var/log/hadoop-hdfs /var/log/mysql /var/log/hive /var/log/hadoop-0.20-mapreduce ...
