@@ -1289,6 +1289,8 @@ location of certs:
 Centrify OpenSSH replaces stock OpenSSH impl
     dpkg -l | grep centrify
 
+yields matches on new jumpbox, none on old.
+
     $ locate sshd_config
     /etc/centrifydc/ssh/sshd_config
     /etc/ssh/sshd_config
@@ -1296,7 +1298,7 @@ Centrify OpenSSH replaces stock OpenSSH impl
 * centrifydc - Centrify DirectControl infrastructure
 * adclient - centrify Active Directory support
 
-yields matches on new jumpbox, none on old.
+http://community.centrify.com/t5/DirectControl-Express-for-UNIX/Curl-OpenSSL-certificate-question/td-p/15539
 
 `ldd` - print shared library dependencies e.g.
 
@@ -1709,3 +1711,82 @@ questions
 inside docker container, hadoop pseudo-cluster, found logs at:
 
     tar czvf hadoop-logs.tar.gz /var/log/hadoop-hdfs /var/log/mysql /var/log/hive /var/log/hadoop-0.20-mapreduce ...
+
+## 10/29/15
+
+update node PPA
+
+    sudo apt-add-repository -r ppa:chris-lea/node.js
+    curl --silent --location https://deb.nodesource.com/setup_4.x | sudo bash -
+    sudo apt-get install --yes nodejs
+
+## 11/2/15
+
+Node
+
+    node -v
+    v0.12.7
+    npm -v
+    2.11.3
+
+    sudo apt-get install g++
+
+    # Uninstall everything, start from clean slate
+    sudo apt-add-repository -r https://deb.nodesource.com/node_4.x/trusty/main
+    sudo rm /etc/apt/sources.list.d/nodesource.list*
+    rm -fr node_modules/
+    rm -fr ~/.npm
+    sudo apt-get remove -y nodejs
+    sudo apt-get autoremove
+    sudo apt-get clean
+    sudo apt-get update
+    sudo rm -fr /usr/lib/node_modules
+
+    # Install node 0.12, npm 2.11.3
+    curl -sL https://deb.nodesource.com/setup_0.12 | sudo -E bash -
+    sudo apt-get install -y nodejs
+
+    # Install gulp globally
+    sudo npm install -g gulp
+
+    # And finally...
+    npm install
+
+## 11/3/15
+
+Have `.profile` create, or reuse, `~/.sshagent` file
+
+Clean git working directory of untracked files
+
+    git clean -d -x --force --quiet
+
+## 11/5/15
+
+emacs regex with whitespace
+
+    \s-stringtomatch
+
+## 11/10/15
+
+    M-x vc-git-grep
+
+## 11/11/15
+
+bash one-liner to see npm package name, version for all packages in `node_modules` directory
+
+    for mo in `ls node_modules`; do cat "node_modules/$mo/package.json" | python -c 'import sys, json; packg=json.load(sys.stdin); print packg["name"], packg["version"]'; done
+
+    diff -r <dir1> <dir2>
+
+## 11/16/15
+
+    ~/dev$ diff -r ui/node_modules/gulp-minify-css/ ui2/node_modules/gulp-minify-css/ | less
+
+## 11/17/15
+
+sigterm, from `signal.h`, for `kill` command
+* 1 is `SIGHUP`, terminal hangup
+* 2 is `SIGINT`, interrupt, equivalent to Ctrl-c
+* 3 is `SIGQUIT` (use to get Java thread dump)
+* 9 is `SIGKILL`
+* 15 is `SIGTERM`, the default

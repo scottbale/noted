@@ -228,6 +228,13 @@ update default editor
 
 Guide to CLI package managers: `apt`, `yum`, `zypper`
 
+Package managers per dist
+
+* Ubuntu - apt
+* RHEL - yum
+* SUSE -
+* centos - yum
+
 Note: `repoquery` is a `yum` util:
 
     yum install yum-utils
@@ -242,7 +249,12 @@ See installed repos:
 
 Add repo:
 
+    apt-add-repository url
     zypper ar -f url
+
+remove repo:
+
+    apt-add-repository -r url
 
 update|refresh installed repos:
 
