@@ -1790,3 +1790,17 @@ sigterm, from `signal.h`, for `kill` command
 * 3 is `SIGQUIT` (use to get Java thread dump)
 * 9 is `SIGKILL`
 * 15 is `SIGTERM`, the default
+
+## 11/30/15
+
+dired, omit `node_modules`
+
+hashsum on unix, windows
+
+* unix
+
+        shasum -a 256  path/to/file
+
+* windows
+
+        CertUtil -hashfile /path/to/file SHA256
