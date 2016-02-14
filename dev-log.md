@@ -1804,3 +1804,123 @@ hashsum on unix, windows
 * windows
 
         CertUtil -hashfile /path/to/file SHA256
+
+## 2/2/15
+
+First two days at DataStax
+
+# Setting up MacBook Pro
+
+* had to install XCode to get git (should have just installed XCode-cli but oh well)
+* new ssh key, add to GitHub keys, git clone stuff
+* onboarding script using Ansible Playbook (running into Ansible bugs)
+
+        https://github.com/ansible/ansible/issues/13728
+
+* Ansible installed HomeBrew
+* I used brew to install emacs
+
+        brew install emacs --with-cocoa
+        brew linkapps emacs
+
+* on emacs startup, initially got a compilation error - technomancy starter kit dependency on dash 2.12.1 (had to install that version by hand using `M-x package-list-packages`)
+* Lots of hand-tweaking of dotfiles
+
+## 2/3/15
+
+# Day 3 - Wed
+
+* CCM `2.1.3` installed via `pip`
+* 3-node DSE cluster
+
+# OS X keybindings
+
+Struggling to find balance between command key and tmux|terminal Meta-keybindings I'm used to
+
+Got it!
+* Leave stock global keybindings alone
+* in iTerm preferences
+  * Keys: Change right command key to `option`
+  * Keys: `+`, then add `cmd-`whatever combos to ignore
+  * Profiles->Keys: Option should send `+Esc`
+
+Almost all the cmd keybindings I care about (cmd-w, cmd-q, cmd-c, cmd-v, cmd-x, cmd-tab) happen to be left command key chords. Likewise, almost all the tmux and terminal meta-key combos I care about happen to be right meta key chords (M-d, M-f, M-v). Notable exceptions: M-<, M->.
+
+## 2/4/15 - Thu
+
+telnet host port - all-purpose check for any process listening on a port?
+learn: nmap, netcat
+
+## 2/5/15
+
+Paste into|from OS X Gnu Emacs from|to clipboard
+
+    M-x clipboard-yank
+    M-x clipboard-kill-region
+
+See also http://www.emacswiki.org/emacs/CopyAndPaste
+
+## Installing python deps
+
+Trying to `pip install python-ldap`, Missing `sasl.h` file; had to do this:
+
+    xcrun --show-sdk-path
+    sudo ln -s <the_path_from_above_command>/usr/include /usr/include
+
+...but looks like a better way would be
+
+    pip install python-ldap \
+      --global-option=build_ext \
+      --global-option="-I$(xcrun --show-sdk-path)/usr/include/sasl"
+
+Trying to `pip install -I pyOpenSSL=0.13`, got compilation error
+
+    OpenSSL/crypto/crl.c:6:23: error: static declaration of 'X509_REVOKED_dup' follows non-static declaration
+
+solution is to install `0.14`
+
+    sudo pip install -r requirements.txt
+
+    LDFLAGS:  -L/usr/local/opt/openssl/lib
+    CPPFLAGS: -I/usr/local/opt/openssl/include
+
+you should be putting those flags somewhere in `setup.py` IIRC
+
+## 2/8/15
+
+Generally, switching branches should be accompanied by invoking `ant`
+
+alternatively
+    npm prune, install, update
+
+http://localhost:8888/opscenter/js/bower_components/util/doh/runner.html?testModule=ripcord.tests.all&boot=../../../ripcord-compiled/tests/dojoconfig.js,../../dojo/dojo.js
+http://localhost:8888/opscenter/js/bower_components/util/doh/runner.html?testModule=ripcord.tests.unit.widgets.backups.snapshotspager&boot=../../../ripcord-compiled/tests/dojoconfig.js,../../dojo/dojo.js
+
+emoticons: tumbleweed, waiting, upvote|downvote, disapproval, thisisfine, oldschool, cerealspit, derp, giggity, lolwut, paddlin, shrug, awyeah, iseewhatyoudidthere, success, tableflip
+
+## 2/10/15
+
+EC2, GCE, Azure
+
+# python issue workaround
+
+Use homebrew to install a (keg only) version of openssl that pyOpenSSL 0.13 will compile with:
+    brew install homebrew/versions/openssl101
+Install pyOpenSSL, compiling against this version of openssl
+    LDFLAGS=-L/usr/local/opt/openssl101/lib CPPFLAGS=-I/usr/local/opt/openssl101/include pip install -I pyOpenSSL==0.13
+
+## 2/11/15
+
+UI build/config:
+
+* ant `build.xml`          - `ant ui` runs `npm install`, gulp
+* node npm `package.json`  => bower, gulp
+* Gulp `Gulpfile.js`       - runs bower build for dependencies; sass; babel; tests; ...
+* Bower `bower.json`       => dojo
+* DOJO `build.profile.js`
+
+Show all ignored and untracked files
+
+    git ls-files --ignored --others --exclude-standard --directory
+
+run python http server from `ripcord/opscenterd/src/js`, load http://localhost:8888/bower_components/util/doh/runner.html?testModule=...
