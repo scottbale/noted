@@ -250,6 +250,9 @@ See installed repos:
 Add repo:
 
     apt-add-repository url
+    curl http://repo.url/foo.repo | sudo tee /etc/yum.repos.d/foo.repo > /dev/null
+    sudo wget http://repos.fedorapeople.org/repos/dchen/apache-maven/epel-apache-maven.repo \
+         -O /etc/yum.repos.d/epel-apache-maven.repo    
     zypper ar -f url
 
 remove repo:

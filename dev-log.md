@@ -1161,11 +1161,8 @@ apache logs: `/var/log/httpd/`
 
 Back to php 5.3, httpd 2.2
 
-install: `php55`, `httpd24`, `mod24_ssl`, `mysql55`, `mysql55-server`, `php55-mysqlnd`
-
     sudo yum remove httpd24 mod24_ssl php55-mysqlnd
     sudo yum install httpd httpd-tools-2.2.29-1.4 mod_ssl php php-mysqlnd
-
 
 ## 5/29/15
 
@@ -1805,6 +1802,31 @@ hashsum on unix, windows
 
         CertUtil -hashfile /path/to/file SHA256
 
+## 12/17/15
+
+zipping and tar'ring
+
+    tar czvf foo.tar.gz dir1/ dir2/
+    tar xvf foo.tar.gz
+    tar tf foo.tar.gz
+    zip -r foo.zip dir1/
+    unzip foo.zip
+    unzip -l foo.zip
+
+## 1/23/16
+
+install Java 8; update java alternative to JDK 1.8 on amazon linux ec2 instance
+
+    yum search java
+    sudo yum install java-1.8.0-openjdk-headless.x86_64
+    ll /usr/lib/jvm/
+    alternatives --usage | less
+    alternatives --display java
+    sudo alternatives --set java /usr/lib/jvm/jre-1.8.0-openjdk.x86_64/bin/java
+    java -version
+    
+Mac OS Yosemite hosts file: `/private/etc/hosts`
+
 ## 2/2/15
 
 First two days at DataStax
@@ -1924,3 +1946,28 @@ Show all ignored and untracked files
     git ls-files --ignored --others --exclude-standard --directory
 
 run python http server from `ripcord/opscenterd/src/js`, load http://localhost:8888/bower_components/util/doh/runner.html?testModule=...
+
+## 2/13/16
+
+cljs
+
+in `hello world` terminal:
+
+    java -cp cljs.jar:src clojure.main repl.clj
+
+in `cljs` src terminal:
+
+    ./script/build
+    lein repl :headless :port 2112
+
+install `mvn` on Amazon Linux
+
+    sudo wget http://repos.fedorapeople.org/repos/dchen/apache-maven/epel-apache-maven.repo \
+        -O /etc/yum.repos.d/epel-apache-maven.repo
+    sudo sed -i s/\$releasever/6/g /etc/yum.repos.d/epel-apache-maven.repo
+    sudo yum update
+    yum search apache-maven
+    yum info apache-maven
+    sudo yum install -y apache-maven
+    mvn --version
+
