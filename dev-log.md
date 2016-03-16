@@ -1853,7 +1853,11 @@ First two days at DataStax
 # Day 3 - Wed
 
 * CCM `2.1.3` installed via `pip`
-* 3-node DSE cluster
+* 3-node DSE 4.8.0 cluster
+
+        ccm create dse-480-1 --dse --dse-username=your_username --dse-password=your_password -v 4.8.0 -n 3
+
+where uname/password is from download site
 
 # OS X keybindings
 
@@ -1918,7 +1922,7 @@ alternatively
 http://localhost:8888/opscenter/js/bower_components/util/doh/runner.html?testModule=ripcord.tests.all&boot=../../../ripcord-compiled/tests/dojoconfig.js,../../dojo/dojo.js
 http://localhost:8888/opscenter/js/bower_components/util/doh/runner.html?testModule=ripcord.tests.unit.widgets.backups.snapshotspager&boot=../../../ripcord-compiled/tests/dojoconfig.js,../../dojo/dojo.js
 
-emoticons: tumbleweed, waiting, upvote|downvote, disapproval, thisisfine, oldschool, cerealspit, derp, giggity, lolwut, paddlin, shrug, awyeah, iseewhatyoudidthere, success, tableflip
+emoticons: tumbleweed, waiting, upvote|downvote, disapproval, thisisfine, oldschool, cerealspit, derp, giggity, lolwut, paddlin, shrug, awyeah, iseewhatyoudidthere, success, tableflip, indeed (monocle), whynotboth, puke (rainbow)
 
 ## 2/10/15
 
@@ -1926,9 +1930,10 @@ EC2, GCE, Azure
 
 # python issue workaround
 
-Use homebrew to install a (keg only) version of openssl that pyOpenSSL 0.13 will compile with:
+Use homebrew to install a (keg only) version of `openssl` that `pyOpenSSL` 0.13 will compile with:
     brew install homebrew/versions/openssl101
-Install pyOpenSSL, compiling against this version of openssl
+
+Install `pyOpenSSL`, compiling against this version of `openssl`
     LDFLAGS=-L/usr/local/opt/openssl101/lib CPPFLAGS=-I/usr/local/opt/openssl101/include pip install -I pyOpenSSL==0.13
 
 ## 2/11/15
@@ -1946,6 +1951,8 @@ Show all ignored and untracked files
     git ls-files --ignored --others --exclude-standard --directory
 
 run python http server from `ripcord/opscenterd/src/js`, load http://localhost:8888/bower_components/util/doh/runner.html?testModule=...
+or is it...?
+http://localhost:8888/opscenter/js/ripcord/tests/bootstrap.html#ripcord/tests/foo/bar
 
 ## 2/13/16
 
@@ -1971,3 +1978,175 @@ install `mvn` on Amazon Linux
     sudo yum install -y apache-maven
     mvn --version
 
+## 2/17/16
+
+    sudo ifconfig lo0 alias 127.0.0.x up
+
+## 2/23/16
+
+ui, when switching between branches
+
+    npm prune && npm install && npm update
+
+and/or
+
+    rm -fr ./node_modules
+    npm cache clean && npm install
+
+## 2/25/16
+
+python pretty print JSON awesomeness
+
+    cat some.json | python -m json.tool
+
+anvil (alternative to python simple http server)
+
+## 2/26/16
+
+homebrew routine
+
+    brew update
+    brew outdated
+    brew upgrade [foo]
+
+also
+
+    brew doctor
+    brew --cache
+
+## 2/29/16
+
+JS typechecking:
+* FaceBook `Flow`
+* `Term` (sp?) - typechecking against JSDoc
+
+## 3/3/16
+
+Today's coolness:
+
+* wrote a python script to examine an array of JSON returned from a RESTful API endpoint
+* figured out how to send multiple params in a cURL cmd (was missing quotes, therefore shell was backgrounding the process because of the ampersand)
+
+        curl -sS 'http://whatever:8888/blahblah?foo=bar&goo=gar' | ./awesome-python-script.py
+
+* figured out how to map over a list in python
+* in JS, using dojo, did some map, reduce
+* debugged a unit test in Chrome, with breakpoints - figured out how to look for loading sources
+
+## 3/3/16
+
+using opsc from src, cluster is at `local/clusters/Test_Cluster.conf`
+
+## 3/8/16
+
+create solr core w/ ccm
+
+http://docs.datastax.com/en/latest-dse/datastax_enterprise/srch/srchCreatCore.html
+
+    ccm node1 dsetool create_core "OpsCenter".backup_reports generateResources=true
+
+## 3/9/16
+
+mac os x | BSD `locate` and `updatedb`
+
+    man locate
+    /usr/libexec/locate.updatedb
+
+alternatively,
+
+    brew install findutils
+
+to get gnu `locate` and `updatedb`
+
+## 3/10/16
+
+prop|config files
+* cassandra.yaml
+* cassandra-rackdc.properties
+
+opsc ports: 7100, 9042
+
+keyspace = collection of tables
+* replication factor, set per DC
+
+replication factor (RF; writes; fixed); contrast w/ consistency level (CL; reads and writes; changes)
+* SimpleStrategy - single DC
+* NetworkTopologyStrategy - mult DC's
+
+token range
+
+single token node (node maps to final token in its range); contrast w/ vnodes (num_tokens in cassandra.yaml)
+
+partitioner - hashes tokens from designated values in rows being added
+* partition key: piece of primary key
+
+hinted handoff - recovery for writes targeting offline node
+* stored in `system.hints` keyspace
+
+consistency level (CL)
+* writes - how many nodes must respond write was made durable
+* reads - how many nodes must respond with latest copy of data
+* quorum aka majority = RF / 2 + 1
+* immediate consistency aka ALL - highest latency
+
+ccm [node] dsetool [cmd]
+ccm [node] status - nodetool status
+ccm [node] cqlsh
+ccm [node] nodetool ring
+ccm [node] nodetool getendpoints [keyspace] [table] [partition key value(s)]
+
+write path
+* Memtables - in-memory CQL tables, indexes
+* CommitLog - append-only
+* SSTables aka "Sorted String Tables" - Memtable snapshots flushed to disk, clearing heap - never changed, supercedes previous
+* Compaction - periodic, of SSTables
+
+bin/sstable2json
+
+## 3/11/16
+
+simple keyspace
+
+    cqlsh> create keyspace foobar WITH replication = {'class': 'SimpleStrategy','replication_factor':2};
+    cqlsh> use foobar;
+    cqlsh:foobar> create table peeps (id int primary key, name text, address text, phone text);
+    cqlsh:foobar> insert into peeps (id, name, address, phone) values ( 1, 'Scott', 'MO', '867-5309');
+    cqlsh:foobar> select * from peeps;
+
+     id | address | name  | phone
+    ----+---------+-------+----------
+      1 |      MO | Scott | 867-5309
+
+    (1 rows)
+    cqlsh:foobar> select token(id) from peeps;
+
+     token(id)
+    ----------------------
+     -4069959284402364209
+
+    (1 rows)
+    cqlsh:foobar> consistency;
+    Current consistency level is ONE.
+    cqlsh:foobar> update peeps set phone='555-867-5309' where id=1;
+    cqlsh:foobar> select * from peeps;
+
+     id | address | name  | phone
+    ----+---------+-------+--------------
+      1 |      MO | Scott | 555-867-5309
+
+    (1 rows)
+    cqlsh:foobar>
+
+and
+
+    ccm node1 nodetool getendpoints foobar peeps 1;
+
+## 3/14/16
+
+pip uninstall, install diff version
+
+    sudo pip uninstall foo; sudo pip install foo=1.0.1
+
+cache at
+
+    ~/Library/Caches/
