@@ -1827,7 +1827,7 @@ install Java 8; update java alternative to JDK 1.8 on amazon linux ec2 instance
     
 Mac OS Yosemite hosts file: `/private/etc/hosts`
 
-## 2/2/15
+## 2/2/16
 
 First two days at DataStax
 
@@ -1848,7 +1848,7 @@ First two days at DataStax
 * on emacs startup, initially got a compilation error - technomancy starter kit dependency on dash 2.12.1 (had to install that version by hand using `M-x package-list-packages`)
 * Lots of hand-tweaking of dotfiles
 
-## 2/3/15
+## 2/3/16
 
 # Day 3 - Wed
 
@@ -1872,12 +1872,12 @@ Got it!
 
 Almost all the cmd keybindings I care about (cmd-w, cmd-q, cmd-c, cmd-v, cmd-x, cmd-tab) happen to be left command key chords. Likewise, almost all the tmux and terminal meta-key combos I care about happen to be right meta key chords (M-d, M-f, M-v). Notable exceptions: M-<, M->.
 
-## 2/4/15 - Thu
+## 2/4/16 - Thu
 
 telnet host port - all-purpose check for any process listening on a port?
 learn: nmap, netcat
 
-## 2/5/15
+## 2/5/16
 
 Paste into|from OS X Gnu Emacs from|to clipboard
 
@@ -1912,7 +1912,7 @@ solution is to install `0.14`
 
 you should be putting those flags somewhere in `setup.py` IIRC
 
-## 2/8/15
+## 2/8/16
 
 Generally, switching branches should be accompanied by invoking `ant`
 
@@ -1922,9 +1922,9 @@ alternatively
 http://localhost:8888/opscenter/js/bower_components/util/doh/runner.html?testModule=ripcord.tests.all&boot=../../../ripcord-compiled/tests/dojoconfig.js,../../dojo/dojo.js
 http://localhost:8888/opscenter/js/bower_components/util/doh/runner.html?testModule=ripcord.tests.unit.widgets.backups.snapshotspager&boot=../../../ripcord-compiled/tests/dojoconfig.js,../../dojo/dojo.js
 
-emoticons: tumbleweed, waiting, upvote|downvote, disapproval, thisisfine, oldschool, cerealspit, derp, giggity, lolwut, paddlin, shrug, awyeah, iseewhatyoudidthere, success, tableflip, indeed (monocle), whynotboth, puke (rainbow)
+emoticons: tumbleweed, waiting, upvote|downvote, disapproval, thisisfine, oldschool, cerealspit, derp, giggity, wat, lol, lolwut, paddlin, shrug, awyeah, iseewhatyoudidthere, success, tableflip, indeed (monocle), whynotboth, puke (rainbow), pokerface, badpokerface, salute
 
-## 2/10/15
+## 2/10/16
 
 EC2, GCE, Azure
 
@@ -1936,7 +1936,7 @@ Use homebrew to install a (keg only) version of `openssl` that `pyOpenSSL` 0.13 
 Install `pyOpenSSL`, compiling against this version of `openssl`
     LDFLAGS=-L/usr/local/opt/openssl101/lib CPPFLAGS=-I/usr/local/opt/openssl101/include pip install -I pyOpenSSL==0.13
 
-## 2/11/15
+## 2/11/16
 
 UI build/config:
 
@@ -2150,3 +2150,48 @@ pip uninstall, install diff version
 cache at
 
     ~/Library/Caches/
+
+## 3/16/16
+
+TIL `S->|<` is sufficient to page up|down in `less`. (Am used to emacs `S-M->|<` for that)
+
+## 3/23/16
+
+ccm-create DSE 5.0 nightly
+
+    pushd ${TMPDIR:-/tmp/}; curl --insecure --location https://qa-automaton:3U8ib5na4mvAVY5y@downloads-qa.datastax.com/enterprise/dse-5.0.0-bin.tar.gz | tar xv; popd
+    ccm create new-hotness --dse -n 3 --install-dir=${TMPDIR:-/tmp/}dse-5.0.0
+
+lein, cider, nrepl...here we go again
+
+leiningen
+* version: `2.5.2`
+
+cider-nrepl
+* version: upgrading from `0.8.2` to `0.11.0`
+* `0.11.0` requires clj `1.7+` and lein `2.5.2+`
+* in ~/.lein/profiles.clj
+
+cider
+* version: upgrading from `0.8.2` to `0.11.0` (marmalade)
+* an emacs mode, package-installed via melpa, marmalade or whatnot
+* in ~/.emacs.d/
+
+Getting this when I `M-x cider-connect`:
+
+    ;; Connected to nREPL server running on port 2112 on host localhost - nrepl://localhost:2112
+    ;; CIDER 0.11.0 (Bulgaria), nREPL 0.2.10
+    ;; Clojure 1.7.0, Java 1.8.0_65
+    ...
+    WARNING: CIDER requires nREPL 0.2.12 (or newer) to work properly
+
+this is a clue...
+
+    ~/dev/ripcord/agent $ lein do clean, compile, repl :headless :port 2112
+    Retrieving cider/cider-nrepl/0.11.0/cider-nrepl-0.11.0.pom from clojars
+    Retrieving org/clojure/tools.nrepl/0.2.12/tools.nrepl-0.2.12.pom from central
+    Retrieving org/clojure/tools.nrepl/0.2.12/tools.nrepl-0.2.12.jar from central
+    Retrieving cider/cider-nrepl/0.11.0/cider-nrepl-0.11.0.jar from clojars
+    nREPL server started on port 2112 on host 127.0.0.1 - nrepl://127.0.0.1:2112
+
+the answer: https://github.com/technomancy/leiningen/issues/2072
