@@ -2195,3 +2195,189 @@ this is a clue...
     nREPL server started on port 2112 on host 127.0.0.1 - nrepl://127.0.0.1:2112
 
 the answer: https://github.com/technomancy/leiningen/issues/2072
+
+## 3/24/16
+
+`ns-unmap` a namespace's interned symbols
+
+    (map (comp (partial ns-unmap *ns*) first) (ns-interns *ns*))
+
+## 3/25/16
+
+Cassper
+Guard Weiner Dog
+
+## 3/28/16
+
+TIL alternative to
+
+    git lg --stat [commit range]
+
+which is
+
+    git diff --name-only [commit range]
+
+## 3/29/16
+
+    cqlsh> describe keyspaces;
+
+## 3/30/16
+
+CCM error
+
+    Error opening zip file or JAR manifest missing : /Users/scottbale/.ccm/new-hotness/node3/resources/cassandra/bin/../../../resources/cassandra/lib/jamm-0.3.0.jar
+
+Solution
+
+This is all from `~/.ccm/clustername/node1`:
+
+    ln -s ~/.ccm/repository/4.8.0/lib lib
+    ln -s ~/.ccm/repository/4.8.0/resources/cassandra/lib resources/cassandra/lib
+    ln -s ~/.ccm/repository/4.8.0/resources/dse/lib resources/dse/lib
+    ln -s ~/.ccm/repository/4.8.0/resources/hadoop/lib resources/hadoop/lib
+
+## 4/1/16
+
+    cqlsh:OpsCenter> select event_time, blobAsBigInt(timestampAsBlob(event_time)), type from backup_reports where week='201614' ;
+    select backup_id, event_time, blobAsBigInt(timestampAsBlob(event_time)) from backup_reports where week='201613' and event_time = '2016-03-30 20:35:24.250+0000' ;
+
+## 4/4/16
+
+quick checklist to wipe opsc clean
+1. remove logs
+1. drop opsc keyspace
+1. revert cluster conf
+
+drop opsc keyspace, in CQLSH
+
+    cqlsh> describe keyspaces;
+    cqlsh> drop keyspace "OpsCenter";
+
+
+## 4/7/16
+
+Per Phil, check out `logging.py`
+
+## 4/14/16
+
+TIL not to trust `jps`
+
+    ~/.ccm/dse-perf-work/node1/resources/cassandra/conf/cassandra-env.sh
+
+comment out
+    # http://www.evanjones.ca/jvm-mmap-pause.html
+    JVM_OPTS="$JVM_OPTS -XX:+PerfDisableSharedMem"
+
+https://issues.apache.org/jira/browse/CASSANDRA-9483
+
+> The default JVM flag -XX:+PerfDisableSharedMem will cause the following tools JVM
+> to stop working. jps, jstack, jinfo, jmc, jcmd as well as 3rd party tools like Jolokia.
+> If you wish to use these tools you can comment this flag out in cassandra-env.{sh,ps1}
+
+opsc on-server backup dir: `snapshots` directory below the c* data dir (`/var/lib/cassandra/data` by default)
+* for my `ccm` cluster, they're in `~/.ccm/[cluster-name]/nodeN/data0/[long-ascii-id]/snapshots/`
+* see also `backup_staging_dir` and `tmp_dir` properties of agent `agent/local/address.yaml`
+* the above overriden by `runmultiple.py` in `agent/local/agentN.yaml`
+
+## 4/18/16
+
+### OPSC-8349 notes:
+* commit log stomp channel: `/commitlog/status`
+  * incoming: Agents.py, `routeIncoming`
+  * outgoing: common.clj, `update-commitlog-status`
+
+#### OPSCD
+* logging via twisted
+* stomp via `StompFactory` of morbid (located in `opscenterd/lib/py/morbid/`); referenced by `OrbitedService`
+* Agents.py - only 1 code route that results in a call to `cleanupPIT` with a non
+  * see `routeIncoming` for dispatching
+  * see `processNodeDetail` for example of trace logging 
+  * `processCommitLogStatus` has very little logging
+    * lack of existing log statements indicates status must be `running`, destination `ON_SERVER`
+
+How do you turn up twisted logging to trace?
+* in master, via `logback.xml`
+* in 5.2.x, via `local\opscenterd.conf`
+
+## 4/21/16
+
+To enable commitlog archiving on local ccm agents, had to symlink the `archive_commitlog.sh.template` file:
+
+    ln -s agent/pkg/bin/archive_commitlog.sh.template agent/bin/
+
+fswatch - detect changes to directory tree:
+
+    brew install fswatch
+    fswatch -xt -e ".*\.log" ${TMPDIR:-/tmp/}dse-5.0.0 ripcord/opscenterd/local/ ripcord/agent/local/ ripcord/agent/tmp1/ ripcord/agent/tmp2/ ripcord/agent/tmp3/ ripcord/agent/backups1/ ripcord/agent/backups2/ ripcord/agent/backups3/  ~/.ccm/borscht/ /tmp/ >> fswatch.log 2>&1
+
+## 4/22/16
+
+### More OPSC_8349 notes
+
+sub-namespaces under src/opsagent/backups/, ordered roughly by dependency:
+
+common*
+entities, staging*
+throttler
+destinations
+pit*, snapshots
+coordinator, restore
+cleanup
+
+## 4/27/16
+
+merge script:
+
+    /bin/merge.py master foo-branch
+
+## 4/28/16
+
+curl cmds for opsc backups, job schedules, requests:
+
+create scheduled backup
+    curl -sSX POST 'http://localhost:8888/Test_Cluster/job-schedules' --data '{"first_run_date":"2016-04-27","first_run_time":"15:45:00","timezone":"GMT","interval":5,"interval_unit":"minutes","job_params":{"type":"backup","keyspaces":["foobar"],"cleanup_age":30,"cleanup_age_unit":"days","destinations":{}}}' 
+
+    curl -sSX POST 'http://localhost:8888/Test_Cluster/backups/destinations'  --data '[]'
+
+job schedule (or DELETE)
+    curl -sS 'http://localhost:8888/Test_Cluster/job-schedules/172ce740-2319-4407-a81f-94087677836a'
+
+status of request
+    curl -sS 'http://localhost:8888/request/5ee7a158-cebe-4424-8b53-6a0e31152277/status' 
+
+delete backup
+    curl -sSX DELETE 'http://localhost:8888/Test_Cluster/backups?tag=opscenter_b320e60d-48a6-4221-a1ff-5cea088a04d2_2016-04-27-21-20-00-UTC&destination=OPSC_ON_SERVER&remove_destination=Delete%20Backup%20Data' 
+
+backups, backup activity
+    curl -sS 'http://localhost:8888/Test_Cluster/backups/$keyspace'
+    curl -sS 'http://localhost:8888/Test_Cluster/backup-activity?count=$N'
+    curl -sS 'http://localhost:8888/Test_Cluster/backup-activity/full_status?week=201618&event_time=1462462500&backup_id=opscenter_ddbd74f0-4152-4dbd-92e8-f7f76a7eb4b2_2016-05-05-15-35-00-UTC&type=backup&destination=OPSC_ON_SERVER' 
+
+## 5/3/16
+
+What gulp tasks are available?
+
+    ~/dev/ripcord/opscenterd $ ./node_modules/.bin/gulp
+
+## 5/6/16
+
+Gulp test
+
+    ~/dev/ripcord/opscenterd $ ./node_modules/.bin/gulp test --suite ripcord/tests/unit/widgets/foo/barwidget
+
+KMIP = offsite key storage (in DSE context)
+
+https://en.wikipedia.org/wiki/Key_Management_Interoperability_Protocol
+https://docs.datastax.com/en/latest-opsc/opsc/configure/opscConfigKMIPalert.html
+
+## 5/9/16
+
+python unit tests logged at `opscenterd/tests/test_run.log`
+
+## 5/10/16
+
+Python repl, you can either do:
+    $ python
+to get a python repl or
+    $ ./opscenterd/bin/jython
+to start a jython repl
