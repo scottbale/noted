@@ -13,6 +13,9 @@ Highlights
 * manually create accounts (one for me, one for minecraft server)
 * scp bulpeppers files (tar'd, gzip'd)
 
+Download server jar URL (example):
+
+https://s3.amazonaws.com/Minecraft.Download/versions/1.9.4/minecraft_server.1.9.4.jar
 
 ## 8/23/14 minecraft mods
 
