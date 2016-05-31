@@ -1390,7 +1390,7 @@ remove image tag (leaving image intact)
 
 ## 8/5/15
 
-putty to virtualbox vm via port forwarding.
+putty - ssh to virtualbox vm via port forwarding.
 
 * In vm,
         sudo apt-get install openssh-server
@@ -2145,7 +2145,7 @@ and
 
 pip uninstall, install diff version
 
-    sudo pip uninstall foo; sudo pip install foo=1.0.1
+    sudo pip uninstall foo; sudo pip install foo==1.0.1
 
 cache at
 
@@ -2381,3 +2381,136 @@ Python repl, you can either do:
 to get a python repl or
     $ ./opscenterd/bin/jython
 to start a jython repl
+
+## 5/17/16
+
+ctool, part of automaton,
+
+* `~/.automaton.conf`
+* git clone github.com/riptano/automaton
+* `export PYTHONPATH="/Users/scottbale/dev/automaton":${PYTHONPATH}`
+* `export PATH="$PATH:/Users/scottbale/dev/automaton/bin"`
+* login to openstack to see provisioning - use ldap credentials
+
+> technically ctool is the commandline interface to automaton...usually referred to synonymously
+
+     pip install python-openstackclient
+
+python `virtualenv` https://virtualenv.readthedocs.org/en/latest/
+
+## 5/18/16
+
+More on openstack:
+
+ignore custom images, dev stuff from https://github.com/riptano/ripcord/tree/master/opscenterd/tests/automaton/tests#local-usage
+
+ssh public key fingerprint
+
+    ssh-keygen -lf /path/to/key.pub
+
+cmds: `openstack server list`, `nova host-list`, `keystone user-list`
+
+## 5/19/16
+
+AFTs
+* ec2 region is hardcoded in AFTs
+* When running AFTs use caution in syntax:
+
+        test_file.py:TestClass.test_case
+
+LCM = LifeCycle Manager (code-named Spock)
+DSE Multi-Instance (formerly known as dense nodes)
+
+
+mental queue
+* jabber (distributed consensus) vs jmx, stomp, etc. - can opscd leverage?
+* drivers
+* rollups
+
+Andy Tolberg - driver team - JobCreator project
+
+## 5/20/16
+
+ec2 instances powered off overnight - timeout?
+AFT rerun created new instances rather than starting up prev ones
+
+Q2 goals: DSE - self replication, spark
+
+JIRA comments
+
+scp patches
+* compile class
+
+        ./bin/jython
+        >>> import py_compile
+        >>> py_compile.compile('./src/path/to/Foo.py', '/path/to/Foo$py.class');
+
+* scp class to target
+
+        ctool scp2 scottbale_opsc Foo\$py.class 0:/home/automaton/
+
+* on target, copy to `/usr/share/opscenter/jython/Lib/site-packages/opscenterd`
+* restart
+
+        sudo service opscenterd restart
+
+* opscd log
+
+        sudo tail -f /var/log/opscenter/opscenterd.log
+
+## 5/23/16
+
+AFT: Found agent logs at `~/dse0_agent/agent/log/agent.log`
+
+
+misc recent commands:
+
+    ./run.sh test_dense_nodes.py:TestDenseNodesRestart
+    tail -f ~/dev/ripcord/opscenterd/tests/automaton/tests/testrun.log
+    ./bin/opscenter -f > log/opscd.log 2>&1
+    for i in {1..5}; do curl 'http://ec2-54-153-0-232.us-west-1.compute.amazonaws.com:8888/scottbalez/diagnostics.tar.gz' > "diagnostics_B$i.tar.gz"; done
+    ctool scp2 scottbalez 1:/home/automaton/dse1_agent/agent/log/agent.log ../agent11.log
+
+Bret's VBox setup notes
+
+* network
+  * adapter 1 - attached to: NAT (I should use Bridge)
+  * adapter 2 -
+* dense node cluster network
+  * adapter 1 - attached to: Internal Network (descriptive string)  
+  * adapter 2 - ditto
+
+see OPSC-7542 notes
+* address.yaml attachments
+build agent tarball, scp to nodes
+
+add node scripts
+
+     /etc/dse-[name]/serverconfig/
+
+## 5/25/16
+
+VirtualBox network mode options
+* NAT - Network Address Translation
+
+## 5/31/16
+
+OWASP Webgoat project
+* entity encoder API
+
+XSS - server vulnerabilities
+* soln: validating input, encoding output
+
+5 common HTML contexts
+* Element content: `<div>RepeatAfterMe</div>`
+* Attribute value: `<div id="RepeatAfterMe">`
+* JavaScript: `<script>var a = "RepeatAfterMe";`
+* CSS: `<div style="RepeatAfterMe" />`
+* URL Attribute value: `<a href="RepeatAfterMe">`
+
+CSRF aka Sea-Surf - browser vulnerabilities
+* soln: make requests unpredictable|hard to forge via secret token in conversational state
+
+fixed flyspell 
+* `brew install aspell --with-lang-en`
+* tweak `init.el`
