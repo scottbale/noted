@@ -1952,7 +1952,7 @@ Show all ignored and untracked files
 
 run python http server from `ripcord/opscenterd/src/js`, load http://localhost:8888/bower_components/util/doh/runner.html?testModule=...
 or is it...?
-http://localhost:8888/opscenter/js/ripcord/tests/bootstrap.html#ripcord/tests/foo/bar
+http://localhost:8888/ripcord/tests/bootstrap.html#ripcord/tests/foo/bar
 
 ## 2/13/16
 
@@ -2038,6 +2038,8 @@ Today's coolness:
 using opsc from src, cluster is at `local/clusters/Test_Cluster.conf`
 
 ## 3/8/16
+
+    ccm node1 setworkload solr
 
 create solr core w/ ccm
 
@@ -2335,23 +2337,37 @@ merge script:
 curl cmds for opsc backups, job schedules, requests:
 
 create scheduled backup
+
     curl -sSX POST 'http://localhost:8888/Test_Cluster/job-schedules' --data '{"first_run_date":"2016-04-27","first_run_time":"15:45:00","timezone":"GMT","interval":5,"interval_unit":"minutes","job_params":{"type":"backup","keyspaces":["foobar"],"cleanup_age":30,"cleanup_age_unit":"days","destinations":{}}}' 
 
     curl -sSX POST 'http://localhost:8888/Test_Cluster/backups/destinations'  --data '[]'
 
 job schedule (or DELETE)
+
     curl -sS 'http://localhost:8888/Test_Cluster/job-schedules/172ce740-2319-4407-a81f-94087677836a'
 
 status of request
+
     curl -sS 'http://localhost:8888/request/5ee7a158-cebe-4424-8b53-6a0e31152277/status' 
 
 delete backup
+
     curl -sSX DELETE 'http://localhost:8888/Test_Cluster/backups?tag=opscenter_b320e60d-48a6-4221-a1ff-5cea088a04d2_2016-04-27-21-20-00-UTC&destination=OPSC_ON_SERVER&remove_destination=Delete%20Backup%20Data' 
 
 backups, backup activity
+
     curl -sS 'http://localhost:8888/Test_Cluster/backups/$keyspace'
     curl -sS 'http://localhost:8888/Test_Cluster/backup-activity?count=$N'
     curl -sS 'http://localhost:8888/Test_Cluster/backup-activity/full_status?week=201618&event_time=1462462500&backup_id=opscenter_ddbd74f0-4152-4dbd-92e8-f7f76a7eb4b2_2016-05-05-15-35-00-UTC&type=backup&destination=OPSC_ON_SERVER' 
+    
+create destination
+
+    curl -sS -X POST 'http://localhost:8888/Test_Cluster/backups/destinations' -d '{"provider":"s3","path":"scottbale","access_key":"TODO","access_secret":"TODO"}'
+    time curl -sS 'http://localhost:8888/Test_Cluster/backups?list_all=1&destination=b75a4302aed24920a19bef6d07b2f585'
+    
+restore from backup
+
+    curl -sS -X POST 'http://localhost:8888/Test_Cluster/backups/restore/opscenter_fbe75dd3-dad7-4d62-9365-24cb716c2903_2016-06-15-23-19-00-UTC/foobar' -d '{"destination":"bba55a1cbd964b9081e1be4fdf9d5f72"}'
 
 ## 5/3/16
 
@@ -2514,3 +2530,106 @@ CSRF aka Sea-Surf - browser vulnerabilities
 fixed flyspell 
 * `brew install aspell --with-lang-en`
 * tweak `init.el`
+
+emacs things to check out: spacemacs, helm, projectile
+
+## 6/1/16
+
+ECS - EC2 Container Service
+
+## 6/2/16
+
+Here we go again...Getting this when I `M-x cider-connect`:
+
+    ;; Connected to nREPL server - nrepl://localhost:2112
+    ;; CIDER 0.12.0 (Seattle), nREPL 0.2.12
+    ;; Clojure 1.7.0, Java 1.8.0_65
+    ...
+    WARNING: CIDER's version (0.12.0) does not match cider-nrepl's version (nil). Things will break!
+
+I should have gotten this straight long ago:
+* `CIDER` - package|mode for Emacs - successor to `nrepl.el` - `clojure-emacs` org on github
+* `nrepl` - aka `tools.nrepl`, Clojure networked REPL - `clojure` org on github
+* `cider-nrepl` - "A collection of nREPL middleware designed to enhance CIDER." - `clojure-emacs` org on github
+
+In `project.clj`, upgraded `tools.nrepl` to `0.12.0` to match Emacs package `cider.el` version. That seemed to fix it!
+
+Cider quit `C-c C-q`
+
+Clojure mode, reindent selected region `C-M-\`
+beginning of defun `C-M-a`
+reindent defun `M-q`
+
+## 6/8/16
+
+python yield, generators, iterators, 
+https://jeffknupp.com/blog/2013/04/07/improve-your-python-yield-and-generators-explained/
+
+`Twisted` supplies two decorators: `defer.deferredGenerator` and `defer.inlineCallbacks`
+http://blog.mekk.waw.pl/archives/14-Twisted-inlineCallbacks-and-deferredGenerator.html
+
+AFT opscd email conf
+
+    /etc/opscenter/event-plugins/email.conf
+
+## 6/9/16
+
+google smtp: `smtp.gmail.com:465` requires e-mail address and one-time password (if 2FA is enabled)
+
+smtpd
+
+    python -m smtpd -n -d -c DebuggingServer localhost:8025
+
+see also: https://mailcatcher.me/, https://nilhcem.github.io/FakeSMTP/
+
+> for ctool openstack instances, you need to install ruby 2.3 and libsqlite3-dev in order to install mailcatcher...
+
+    mailcatcher --ip 0.0.0.0 --smtp-port 8025 --http-port 8080 -f -v
+
+## 6/15/16
+
+To repair `aws cli`, uninstalling `botocore-1.2.11` and installing `1.4.4` - I recall I had to downgrade to make AFT work
+
+## 6/20/16
+
+    M-x cider-repl-clear-buffer
+    
+used to be bound to `C-c M-o` I think?
+
+## 6/21/16
+
+ps stuff, wraps the entire process string into `less`
+
+     ps -ex [PID] | less
+
+Solr again
+
+Create ccm cluster w/ solr workload
+
+    ccm create solar-4 --dse -n 1 -v 4.8.0
+    ccm node1 setworkload solr
+    ccm start
+    
+create `foobar`, `peeps` via `cqlsh` as per above, then
+
+    ccm node1 dsetool create_core foobar.peeps generateResources=true
+
+make sure `numstrings.py` is in your `PYTHONPATH` 
+
+    python ~/create_solr_core.py --count 100
+
+Oh, you'll also need the requests lib for Python... don't know if that's included with ripcord or not. http://docs.python-requests.org/en/master/
+
+## 6/22/16
+
+    git rebase --onto origin/master origin/6.0.0-dev 6.0.0-scott.bale
+
+## 6/24/16
+
+My current command to invoke `lein repl` - need to make an alias?
+
+    lein with-profile +with-logging repl :headless :port 2112
+
+s3
+
+    aws s3 ls scottbale/snapshots/
