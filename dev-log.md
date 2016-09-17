@@ -976,10 +976,13 @@ git, find commit with `blarg` in commit message
 
     git log --grep="blarg"
 
+### Is a commit in branch?
+
 Assuming a commit `a21bf32` is found, see what (local and remote)
 branches it's in:
 
     git branch -a --contains a21bf32
+    git tag --contains a21bf32
 
 ## 2/10/15
 
@@ -1338,9 +1341,11 @@ running hive unit tests on the build box
 * `./prebuilt-hive-tests.sh`
 
 applying a patch
+
     git am patchfile.patch
 
 deleting a remote branch after merge
+
     git push origin --delete foobranch
     git push origin :foobranch
 
@@ -1917,6 +1922,7 @@ you should be putting those flags somewhere in `setup.py` IIRC
 Generally, switching branches should be accompanied by invoking `ant`
 
 alternatively
+
     npm prune, install, update
 
 http://localhost:8888/opscenter/js/bower_components/util/doh/runner.html?testModule=ripcord.tests.all&boot=../../../ripcord-compiled/tests/dojoconfig.js,../../dojo/dojo.js
@@ -1931,9 +1937,11 @@ EC2, GCE, Azure
 # python issue workaround
 
 Use homebrew to install a (keg only) version of `openssl` that `pyOpenSSL` 0.13 will compile with:
+
     brew install homebrew/versions/openssl101
 
 Install `pyOpenSSL`, compiling against this version of `openssl`
+
     LDFLAGS=-L/usr/local/opt/openssl101/lib CPPFLAGS=-I/usr/local/opt/openssl101/include pip install -I pyOpenSSL==0.13
 
 ## 2/11/16
@@ -1979,6 +1987,8 @@ install `mvn` on Amazon Linux
     mvn --version
 
 ## 2/17/16
+
+loopback
 
     sudo ifconfig lo0 alias 127.0.0.x up
 
@@ -2360,6 +2370,10 @@ backups, backup activity
     curl -sS 'http://localhost:8888/Test_Cluster/backup-activity?count=$N'
     curl -sS 'http://localhost:8888/Test_Cluster/backup-activity/full_status?week=201618&event_time=1462462500&backup_id=opscenter_ddbd74f0-4152-4dbd-92e8-f7f76a7eb4b2_2016-05-05-15-35-00-UTC&type=backup&destination=OPSC_ON_SERVER' 
     
+run backup immediately    
+
+    curl -sS http://localhost:8888/Test_Cluster/backups/run --data '{"keyspaces":["foobar"],"destinations":{"b1ef74a5f4f440208aad085f4e490449":{}}}'
+    
 create destination
 
     curl -sS -X POST 'http://localhost:8888/Test_Cluster/backups/destinations' -d '{"provider":"s3","path":"scottbale","access_key":"TODO","access_secret":"TODO"}'
@@ -2632,4 +2646,191 @@ My current command to invoke `lein repl` - need to make an alias?
 
 s3
 
+    aws s3 help
     aws s3 ls scottbale/snapshots/
+    aws s3 ls s3://scottbale/snapshots/
+    aws s3 rm help
+    aws s3 rm --dryrun --recursive s3://scottbale/snapshots/
+    
+## 7/5/16
+
+automaton setup
+
+    ~/dev/automaton $ python setup.py build install
+
+repair service (opsc); repairs (Cassandra)
+* merkle tree
+* built during compaction, "validation compaction"
+
+    curl -v --user scott.bale:...pw... -L https://downloads.datastax.com/enterprise/dse-5.0.0-bin.tar.gz > my-dse-5.0.0.tar.gz
+
+show emacs line numbers
+
+    M-x linum-mode
+
+increase|decrease text size
+
+    C-x C-+|-
+
+## 7/14/16
+
+Where|how is version of Twisted specified|stored?
+
+    /opscenterd/lib/py/twisted/
+    
+See `_version.py`
+
+linux container: kubernetes, mezos (mezosphere)
+* Google uses kubernetes
+* Wal-Mart uses mezosphere
+* Waze (sp?) map app (Google bought, POC phase)
+Apple, Fed-Ex, Waze, Nike, Kaiser-Permanente, Chase, 
+
+## 7/21/16
+
+enable stdout in twisted trial tests by commenting out: 
+https://github.com/riptano/ripcord/blob/master/opscenterd/src/opscenterd/Logging.py#L296
+
+    def installLogbackPublisherToTwisted():
+    #    remove_startup_observer()
+
+## 8/11/16
+
+TODO support questions
+
+* how does opsc logging work
+* how is opsc installed
+* opsc encryption|SSL
+
+security glossary
+* DES
+* symmetric encryption
+* assymetric encryption
+* cacerts - a Java truststore file
+* keystore
+* truststore
+* kerberos
+* TLS/SSL
+* X.509
+* PEM - Privacy-Enhanced Mail, an ASCII encoding of DER using Base64 encoding - a PEM file is a text file of base64 encoded strings
+* DER - Distinguished Encoding Rules, subset of BER with one way encoding.  X.509 relies on DER.
+* Java JCE
+* Java JKS - Java KeyStore file format
+* bcrypt
+* SHA
+* AES
+* des3
+* BouncyCastle BKS
+* PKSC 12 - archive file format for storing multiple crytographic objects - alternative to PEM
+* CA - Certificate Authority
+
+## 8/12/16
+
+    ~/dev $ mv ripcord/opscenterd/node_modules .node_modules/5.2.x/
+    ~/dev $ mv .node_modules/5.2.x/node_modules ripcord/opscenterd/
+    ~/dev $ mv ripcord/opscenterd/node_modules .node_modules/5.2.x/
+    ~/dev $ mv .node_modules/6.0.x/node_modules ripcord/opscenterd/
+
+# OPSC-9999
+
+Alfred App on OS X
+
+    netstat -lnt
+
+`.cert` files are just text with keys in them
+
+`opscenter.conf`
+
+    ssl_keyfile=Cass...-key.pem
+    ssl_certfile=2-Cass...cert.crt
+
+`3-Cass...cert.crt` is ordered differently
+
+emacs regex `foo` word boundary
+
+    \bfoo\b
+    
+## 8/15/16
+
+SSL
+
+    openssl x509 -text -noout -in [foo.cer|foo.pem|foo-cert-chain-pem-encoded.crt]
+    openssl x509 -inform pem -in nuge.pem -pubkey -noout
+    keytool -printcert -v -file foo.crt
+
+## 8/16/16
+
+    brew install nmap
+    nmap -p 8888 127.0.0.1
+
+"open" means there is a service listening.
+"closed" means that you communicated successfully with the port, and nothing was listening (the OS itself responded with a RST packet, meaning I'm here but no process is listening on the port).
+"filtered" means that you didn't get a response at all. This can mean many things, but shouldn't happen for localhost testing.
+
+    
+    nmap -sV -p 8888 127.0.0.1
+
+## 8/19/16
+
+Open up `Chrome Settings > Show advanced settings > HTTPS/SSL > Manage Certificates`
+
+## 8/25/16
+http://docs.datastax.com/en/opscenter/6.0/api/docs/backups.html#method-delete-a-destination
+http://docs.datastax.com/en/opscenter/6.0/api/docs/backups.html#method-add-or-update-a-destination
+http://docs.datastax.com/en/opscenter/6.0/api/docs/schedules.html#method-update-scheduled-job
+
+## 8/26/16
+
+    brew install p7zip
+    7z x foo.7z
+
+## 8/27/16
+
+https://support.datastax.com/hc/en-us/articles/212109266
+
+## 8/29/16
+
+Keep getting these and similar when trying to switch between 5.2.x-based and 6.0.x-based branches
+
+    fatal: failed to read object 807068e074bdf5e27bd6afbd22ab75509a2ccd33: Interrupted system call
+    fatal: failed to read object dacd945d73bad89c1dd32ce2aaa788057c3a5ac5: Interrupted system call
+
+## 9/1/16
+
+clean up git remote branches, and local branches no longer tracking remotes
+
+    git remote prune origin
+    git branch -vv
+    git branch -a | grep 8xxx
+    git branch -a | grep 8xxx | xargs git branch -D
+    
+## 9/7/16
+
+generate doc
+
+    ~/dev/ripcord/doc/api $ sudo pip install -U -r requirements.txt
+    ~/dev/ripcord/doc/api $ make html-sphinxdoc
+
+EDN (Extensible Data Notation) file
+
+netty.io
+
+line-by-line add chunks to tree
+
+    git add --patch foo
+
+## 9/13/16
+
+riptano/jython - github.com/jythontools/jython
+* update master
+* cherry-pick into ripcord-master
+
+## 9/16/16
+
+    brew install findutils
+    sudo gupdatedb
+    glocate foo
+
+This took me way too long to figure out:
+
+    glocate automaton | grep -v "/Users/scottbale/dev/"

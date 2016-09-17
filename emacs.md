@@ -273,3 +273,14 @@ remember
     mvn dependency:build-classpath
     (println (seq (.getURLs (.getParent (.getContextClassLoader (Thread/currentThread))))))
     (use ['clojure.repl :only ['doc]])
+
+## lines, wrapping, numbering and columns
+
+Emacs line-wrapping and fill column: see `fill-column` variable
+
+    M-q
+    M-x fill-paragraph
+    C-x f
+    M-x set-fill-column
+    (setq-default fill-column 80)
+    M-x column-number-mode
