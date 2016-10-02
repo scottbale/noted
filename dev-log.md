@@ -2834,3 +2834,37 @@ riptano/jython - github.com/jythontools/jython
 This took me way too long to figure out:
 
     glocate automaton | grep -v "/Users/scottbale/dev/"
+
+## 10/1/16
+
+pandoc pdflatex texlive on Mac OS X (why didn't I document this the first time?!)
+
+first this:
+
+    pandoc: pdflatex not found. pdflatex is needed for pdf output.
+    
+googled, found: http://stackoverflow.com/a/22487657 http://tex.stackexchange.com/a/164047
+
+then
+
+    [sbale ~ (mac-os-x)]$brew search texlive
+    Installing TeX from source is weird and gross, requires a lot of patches,
+    and only builds 32-bit (and thus can't use Homebrew dependencies)
+
+    We recommend using a MacTeX distribution: https://www.tug.org/mactex/
+
+    You can install it with Homebrew Cask:
+      brew cask install mactex
+
+first, clean up 
+
+    /usr/local/texlive/2013basic/
+    /Library/TeX/Distributions/.FactoryDefaults/TeXLive-2013-Basic/
+    /usr/texbin symlink
+
+now this:
+
+    pandoc: /Users/sbale/.cabal/share/pandoc-1.11.1/data/templates/template.latex: openBinaryFile:
+    does not exist (No such file or directory)
+
+duh...have to run `KungFuPandoc.sh` from its directory
