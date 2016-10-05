@@ -2835,6 +2835,96 @@ This took me way too long to figure out:
 
     glocate automaton | grep -v "/Users/scottbale/dev/"
 
+## 9/19/16
+
+My copy of automaton is messed up, I can only seem to run it locally.
+
+    ~/dev/automaton $ ./bin/ctool
+    
+But that worked only after deleting install
+
+    rm -fr /usr/local/lib/python2.7/site-packages/automaton-1.0-py2.7.egg/
+    
+See also
+
+    ~/dev/automaton $ python ./setup.py build install
+    env | grep $PATH
+    .bash_profile
+
+testy, bash loop
+
+    for MODE in {"ECB","CFB","CBC","OFB"}; do ./dev/bin/test_roundtrip_encryption.sh $MODE 128 cassandra 2>/dev/null; done
+
+## 9/20/16
+
+emacs `y-or-n-p` and `yes-or-no-p`
+
+TIL VLQ (variable-length quantity) encoding 
+
+## 9/22/16
+
+    ~ $ brew outdated
+    emacs (24.5) < 25.1
+    openssl (1.0.2f, 1.0.2g, 1.0.2h, 1.0.2h_1) < 1.0.2i
+    homebrew/versions/openssl101 (1.0.1r, 1.0.1s, 1.0.1t_1) < 1.0.1u
+    ~ $ brew upgrade openssl homebrew/versions/openssl101
+
+resulted in
+
+    ==> make install MANDIR=/Users/scottbale/.homebrew-clone/Cellar/openssl101/1.0.1u/share/man MANSUFFIX=ssl
+    ==> Caveats
+    A CA file has been bootstrapped using certificates from the system
+    keychain. To add additional certificates, place .pem files in
+      /usr/local/etc/openssl/certs
+
+    and run
+      /usr/local/opt/openssl101/bin/c_rehash
+
+    This formula is keg-only, which means it was not symlinked into /usr/local.
+
+    Apple has deprecated use of OpenSSL in favor of its own TLS and crypto libraries
+
+    Generally there are no consequences of this for you. If you build your
+    own software and it requires this formula, you'll need to add to your
+    build variables:
+
+        LDFLAGS:  -L/usr/local/opt/openssl101/lib
+        CPPFLAGS: -I/usr/local/opt/openssl101/include
+        PKG_CONFIG_PATH: /usr/local/opt/openssl101/lib/pkgconfig
+
+## 9/23/16
+
+List statistics of tip commit of all local branches (looking for a certain modified file)
+
+    git branch | xargs -I foo git lg --stat foo^!
+
+## 9/25/16
+
+Emacs 25.1
+
+    brew upgrade emacs
+    
+    ==> Caveats
+    Please try the Cask for a better-supported Cocoa version:
+      brew cask install emacs
+
+    To have launchd start emacs now and restart at login:
+      brew services start emacs
+    Or, if you don't want/need a background service you can just run:
+      emacs
+
+    .app bundles were installed.
+    Run `brew linkapps emacs` to symlink these to /Applications.
+    
+installed to `~/.homebrew-clone/Cellar/emacs/25.1` (including application, drag to dock)
+
+## 9/28/16
+
+LDAP glossary:
+* CN = Common Name
+* OU = Organizational Unit
+* DC = Domain Component
+
 ## 10/1/16
 
 pandoc pdflatex texlive on Mac OS X (why didn't I document this the first time?!)
@@ -2868,3 +2958,5 @@ now this:
     does not exist (No such file or directory)
 
 duh...have to run `KungFuPandoc.sh` from its directory
+
+
