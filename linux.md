@@ -230,10 +230,12 @@ Guide to CLI package managers: `apt`, `yum`, `zypper`
 
 Package managers per dist
 
-* Ubuntu - apt
-* RHEL - yum
-* SUSE -
-* centos - yum
+| dist   | manager | format |
+| ------ | ------- | ------ |
+| Ubuntu | apt     | deb    |
+| RHEL   | yum     | rpm    |
+| centos | "       | "      |
+| SUSE   |         |        |
 
 Note: `repoquery` is a `yum` util:
 
@@ -247,7 +249,7 @@ See installed repos:
     /etc/yum.repos.d/
     zypper lr [-d] [-u]
 
-Add repo:
+Add repo (for `apt-add-repository` debian requires `software-properties-common` or `python-software-properties`):
 
     apt-add-repository url
     curl http://repo.url/foo.repo | sudo tee /etc/yum.repos.d/foo.repo > /dev/null
@@ -286,6 +288,12 @@ See package details:
     apt-cache showpkg pkg
     yum info pkg
     zypper info pkg
+    
+See all available versions of a package 
+
+    apt-cache madison pkg
+    
+  (`madison`? :shrug:)
 
 Install package:
 

@@ -538,7 +538,7 @@ Run hello world
 
 ## 5/9/14
 
-count lines of code
+count lines of code LOC
 
     scott@scott-latitude:~/dev/revelytix-bigdata/fabric/src/main/resources/public/js/rvtx$ find . -name "*.html" -o -name "*.js" | xargs wc -l
 
@@ -1951,7 +1951,7 @@ UI build/config:
 * ant `build.xml`          - `ant ui` runs `npm install`, gulp
 * node npm `package.json`  => bower, gulp
 * Gulp `Gulpfile.js`       - runs bower build for dependencies; sass; babel; tests; ...
-* Bower `bower.json`       => dojo
+* Bower `bower.json`       => dojo and related
 * DOJO `build.profile.js`
 
 Show all ignored and untracked files
@@ -2407,9 +2407,13 @@ python unit tests logged at `opscenterd/tests/test_run.log`
 ## 5/10/16
 
 Python repl, you can either do:
+
     $ python
+    
 to get a python repl or
+
     $ ./opscenterd/bin/jython
+    
 to start a jython repl
 
 ## 5/17/16
@@ -2960,3 +2964,139 @@ now this:
 duh...have to run `KungFuPandoc.sh` from its directory
 
 
+## 10/6/16
+
+    brew switch python 2.7.12
+
+## 10/7/16
+
+some problem w/ SASS task. (sass installed as part of rubygems, which in turn is installed as part of ruby, by homebrew)
+
+    ~/dev/ripcord/opscenterd $ ./node_modules/.bin/gulp sass
+
+where are npm global modules installed?
+
+    npm root
+    npm list -g
+
+to get BSD `ls` (OSX is Berkley)
+
+    brew install coreutils
+    
+list w/o timestamps
+    
+    gls -lh --time-style=+ dev/
+
+homebrew must've screwed up both python and ruby?
+
+    brew switch ruby 2.3.1
+
+## 10/11/16
+
+our merge script failed until I did this
+
+    brew switch readline 6.3.8
+
+curl admin session
+
+    curl -sSX POST -d '{"username":"foo","password":"******"}' 'http://localhost:8888/login'
+    
+returns
+
+    {"sessionid": "868e8c86ef0baeceb753f03e66c29af4"}
+    
+then
+
+    curl -sSH 'opscenter-session:868e8c86ef0baeceb753f03e66c29af4' 'http://localhost:8888/users/scottbale' | python -m json.tool
+    curl -sSH 'opscenter-session:868e8c86ef0baeceb753f03e66c29af4' 'http://localhost:8888/permissions/roles' | python -m json.tool
+    curl -sSX POST -H 'opscenter-session:868e8c86ef0baeceb753f03e66c29af4' -d '{"password":"test","role":"marketing"}' 'http://localhost:8888/users/George' | python -m json.tool
+
+remove `passwd.db` periodically, it is git ignored
+
+## 10/13/16
+
+Craig found
+
+    ./bin/opscenter -f | tee log/opscenter.log
+
+## 10/14/16
+
+auto generate oxygen dita docs
+
+    ./bin/autogen-docs.sh
+
+> Build finished. The HTML pages are in _build/html-sphinxdoc.
+
+## 10/18/16
+
+brew|pip|python all messed up
+
+    $ brew info python
+    ...
+    ==> Caveats
+    Pip and setuptools have been installed. To update them
+      pip install --upgrade pip setuptools
+    
+
+    pip install --upgrade pip
+    sudo pip install --upgrade setuptools
+
+don't even get me started on ansible playbook...
+
+SQLite Database Browser
+
+## 10/19/16
+
+JIRA search for "not closed" tickets:
+* use “resolution=unresolved"
+* then filter more by “status not in (foo, bar, yadayadayada)"
+
+## 10/21/16
+
+straightening out ccm. Looks like I `pip`-installed pcmanus one, and git-clone'd internal `riptano` one. Going to try uninstalling the first.
+
+remember: 
+
+    ctool list_repos
+
+## 10/24/16 
+
+some manual pip installs needed for using openstack with automaton
+
+    sudo chown -R scottbale /usr/local/bin/
+    pip install python-novaclient python-keystoneclient funcsigs wrapt netifaces==0.10.5 positional monotonic
+
+## 10/25/16
+
+TIL tmux `Meta, Ctrl-o` swaps panes
+
+TIL `uptime`
+
+emacs see enabled color themes
+
+    C-h v custom-enabled-themes
+    
+## 10/26/16
+
+    :office: :parrot_conga: :parrot_conga: :parrot_conga: :parrot_conga: :parrot_conga: :parrot_conga: :parrot_conga: :parrot_conga: :parrot_conga: 
+
+bash trick
+
+    $ foo="roguebarbase"
+    $ echo $foo
+    roguebarbase
+    $ echo ${foo/bar/1}
+    rogue1base
+
+## 10/27/16
+
+git, change committer of HEAD
+
+    GIT_COMMITTER_NAME='Scott Bale' GIT_COMMITTER_EMAIL='scott.bale@datastax.com' git commit --amend
+    git log --format=fuller HEAD^!
+
+## 10/28/16
+
+github diff branch
+
+    https://github.com/riptano/ripcord/compare/6.0.x...6946-ldap
