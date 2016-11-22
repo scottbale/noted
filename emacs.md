@@ -284,3 +284,13 @@ Emacs line-wrapping and fill column: see `fill-column` variable
     M-x set-fill-column
     (setq-default fill-column 80)
     M-x column-number-mode
+
+combining character e.g. diacritical marks (such as accents)
+
+    x C-x 8 <RET> 0301 <RET>
+
+yields
+
+    x́
+    
+

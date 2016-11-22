@@ -2078,6 +2078,8 @@ prop|config files
 
 opsc ports: 7100, 9042
 
+### C* basics:
+
 keyspace = collection of tables
 * replication factor, set per DC
 
@@ -2841,8 +2843,9 @@ This took me way too long to figure out:
 
 ## 9/19/16
 
-My copy of automaton is messed up, I can only seem to run it locally.
+My copy of automaton is messed up, I can only seem to run it in-place (i.e. not install it).
 
+    ~/dev/automaton $ python ./setup.py build
     ~/dev/automaton $ ./bin/ctool
     
 But that worked only after deleting install
@@ -3031,6 +3034,10 @@ auto generate oxygen dita docs
 
 brew|pip|python all messed up
 
+    $ brew config
+    
+See https://github.com/Homebrew/brew/pull/1262 - moved Cellar from `/usr/local/homebrew/Cellar` to `/usr/local/Cellar`
+
     $ brew info python
     ...
     ==> Caveats
@@ -3040,6 +3047,11 @@ brew|pip|python all messed up
 
     pip install --upgrade pip
     sudo pip install --upgrade setuptools
+    
+Not sure this symlink is needed anymore:
+
+    $ ll /usr/local/homebrew
+    lrwxr-xr-x  1 scottbale  staff    32B Feb  1  2016 /usr/local/homebrew -> /Users/scottbale/.homebrew-clone
 
 don't even get me started on ansible playbook...
 
@@ -3053,7 +3065,7 @@ JIRA search for "not closed" tickets:
 
 ## 10/21/16
 
-straightening out ccm. Looks like I `pip`-installed pcmanus one, and git-clone'd internal `riptano` one. Going to try uninstalling the first.
+straightening out ccm. Looks like I `pip`-installed pcmanus one, and git-clone'd internal `riptano` one. Going to try uninstalling the first. *update 11/1* looks like `ccm` is a dev dependency, see `dev/requirements.txt`, and it picks up the pcmanus one.
 
 remember: 
 
@@ -3097,6 +3109,69 @@ git, change committer of HEAD
 
 ## 10/28/16
 
-github diff branch
+github diff branch (example)
 
     https://github.com/riptano/ripcord/compare/6.0.x...6946-ldap
+
+## 10/31/16
+
+DataStax academy DS201
+
+Reading `SSTable`:
+* partition index (token, byte offset) (HDD)
+* summary index (RAM) - index into partition index
+* key cache (RAM) - bypasses indexes
+* bloom filter - partition is not, or might be, in this sstable (false positives are rare and tunable)
+
+`partition`
+* grouping of data
+* ordering scheme for on disk
+* mergesort in memory
+* `partition key` yields token (from `partitioner`) - partition key is 1st value in primary key
+    * additional piece(s) of PK is `clustering column` e.g. "Primary Key ((state), city, name, id)"
+
+`compaction`
+* combines/merges sstables
+* drops tombstones after expired gc grace
+* drops drop records
+
+GC grace/tombstones? - About deletes:
+* deletion occurs during compaction, not immediately
+* C* column can have optional `TTL` expiration date. After expiry, column marked with
+  `tombstone`. Tombstone exists for `gc_grace_seconds` (defaults to 10 days)
+* a deleted column can reappear due to entropy. Specifically, if a replica was down longer than gc
+  grace period and did not receive delete.
+
+new DSE 5.0.3 cluster:
+
+    $ ccm create dse-503-1 --dse --dse-username=your_username --dse-password=your_password -v 5.0.3 -n 3
+    Downloading http://downloads.datastax.com/enterprise/dse-5.0.3-bin.tar.gz to /var/folders/0l/mc......tar.gz (627.182MB)
+
+## 11/1/16
+
+containers: docker, lxc, lxd
+
+## 11/2/16
+
+to just run .clj tests on file save, similar to `gulp watch`:
+
+    lein quickie
+
+## 11/7/16
+
+FSA (doesn't roll over) vs HSA
+
+## 11/9/16
+
+homebrew has both `n` and `nvm`, competing node.js version managers (as opposed to just `brew install node`)
+
+## 11/14/16
+
+find empty directories [named foo]
+
+    find . -type d -empty [-name foo]
+
+## 11/21/16
+
+learned how, in emacs, to place Unicode combining characters (such as accents) on top of a
+character.
