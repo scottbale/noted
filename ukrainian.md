@@ -10,7 +10,7 @@ Verbs
 | English                 | Ukrainian                            | pg  |
 | ----------------------- | ------------------------------------ | ----|
 | see                     | ба́ч\|ити, ~Ять                       | 352 |
-| look                    | диви́тися, ~                          |     |
+| look                    | (по)див\|и́тися, ~люся, ~ишся, ~ляться| 353 |
 | hear                    | чу́\|ти                               |     |
 | listen                  | слу́хати                              |     |
 | say                     | (с)каза́ти, ~уть                      | 360 |
@@ -34,31 +34,37 @@ Verbs
 | think                   | ду́мати
 | give                    | да\|ва́ти, ~ють                       | 353 |
 | buy                     | купува́ти
-| stop
-| draw
-| brush
-| forget
-| remember
-| clean
-| work
-| repeat
-| swim
-| wait
-| stay
+| stop                    | зупиняти
+| draw                    | 
+| brush                   | (по)чистити, чишу, ~иш, ~Ять
+| forget                  | забувати, ~ють
+| remember                | (за)пам'ятати, ~ють
+| clean                   | прибирати, ~ють
+|                         | прибраит, приберуть
+| work                    | працювати
+| repeat                  | повторювати(ся)
+| swim                    | плавати, ~ють
+| wait                    | (по)чекати, ~ють
+| stay                    | (за)лишатися
 | sit down
-| try
-| let('s us)
-| live (location)
-| turn off
-| turn on
-| rest
-| have breakfast
-| have lunch
-| have dinner
-| help
-| play
-| go for walk
-| permit, let, allow
+| try                     | (по)пробувати, ~ють
+| let('s us)              | давати, ~ють
+|                         | дати (irregular)
+| live (location)         | жити
+| turn off                | вимикати, ~ють
+|                         | вимкнути, ~уть
+| turn on                 | влучати
+|                         | влучити
+| rest                    | відпочивати, ~ють (don't drop "BA")
+|                         | відпочити, ~чинцть (unusual 1st conj)
+| have breakfast          | (по)снідати, ~ють
+| have lunch              | (по)обідати, ~ють
+| have dinner             | (по)вечеряти, ~ють
+| help                    | допомагати, ~ють
+| play                    | (по)грати, ~ють
+| go for walk             | (по)гуляти, ~ють
+| permit, let, allow      | дозволяти, ~ють
+|                         | дозволити, ~ять
 | go
 | stay
 | come
