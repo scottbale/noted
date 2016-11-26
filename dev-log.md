@@ -2572,7 +2572,12 @@ I should have gotten this straight long ago:
 * `nrepl` - aka `tools.nrepl`, Clojure networked REPL - `clojure` org on github
 * `cider-nrepl` - "A collection of nREPL middleware designed to enhance CIDER." - `clojure-emacs` org on github
 
-In `project.clj`, upgraded `tools.nrepl` to `0.12.0` to match Emacs package `cider.el` version. That seemed to fix it!
+In `project.clj`, upgraded `tools.nrepl` to `0.12.0` to match Emacs package `cider.el` version. That
+seemed to fix it!
+(Update 11/22: I don't understand what I meant by this! Which `project.clj`? Presumably agent, but
+it currently uses version `0.2.3`. What about version of `tools.nrepl` in `~/.lein/profiles.clj`?
+Currently `0.2.12`. I think what I meant was, version of `cider-nrepl` specified in
+`~/.lein/profiles.clj` has to match version of `cider` emacs package.)
 
 Cider quit `C-c C-q`
 
@@ -3175,3 +3180,34 @@ find empty directories [named foo]
 
 learned how, in emacs, to place Unicode combining characters (such as accents) on top of a
 character.
+
+## 11/22/16
+
+emacs regex alternative (have to escape the parens and pipe character)
+
+    \(remaining\|running\|completed\)_tasks
+    
+will match `remaining_tasks`, `running_tasks`, `completed_tasks`
+
+## 11/25/16
+
+Switching my phone over to cyanogenmod
+
+* 1Password Families requires Android 5.0 (Lollipop) or later
+* Samsung Galaxy S4 Mini, currently Android 4.4.x (KitKat)
+* Available: CyanogenMod (Android): 10.1 (4.2), 10.2 (4.3), 11 (4.4 KitKat), 12 (5.0 Lollipop), 12.1 (5.1), 13 (6.0 Marshmallow)
+
+Checklist
+* disable 2FA (Google Chrome Authenticator app) (or use backup codes)
+    * google accounts, dropbox: temporarily switched to Authenticator on old phone
+    * AWS - had to deactivate, reactivate (prompted for two codes each time)
+    * looks like Facebook no longer supports Google Authenticator - lame
+    * github let me switch phones, but generated different backup codes :(
+    * dnsimple - deactivate/reactivate, generated single recovery code, made me confirm it!
+    * slack - looks like I only had 2FA enabled for teradata (not available for DS, disabled for Clojurians TODO)
+* unregister phone from everywhere (amazon, google, 1password, etc.)
+* backup contact info, photos
+* what's verizon voicemail #?
+* https://wiki.cyanogenmod.org/w/Install_CM_for_serranoltexx
+* reinstall apps
+* re-enable 2FA, 1password, etc.
