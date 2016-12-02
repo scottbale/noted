@@ -3195,7 +3195,8 @@ Switching my phone over to cyanogenmod
 
 * 1Password Families requires Android 5.0 (Lollipop) or later
 * Samsung Galaxy S4 Mini, currently Android 4.4.x (KitKat)
-* Available: CyanogenMod (Android): 10.1 (4.2), 10.2 (4.3), 11 (4.4 KitKat), 12 (5.0 Lollipop), 12.1 (5.1), 13 (6.0 Marshmallow)
+* Available: CyanogenMod (Android): 10.1 (4.2), 10.2 (4.3), 11 (4.4 KitKat), 12 (5.0 Lollipop), 12.1
+  (5.1), 13 (6.0 Marshmallow)
 
 Checklist
 * disable 2FA (Google Chrome Authenticator app) (or use backup codes)
@@ -3204,10 +3205,40 @@ Checklist
     * looks like Facebook no longer supports Google Authenticator - lame
     * github let me switch phones, but generated different backup codes :(
     * dnsimple - deactivate/reactivate, generated single recovery code, made me confirm it!
-    * slack - looks like I only had 2FA enabled for teradata (not available for DS, disabled for Clojurians TODO)
+    * slack - looks like I only had 2FA enabled for teradata (not available for DS, disabled for
+      Clojurians TODO)
 * unregister phone from everywhere (amazon, google, 1password, etc.)
 * backup contact info, photos
 * what's verizon voicemail #?
 * https://wiki.cyanogenmod.org/w/Install_CM_for_serranoltexx
 * reinstall apps
 * re-enable 2FA, 1password, etc.
+
+## 11/28/16
+
+I've given up on trying to install cyanogenmod on my Galaxy S4 Mini. Can't get heimdall to talk to
+the phone. Grrr.
+* put all 2FA back on to S4 Mini (sigh). Facebook _does_ allow Google authenticator, just have to
+  activate it by 16-digit key rather than scan barcode.
+* Next step: shop for a Google Nexus 5, 6, 5X or 6P (new or refurbished)
+
+Unlocked Android phone on Verizon for Dummies
+* 4G LTE network (formerly exclusively CDMA)
+* SIM card - stores IMSI (International Mobile Subscriber Identity) number and key
+* https://www.verizonwireless.com/support/4g-sim-card-faqs/
+* Google Nexus 6, 7 only "officially" supported by Verizon https://www.verizonwireless.com/support/simulators/
+* Nexus 5 internal radio appears to be physically incompatible w/ Verizon LTE bands
+
+| Phone   | RAM (GB)| Ps (GHz)   | Sto (GB) | Android Version      | Display (mm, res) |
+| ------- | ------- | ---------- | -------- | -------------------- | ----------------- |
+| S4 Mini | 1.5     | 1.7        | 8        | 4.4.2 KitKat         | 108, 960x540      |
+| Nexus 6 | 3       | 2.7        | 32, 64   | 5.0 Lollipop         | 151, 1440x2560    |
+| Pixel   | 4       | 2.15       | 32, 128  | 7.1 Nougat           | 130,              |
+
+## 11/29/16
+
+TIL EWMA (exponentially weighted moving average) chart
+
+## 11/30/16
+
+TIL FPGA; Amazon Lightsail VPS ("DigitalOcean killer")
