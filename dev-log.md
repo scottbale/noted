@@ -3242,3 +3242,14 @@ TIL EWMA (exponentially weighted moving average) chart
 ## 11/30/16
 
 TIL FPGA; Amazon Lightsail VPS ("DigitalOcean killer")
+
+## 12/2/16
+
+DAC notes
+* CD (redbook) digital audio: 16-bit resolution, 44.1 kHz samling
+* higher quality digital audio commonly: 24-bit, 96 kHZ
+* FLAC - VLC player
+* bandcamp FLAC, exact quality is dependent on artist uploads - https://bandcamp.com/help/downloading
+* mp3 VBR (variable-bit encoding)
+* S/PDIF sounds pretty cool
+* Firewire IEEE 1394
