@@ -77,42 +77,42 @@ Verbs
 Vocab
 -----
 
-January - сі́чень
-February - лю́тий
-March - бе́резень
-April - кві́тень
-May - тра́вень
-June - че́рвень
-July - ли́пень
-August - се́рпень
-September - ве́ресень
-October - жо́втень
-November - листопа́д
-December - гру́день
+* January - сі́чень
+* February - лю́тий
+* March - бе́резень
+* April - кві́тень
+* May - тра́вень
+* June - че́рвень
+* July - ли́пень
+* August - се́рпень
+* September - ве́ресень
+* October - жо́втень
+* November - листопа́д
+* December - гру́день
 
-spring - весна́
-summer - лі́то
-autumn - о́сінь (восени́, мину́лої осе́ни)
-winter - зима́ (узи́мку)
+* spring - весна́
+* summer - лі́то
+* autumn - о́сінь (восени́, мину́лої осе́ни)
+* winter - зима́ (узи́мку)
 
-Monday - понеді́лок
-Tuesday - вівто́рок
-Wednesday - середа́ (у се́реду)
-Thursday - четве́р
-Friday - п'я́тниця
-Saturday - субо́та
-Sunday - неді́ля
+* Monday - понеді́лок
+* Tuesday - вівто́рок
+* Wednesday - середа́ (у се́реду)
+* Thursday - четве́р
+* Friday - п'я́тниця
+* Saturday - субо́та
+* Sunday - неді́ля
 
-red - черво́ний
-orange - ора́нжевий
-yellow - жо́втий
-green - зеле́ний
-blue - си́ній
-purple - фіоле́товий
-brown - кори́чневий, брунатний
-white - бі́лий
-black - чо́рний
-gray - сі́рий
+* red - черво́ний
+* orange - ора́нжевий
+* yellow - жо́втий
+* green - зеле́ний
+* blue - си́ній
+* purple - фіоле́товий
+* brown - кори́чневий, брунатний
+* white - бі́лий
+* black - чо́рний
+* gray - сі́рий
 
 Exercises
 ---------
