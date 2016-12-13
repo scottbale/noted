@@ -3253,3 +3253,22 @@ DAC notes
 * mp3 VBR (variable-bit encoding)
 * S/PDIF sounds pretty cool
 * Firewire IEEE 1394
+
+## 12/9/16
+
+Advice on long-term, robust, redundant storage of personal digital treasures (family pix, videos):
+
+1. Crashplan
+    a. $9/mo
+    a. memory intensive (stores hash of every block in RAM)
+    a. initial backup slow, on order of weeks
+    
+1. local 
+    a. ZFS raid-1
+    a. ZFS filesystem has nice properties built-in
+    a. desktop (8 GB Ram, 4 would be fine), drives inside case? Nope: "I got a cardbus or whatever
+    eSATA card and the drives are in a dual-bay eSATA case...(the eSATA raid-1 can push ~100MB/sec
+    linear reads, but usb2 tops out at maybe 35MB/s)"
+    a. recommend recent version of Ubuntu as host, for ease of integration with ZFS
+    a. SAMBA for access by other OS (SAMBA provides cifs/smb)
+    a. plex (browser-only interface for photos, videos, music)
