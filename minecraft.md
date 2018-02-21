@@ -76,3 +76,30 @@ OS X - run Minecraft jar via command line
     
 Save to file called `something.command`, `chmod a+x` on it. (I stashed
 it in `/Applications/`, then dragged onto the dock.)
+
+## 11/5/17
+
+bulpeppers status page: https://balehaus.org/bulpeppers.html
+Bulpeppers minecraft version: 1.12.2
+forge version: 1.12.2-14.23.0.2529
+
+    wget http://files.minecraftforge.net/maven/net/minecraftforge/forge/1.12.2-14.23.0.2529/forge-1.12.2-14.23.0.2529-universal.jar
+
+D upload his own world files from iMac to git:
+
+    ~/Users/[username]/Library/Application Support/minecraft/saves/
+    
+    ssh-add [ssh key]
+    git init
+    git remote add -t master origin [aws codecommit url]
+
+start server notes
+* forge very nicely provides direct download links for installer jar and universal jar, plus
+  checksums http://files.minecraftforge.net/
+* D emailed me a bunch of links to mod jar downloads. Couldn't get them to download to server
+  directly with `curl`. !@%!^#!^!! Had to download them all w/ browser, tar them up, and scp them to
+  server.
+* Put mod `.jar` files in `mods/` folder
+* Forgot to install and run installer at first (see instructions above)
+* startup logging gave me a bunch of warnings about version mismatches (from D creating the world
+  files with different mod versions installed)

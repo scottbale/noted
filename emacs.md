@@ -237,6 +237,8 @@ end
 call
 
     M-x kmacro-call-macro
+    C-x e
+    <f4>
 
 ## variables
 
@@ -294,3 +296,21 @@ yields
     x́
     
 
+## help
+
+general "all-purpose" help
+
+    C-h a
+    
+investigate specific keybinding
+
+    C-h c (brief)
+    C-h k
+    
+"describe mode" see all keybindings
+
+    C-h m
+
+"describe bindings"
+
+    C-h b

@@ -292,6 +292,7 @@ See package details:
 See all available versions of a package 
 
     apt-cache madison pkg
+    yum --showduplicates list pkg | expand
     
   (`madison`? :shrug:)
 

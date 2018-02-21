@@ -979,7 +979,7 @@ git, find commit with `blarg` in commit message
 ### Is a commit in branch?
 
 Assuming a commit `a21bf32` is found, see what (local and remote)
-branches it's in:
+branches contains commit:
 
     git branch -a --contains a21bf32
     git tag --contains a21bf32
@@ -2154,6 +2154,16 @@ simple keyspace
 and
 
     ccm node1 nodetool getendpoints foobar peeps 1;
+    
+(later)
+
+    cqlsh:foobar> alter table peeps add loudness int;
+    cqlsh:foobar> update peeps set loudness=3 where id=1;
+    cqlsh:foobar> update peeps set loudness=11 where id=2;
+    cqlsh:foobar> insert into peeps (id, name, address, phone, loudness) values ( 3, 'M. Loaf', 'WI', '867-3333', 8);
+    cqlsh:foobar> create materialized view loudest as select id, name, loudness from peeps where
+    name is not null and loudness is not null primary key (loudness, id) with clustering order by
+    (loudness desc);
 
 ## 3/14/16
 
@@ -2673,7 +2683,10 @@ repair service (opsc); repairs (Cassandra)
 * merkle tree
 * built during compaction, "validation compaction"
 
-    curl -v --user scott.bale:...pw... -L https://downloads.datastax.com/enterprise/dse-5.0.0-bin.tar.gz > my-dse-5.0.0.tar.gz
+        curl -O -v --user scott.bale@datastax.com:password -L https://downloads.datastax.com/enterprise/dse-5.0.0-bin.tar.gz 
+        curl -O -v --user scott.bale@datastax.com:password -L https://downloads.datastax.com/enterprise/opscenter-6.1.0.tar.gz
+        
+    (Was able to load https://downloads.datastax.com/enterprise/ in browser, prompted for ds academy credentials)
 
 show emacs line numbers
 
@@ -3129,7 +3142,7 @@ Reading `SSTable`:
 * bloom filter - partition is not, or might be, in this sstable (false positives are rare and tunable)
 
 `partition`
-* grouping of data
+* grouping of data (single row or mult. rows)
 * ordering scheme for on disk
 * mergesort in memory
 * `partition key` yields token (from `partitioner`) - partition key is 1st value in primary key
@@ -3139,6 +3152,7 @@ Reading `SSTable`:
 * combines/merges sstables
 * drops tombstones after expired gc grace
 * drops drop records
+* `anticompaction` - incremental repair process of segregating repaired and unrepaired ranges into separate sstables
 
 GC grace/tombstones? - About deletes:
 * deletion occurs during compaction, not immediately
@@ -3146,6 +3160,25 @@ GC grace/tombstones? - About deletes:
   `tombstone`. Tombstone exists for `gc_grace_seconds` (defaults to 10 days)
 * a deleted column can reappear due to entropy. Specifically, if a replica was down longer than gc
   grace period and did not receive delete.
+  
+`vnodes`
+* allows single physical node to have more than one distinct token range
+* 256 by default (pre C* 3.0)
+* post 3.0 much smaller default, configurable in `.yaml` conf file
+
+`replication`
+* per keyspace, DC - 
+
+`consistency` - ONE, ALL, QUORUM, LOCAL_QUORUM
+
+`write path`
+* 1st, to `commit log` (append-only on disk)
+* next, to `MemTable` (RAM, sorted according to data model)
+* periodically, `MemTable` flushed to disk `SSTable` (immutable) 
+    * corresponding commit log removed
+* eventually, you have multiple sstables on disk for a partition 
+    * last write wins - resolution protocol 
+    * needs `compaction`
 
 new DSE 5.0.3 cluster:
 
@@ -3229,11 +3262,12 @@ Unlocked Android phone on Verizon for Dummies
 * Google Nexus 6, 7 only "officially" supported by Verizon https://www.verizonwireless.com/support/simulators/
 * Nexus 5 internal radio appears to be physically incompatible w/ Verizon LTE bands
 
-| Phone   | RAM (GB)| Ps (GHz)   | Sto (GB) | Android Version      | Display (mm, res) |
-| ------- | ------- | ---------- | -------- | -------------------- | ----------------- |
-| S4 Mini | 1.5     | 1.7        | 8        | 4.4.2 KitKat         | 108, 960x540      |
-| Nexus 6 | 3       | 2.7        | 32, 64   | 5.0 Lollipop         | 151, 1440x2560    |
-| Pixel   | 4       | 2.15       | 32, 128  | 7.1 Nougat           | 130,              |
+| Phone     | RAM (GB)| Ps (GHz)   | Sto (GB) | Android Version      | Display (mm, res) |
+| --------- | ------- | ---------- | -------- | -------------------- | ----------------- |
+| S4 Mini   | 1.5     | 1.7        | 8        | 4.4.2 KitKat         | 108, 960x540      |
+| Nexus 6   | 3       | 2.7        | 32, 64   | 5.0 Lollipop         | 151, 1440x2560    |
+| Pixel     | 4       | 2.15       | 32, 128  | 7.1 Nougat           | 130,              |
+| Galaxy S6 | 3       | 2.1        | 32, 128  | 5.0 Lollipop         | 130, 2560x1440
 
 ## 11/29/16
 
@@ -3272,3 +3306,320 @@ Advice on long-term, robust, redundant storage of personal digital treasures (fa
     a. recommend recent version of Ubuntu as host, for ease of integration with ZFS
     a. SAMBA for access by other OS (SAMBA provides cifs/smb)
     a. plex (browser-only interface for photos, videos, music)
+
+## 12/14/16
+
+In emacs dired mode, renamed a bunch of Clojure test files from `test_foo.clj` to `foo_test.clj`:
+* Pull up recursive dired of test src tree as per usual `C-u, M-x, dired`
+* Enter editable `C-x, C-q`
+* Regexp search/replace `C-M-%` with `\(test\)_\([^\.]*\)` and `\2_\1`
+* save `C-x, C-s`
+
+Debug clj classpath:
+
+    (clojure.pprint/pprint (seq (.getURLs (java.lang.ClassLoader/getSystemClassLoader))))
+
+start repl with `test` profile (to include in classpath `:resource-paths` defined for `test` profile)
+
+    lein with-profile +test repl :headless :port 2112
+
+`virtualenv` is a new recent `dev/requirements.txt` addition (see `dev/ansible/opscenterd_dev/tasks/main.yml`)
+
+    pip install virtualenv
+    
+installed v `15.1.0`
+
+## 1/23/17
+
+actually used `virtualenv` today finally (for a sandboxed C* driver example program)
+
+    ~/dev/py $ virtualenv venv
+    ~/dev/py $ source venv/bin/activate
+    (venv) ~/dev/py $ pip install cassandra-driver
+    (venv) ~/dev/py $ deactivate
+    
+to remove, just delete folder
+
+    ~/dev/py $ rm -fr venv
+
+cql remove all rows from a table
+
+    TRUNCATE table;
+
+fix for `Too many open files in system` (specific to OS X Yosemite)
+
+First, increase the kernel limits:
+
+    echo kern.maxfiles=65536 | sudo tee -a /etc/sysctl.conf
+    echo kern.maxfilesperproc=65536 | sudo tee -a /etc/sysctl.conf
+    
+Next, created this file to increase `launchctl` limit of max open files
+
+    sudo cat /Library/LaunchDaemons/limit.maxfiles.plist
+
+Then rebooted, and check various things (apparently, `ulimit` is subservient to `launchctl`):
+
+    sysctl -A | grep kern.maxfiles
+    launchctl limit maxfiles
+    ulimit -a
+
+## 2/20/17
+
+`lein` installed by `ansible` playbook - just downloads stable version
+
+* upgraded from `2.5.3` to `2.7.1` - fixed my emacs `cider|nrepl|cider-nrepl 0.2.10|0.2.12` incompatibility
+
+## 3/31/17
+
+`-922337203685478` (aka `-2^63`) is the min token when using Murmur3 partitioner
+
+## 4/20/17
+
+thrift nonsense
+
+    pip show thrift
+    pip uninstall thrift
+    brew remove thrift
+    brew install thrift090 --with-python --with-java
+    brew options thrift090
+    # echo 'export PATH="/usr/local/opt/thrift@0.90/bin:$PATH"' >> ~/.bash_profile
+    brew link --force thrift090
+    
+## 6/21/17
+
+the highest thread(s) consuming the highest CPU
+
+    top -H -p <pid>
+
+
+## 6/22/17
+
+check out `trapper keeper`, built on top of Clojure `component`
+
+## 6/29/17
+
+Create `~/.lein/credentials.clj.gpg` to replace `profiles.clj` (use passphrase when creating gpg key)
+
+    brew install gpg
+    echo '{#"https://repo.datastax.com/" {:username "user" :password "encrypted-password-from-artifactory"}}' > ~/.lein/credentials.clj
+    gpg --generate-key
+    gpg --default-recipient-self -e ~/.lein/credentials.clj > ~/.lein/credentials.clj.gpg
+    
+troubleshooting
+
+    gpg -k
+    gpg --quiet --batch --decrypt ~/.lein/credentials.clj.gpg
+    lein help gpg
+    
+
+## 7/26/17
+
+mocking time.time() in python unit test
+
+In file being tested:
+
+In test file (`patch` has to go before `defer`)
+
+    import time
+
+    @patch('time.time', Mock(return_value=started_ts))
+    @defer.inlineCallbacks
+    def test_launch_codez(self):
+
+## 8/21/17
+
+had to upgrade node to 6 (but not to 8!)
+
+    npm -version
+    brew upgrade node 
+    brew outdated
+    node --version
+    npm info node
+    brew install node@6
+    node --version
+    npm info node
+    brew switch node 6.9.1
+    node --version
+
+## 8/31/17
+
+TIL `top` for single process
+
+    top -p PID
+    
+or on MAC
+
+    top -pid PID
+
+## 9/6/17
+
+Unlocked Android phone on Verizon for Dummies, revisited (see 11/28/16)
+
+Android OTA (over-the-air) updates is of interest. Google-branced devices get stock Android OTA
+updates direct from Google. Others, e.g. Motorola, get OTA updates from the respective hardware
+vendor? https://source.android.com/devices/tech/ota/
+
+|              |         |            |          |                      | Will be OTA upgraded |                   |
+| Phone        | RAM (GB)| Ps (GHz)   | Sto (GB) | Android Version      |  to Android Version  | Display (mm, res) |
+| ------------ | ------- | ---------- | -------- | -------------------- | -------------------- | ----------------- |
+| S4 Mini      | 1.5     | 1.7        | 8        | 4.4.2 KitKat         |                      | 108, 960x540      |
+| Nexus 6      | 3       | 2.7        | 32, 64   | 5.0 Lollipop         | 7.0 Nougat           | 151, 1440x2560    |
+| Nexus 5x
+| Nexus 6P 
+| Pixel        | 4       | 2.15       | 32, 128  | 7.1 Nougat           |                      | 130,              |
+| Galaxy S6    | 3       | 2.1        | 32, 128  | 5.0 Lollipop         |                      | 130, 2560x1440    |
+| Moto E4 Plus | 2       | 4.13       | 16       | 7.1.1 Nougat         |                      | 130, 1280x720     |
+
+https://en.wikipedia.org/wiki/Comparison_of_Google_Nexus_smartphones
+
+Looks like my Samsung S4 Mini has a micro SIM card, and Nexus 5x needs a nano SIM
+
+## 9/9/17
+
+2FA reset Google authenticator - I need to reset wife's old iphone and then re-init Google
+authenticator. Some accounts (like google) I'm going to use existing backup codes. Others I'm going
+to temporarily disable.
+
+* 4 google accounts - backup codes
+* Amazon AWS - deactivate
+* Dropbox - backup code
+* GitHub - backup code
+* Facebook - disable
+* DNSimple - disable
+* Okta - disable
+* Datastax Academy Slack - backup codes
+
+## 9/13/17
+
+can't remember in iTerm prefs why I mapped right command key to option. Going to revert back and see if I remember...
+
+Now I remember: 
+* `opt-f`, `opf-b` forward backward navigation in terminal, e.g. editing command line.
+* tmux `opt-v` to page back through tmux history
+* navigation in `zile`
+
+### use eslint, jscs in emacs
+
+* `npm install -g eslint jscs jscs-jsdoc`
+* install `flycheck` package
+* install `exec-path-from-shell` package (related: `C-h v exec-path`)
+* stuff in `init.el`
+
+## 9/11/17
+
+gulp watch
+
+    ~/dev/ripcord/opscenterd $ ./node_modules/gulp/bin/gulp.js watch
+
+## 9/18/17
+
+note to self: `git nuke` nuked my `.dir-locals.el`
+
+## 9/19/17
+
+TIL from Tom U
+
+    "$(npm bin)"/gulp …
+    jscs --config src/js/etc/jscsrc src/js/ripcord/widgets/foo/bar.js
+    
+    ❯ whence -c npm-exec
+    npm-exec () {
+            if ! hash npm 2> /dev/null
+            then
+                    return
+            fi
+            local bin="$1"
+            shift
+            "$(npm bin)"/"$bin" "$@"
+    }
+
+## 9/20/17
+
+### iterm keybindings revisited: (See 2/3/16, 9/13/17)
+
+My left thumb is hurting from too much `cmd-tab` switching between apps in OS X. So I want to use my
+right command key for that. Problem is, in iterm (in bash shell) I also want to keep using the
+`alt-` commands I'm accustumed to.
+
+Solution:
+* in iTerm preferences
+  * Profiles->Keys: Option should send `+Esc` (as before)
+  * Keys: Change right command key back to `command`
+  * Keys: `+`, then add `cmd-b` and "send escape sequence" and set to Esc plus "b".
+  * Do that to mimic other desired `alt` commands
+
+## 9/26/17
+
+TIL
+
+* `commons-logging` - an API
+* `log4j` - implementation, common provider of `commons-logging`
+* `slf4j` - an API, successor to `commons-logging`
+* `logback` - implementation, common provider of `slf4j`
+* bridges: jar files containing `commons-logging` classes reimplemented to delegate to `slf4j`
+
+## 9/28/17
+
+    sudo pip install --upgrade setuptools==33.1.1
+    
+## 9/29/17
+
+Great subtle python bug:
+
+    @defer.inlineCallbacks
+    def _gatherDeadline(self, ks, table):
+        deadline = yield self.data_fetcher.getDeadlineSeconds(ks, table),
+        defer.returnValue([{
+            "name": "deadline",
+            "value": deadline,
+            "units": "seconds"
+        }])
+
+trailing comma in 1st line of method makes `deadline` a tuple, not a Deferred! `yield`ing on a tuple
+just returns the tuple, apparently!
+
+## 10/3/17
+
+remotes have conflicting branch names, so create a new branch with diff name that tracks the
+upstream branch
+
+    ~/dev/java-driver-dse $ git branch --track 1.x.upstream upstream/1.x
+
+## 10/5/17
+
+flame graph
+
+## 10/11/17
+
+tupton:
+> if your `ccm stop` is having trouble killing your multi node cluster, `pkill -9 -f cassandra` is pretty useful
+> better than the ol’ `ps aux | grep cassandra`, copy and paste, and `kill -9 <pids>` business that I used to do
+> `pgrep` is also nifty, instead of `ps … | grep …`
+> `pgrep -f` to search the full command line including arguments
+
+## 10/16/17
+
+fast 'n loose grep for IP addresses in a file
+
+    grep -E "\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b" temp.json | less
+    
+## 10/18/17
+
+TIL from Tom U: Quicktime, screen recording, export, ffmpeg, gifsicle
+
+
+    ffmpeg -i ~/Desktop/metrics-dialog.mov -pix_fmt rgb24 -r 10 -f gif - | gifsicle --optimize=3 --delay=7 > ~/Desktop/metrics-dialog.gif
+
+## 11/2/17
+
+TIL about natural sort ordering
+
+asynchronous IO reactor (Java driver uses Netty)
+o_nonblock
+
+## 11/27/17
+
+reading about
+* `rg` instead of `ack` or `ag`
+* vim `fzf` uses `rg`
+* `ripgrep` and `vim-grepper`
