@@ -3623,3 +3623,75 @@ reading about
 * `rg` instead of `ack` or `ag`
 * vim `fzf` uses `rg`
 * `ripgrep` and `vim-grepper`
+
+## 2/21/18
+
+upgrade cassandra python driver in virtual environment
+
+https://github.com/datastax/python-driver
+
+    (venv) ~/dev/py $ pip list
+    (venv) ~/dev/py $ pip help install
+    (venv) ~/dev/py $ pip install -U cassandra-driver
+    (venv) ~/dev/py $ python dataflate.py
+
+## 3/1/18
+
+`groovy-mode` for `.gradle` file syntax emacs highlighting (not `gradle-mode`)
+
+migrating from `lein repl` to `gradle-clojure` plugin
+
+https://github.com/gradle-clojure/
+
+    ~/dev/ripcord $ ./gradlew :agent:nrepl
+
+with `gradlew :agent:nrepl`
+
+    ;; Connected to nREPL server - nrepl://localhost:7888
+    ;; CIDER 0.16.0 (Riga), nREPL 0.2.8
+    ;; Clojure 1.8.0, Java 1.8.0_65
+    ;;     Docs: (doc function-name)
+    ;;           (find-doc part-of-name)
+    ;;   Source: (source function-name)
+    ;;  Javadoc: (javadoc java-object-or-class)
+    ;;     Exit: <C-c C-q>
+    ;;  Results: Stored in vars *1, *2, *3, an exception in *e;
+    WARNING: CIDER requires nREPL 0.2.12 (or newer) to work properly
+    More information.
+    WARNING: CIDER's version (0.16.0) does not match cider-nrepl's version (nil). Things will break!
+    More information.
+    user> 
+
+with `lein repel`
+
+    ;; Connected to nREPL server - nrepl://localhost:2112
+    ;; CIDER 0.16.0 (Riga), nREPL 0.2.12
+    ;; Clojure 1.8.0, Java 1.8.0_65
+    ;;     Docs: (doc function-name)
+    ;;           (find-doc part-of-name)
+    ;;   Source: (source function-name)
+    ;;  Javadoc: (javadoc java-object-or-class)
+    ;;     Exit: <C-c C-q>
+    ;;  Results: Stored in vars *1, *2, *3, an exception in *e;
+    user> 
+
+Tom U says `fzf` is greatest dev tool ever
+
+    ❯ cat ~/.local/bin/git-fuzzy-branch
+    #!/usr/bin/env zsh
+
+    git branch | sed "s/^[\* ] //" | fzf --extended --multi --exit-0 --select-1 --query "$@" --preview="git log {}"
+
+## 3/7/18
+
+Investigating Gradle clojure cider-nrepl support
+
+* `tools.nrepl`
+  * `server.clj` defines `defn start-server`, `defn default-handler`
+* leiningen 
+  * `repl.clj` `defn- server-forms` builds handler, overrideable by plugins (e.g. for additional middleware)
+  * `defn- handler-for` uses `nrepl-middleware` from `project.clj`
+* `cider-nrepl` (additional middleware for `tools.nrepl`)
+  * `plugin.clj` (lein plugin) adds its own middleware to `:repl-options :nrepl-middleware` of `project.clj`
+* `gradule-clojure` (simple gradle clojure plugin)
+  * `clojure_nrepl.clj` - simply calls `nrepl/start-server` only specifying port - no hook to override middleware
