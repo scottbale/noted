@@ -2103,11 +2103,11 @@ consistency level (CL)
 * quorum aka majority = RF / 2 + 1
 * immediate consistency aka ALL - highest latency
 
-ccm [node] dsetool [cmd]
-ccm [node] status - nodetool status
-ccm [node] cqlsh
-ccm [node] nodetool ring
-ccm [node] nodetool getendpoints [keyspace] [table] [partition key value(s)]
+        ccm [node] dsetool [cmd]
+        ccm [node] status - nodetool status
+        ccm [node] cqlsh
+        ccm [node] nodetool ring
+        ccm [node] nodetool getendpoints [keyspace] [table] [partition key value(s)]
 
 write path
 * Memtables - in-memory CQL tables, indexes
@@ -3693,5 +3693,37 @@ Investigating Gradle clojure cider-nrepl support
   * `defn- handler-for` uses `nrepl-middleware` from `project.clj`
 * `cider-nrepl` (additional middleware for `tools.nrepl`)
   * `plugin.clj` (lein plugin) adds its own middleware to `:repl-options :nrepl-middleware` of `project.clj`
-* `gradule-clojure` (simple gradle clojure plugin)
+* `gradle-clojure` (simple gradle clojure plugin)
   * `clojure_nrepl.clj` - simply calls `nrepl/start-server` only specifying port - no hook to override middleware
+
+## 8/29/18
+
+regex non characters
+* `\d` - digits
+* `\w` - alphanumeric
+* `\W` - non-alphanumeric
+* `\s` - whitespace
+* `\S` - non-whitespace
+
+## 10/12/18
+
+APUE - Bulat's review
+recommend 1-5 - foundational
+8-11 super important from POV of software development (not necessarily OS, systems) - help w/ perspective on Java stuff
+1. unix overview
+3. file I/O (atomic operations)
+7. process env
+8.
+9. process relationships - groups, leaders, signal propogation, job control
+10. signals - super important, especially writing servers, signal handling in "reentrant" way
+11. Threads - signal handlers in threads
+14. nonblocking IO (builds on 5. IO)
+
+recommended specs: HTTP (1.1), TCP, DNS, EcmaScript
+
+Fighting complexity: Systems Theory
+- Stephen Wolfram: A New Kind of Science
+
+blocking DNS - InetAddress.getHostByName
+
+blog - Mechanical Sympathy (building software that is CPU, disk, memory aware)
