@@ -3727,3 +3727,169 @@ Fighting complexity: Systems Theory
 blocking DNS - InetAddress.getHostByName
 
 blog - Mechanical Sympathy (building software that is CPU, disk, memory aware)
+
+## 3/29/19
+
+installed Java 12 on Mac - Oracle JDK
+* download and install DMG file (installs to `/Library/Java/JavaVirtualMachines/jdk-12.jdk/`)
+* update `~/.bash_profile` which exports `JAVA_HOME`
+
+## 3/30/19
+
+short-term TODO
+* Java
+* organize dev-log into multiple `.md` files by year?
+* dotfiles 2.0 organization
+  * master should have light, linux-style dotfiles (as would work well on new aws instances)
+  * branch for Mac OS X
+  * branch for full emacs config for
+* rejigger emacs config after the style of Rob
+* install Ubuntu VirtualBox
+
+Java
+* Oracle's Java SE 9 JDK has reached EOL, is no longer available for download
+* Oracle commercial subscription model and 6-month release cadence began with JDK 10
+* OpenJDK binaries still offered by Oracle under GPL (with linking exception?)
+* https://www.azul.com/eliminating-java-update-confusion/
+
+my quest to locally build Gradle documentation
+
+```
+~/dev/gradle $ export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_65.jdk/Contents/Home
+~/dev/gradle $ java -version
+java version "1.8.0_65"
+Java(TM) SE Runtime Environment (build 1.8.0_65-b17)
+Java HotSpot(TM) 64-Bit Server VM (build 25.65-b01, mixed mode)
+~/dev/gradle $ ./gradlew clean
+
+...
+
+* What went wrong:
+Failed to apply plugin [id 'gradlebuild.available-java-installations']
+> Could not create an instance of type org.gradle.gradlebuild.java.AvailableJavaInstallations_Decorated.
+   > Building gradle on Java 7/8 requires java9Home system property or project property
+```
+
+
+lead me down a rabbit hole of trying to install a newer version of Java on this MacBook, then trying
+to understand Oracle's current Java licensing and release model, then beginning the investigation of
+installing VirtualBox since screw OS X for development... then I gave up, because I was only trying
+to quickly build a local copy of gradle documentation for the flight home, which was yesterday as I
+write this.
+
+## 4/1/19
+
+TIL option-click notifications icon to put OS X in do not disturb mode
+
+New VirtualBox Ubuntu vm, OS X host
+* VirtualBox 6.0.4
+* Ubuntu 18.04.3 LTS Bionic Beaver (download was an .iso file)
+* create 80 GB fixed disk size; 4096 Megs RAM
+* `sudo apt-get -y install gcc make perl`
+* after creating and booting vm, `Devices`->`Optical Drive`->`Insert Guest Additions CD Image`, this
+  auto-runs in the vm, builds guest addition kernel modules
+* install git via ppt
+* create new keypair
+* enable bidirectional shared clipboard (under `Devices`)
+* install java `openjdk-8-jdk`
+* install `emacs25`
+
+Notes
+* solarized color theme for Emacs
+  * official color theme page https://ethanschoonover.com/solarized/
+  * officially-endorsed version by `sellout` https://github.com/sellout/emacs-color-theme-solarized
+    looks to have last been updated years ago, and only has installation instructions for emacs 24
+    and older (i.e. no package install)
+  * that leaves two existing packages (via melpa)
+    * bbatsov https://github.com/bbatsov/solarized-emacs `solarized-theme`
+    * purcell https://github.com/purcell/color-theme-sanityinc-solarized
+      `color-theme-sanityinc-solarized` "a different formulation of [sellout's theme]"
+
+## 4/11/19
+
+    brew cask list emacs
+
+TIL `jna`, `jnr`, `jnr-posix`, `sigar`, `oshi`
+
+more ubuntu vm setup
+* emacs config
+* cloned work repo
+* dotfiles - didn't mess with stock `.bashrc` or `.profile` - stock `.profile` sources `.bashrc`,
+  which sources my `.bash_aliases` dotfile
+
+## 4/25/19
+
+# keybindings (See 2/3/16, 9/13/17, 9/20/17)
+
+software/programs whose keybindings I care about
+* emacs (Ctrl where caps lock is, meta keys on either side of space bar)
+* tmux (set prefix to `C-]`)
+* bash command line - subset of emacs navigation plus basic editing, undo
+  * C-a M-b C-b C-l C-f M-f C-e C-d M-d C-k C-y C-/ C-p C-n
+* xmonad (custom bindings)
+  * left window key as meta key
+* all OS
+  * Make caps lock another Ctrl
+  * key-to-left-of-spacebar+spacebar - make spotlight (or equivalent) appear
+* OS X (preferences->keyboard->Modifier Keys)
+  * ⌘-w, ⌘-q, ⌘-c, ⌘-v, ⌘-x, ⌘-tab, ⌘-,
+  * swap `ctrl`, `opt` keys (gives me a right `ctrl` key) on MBP keyboard
+  * magic `opt-⌘-`
+  * mash `ctrl-opt-⌘-`
+* linux
+  * C-w, C-q, C-c, C-v, C-x, alt-tab
+  * by default, `opt` seems to act as stock `M-` key
+* Virtualbox 
+  * left ⌘ is escape key
+  * swapped `ctrl` & `opt` keys in host OS X is reflected in guest Ubuntu
+  * in guest Ubuntu, ⌘ by default seems to operate as `s-` aka "super" (at least in Emacs),
+    equivalent to "windows" key
+
+TIL super key https://en.wikipedia.org/wiki/Super_key_(keyboard_button)
+
+Virtualbox `View`->`Virtual Screen 1` when docked seems to prefer zoom 200%. On MBP I noticed it
+wouldn't display if I sized the window bigger.
+
+I forgot that, in OS X preferences, I have the Apple internal keyboard and the Kinesys freestyle
+configured differently.
+
+The bottom row of keys is what's critical
+* Apple internal
+  * bottom row: fn, ctrl, alt|option, ⌘, space, ⌘, alt|option
+  * Caps lock -> ^ ctrl
+  * Ctrl ^ -> option
+  * option -> ^ ctrl
+  * cmd ⌘ -> ⌘ cmd
+  * bottom row is effectively: opt, ctrl, ⌘, space, ⌘, ctrl
+  * for (guest) ubuntu it is:  alt, ctrl, super, space, super, ctrl
+* Kinesys Freestyle
+  * bottom row: ctrl, window, alt, space, alt, ctrl
+  * Caps lock -> ^ ctrl
+  * Ctrl ^ -> ^ ctrl
+  * option(alt) -> ⌘ cmd
+  * cmd ⌘ -> option(alt)
+  * os x recognizes window key as ⌘ cmd (see prev wikipedia link); alt key as option
+  * bottom row is effectively: ctrl, opt, ⌘, space, ⌘, ctrl
+  * for (guest) ubuntu it is:  ctrl, alt, super, space, super, ctrl
+
+Further complicating things is OS X emacs config
+
+``` emacs-lisp
+;; OS X meta keys
+(setq mac-option-key-is-meta nil)
+(setq mac-command-key-is-meta t)
+(setq mac-command-modifier 'meta)
+(setq mac-option-modifier nil)
+```
+
+What I want for (guest) Ubuntu is
+* bottom row: ctrl, window (super), alt, space, alt, ctrl - which means I may have to make changes
+  to (host) OS X keybindings once I'm ready to switch to VM?
+* kinesys should be unmodified
+* Apple internal should be
+  * Caps lock -> ^ ctrl
+  * Ctrl ^ -> ^ ctrl
+  * option -> ⌘ cmd
+  * cmd ⌘ -> option
+  * making bottom row effectively: ctrl, ⌘ (super), alt, space, alt, ⌘ (super) - so I lose right
+    ctrl but that's tolerable
