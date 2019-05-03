@@ -3893,3 +3893,19 @@ What I want for (guest) Ubuntu is
   * cmd ⌘ -> option
   * making bottom row effectively: ctrl, ⌘ (super), alt, space, alt, ⌘ (super) - so I lose right
     ctrl but that's tolerable
+
+install `gnome-do` (`quicksilver`/`spotlight` equivalent)
+
+## 4/26/19
+
+Dojo modules 
+
+* dojo - dojo 1
+* dijit - dojo 1 UI library
+* dojox - "extras library", contains DataGrid
+* dgrid - SitePen?
+* dojo-util - build utilities
+
+## 4/29/19
+
+    sudo apt-get virtualbox-guest-utils virtualbox-guest-dkms virtualbox-guest-x11
