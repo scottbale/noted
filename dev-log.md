@@ -3909,3 +3909,38 @@ Dojo modules
 ## 4/29/19
 
     sudo apt-get virtualbox-guest-utils virtualbox-guest-dkms virtualbox-guest-x11
+
+## 5/3/19
+
+moving to virtualbox
+* switch host modifier keys (see above)
+* install linux (beta) slack app
+* mount shared host folder ~/code https://gist.github.com/estorgio/1d679f962e8209f8a9232f7593683265
+* did more research on guest display issues on Macbook native display. What I'm reading is it's due
+  to retina HiDSP display, and I just need to manually switch it to scaled 200%
+
+Summarizing modifier key settings for each of the two keyboards, for either using native OS X or
+ubuntu VM (since I'll have to go back and forth at times)
+
+* native OS X
+  * Apple internal keyboard (swap option and ctrl)
+    * Caps lock -> ^ ctrl
+    * Ctrl ^ -> option
+    * option -> ^ ctrl
+    * cmd ⌘ -> ⌘ cmd
+  * Kinesys Freestyle (swap option and cmd)
+    * Caps lock -> ^ ctrl
+    * Ctrl ^ -> ^ ctrl
+    * option(alt) -> ⌘ cmd
+    * cmd ⌘ -> option(alt)
+* Ubuntu VM
+  * Apple internal keyboard (swap option and cmd)
+    * Caps lock -> ^ ctrl
+    * Ctrl ^ -> ^ ctrl
+    * option -> ⌘ cmd
+    * cmd ⌘ -> option
+  * Kinesys Freestyle (unmodified except for Caps lock)
+    * Caps lock -> ^ ctrl
+    * Ctrl ^ -> ^ ctrl
+    * option(alt) -> option(alt)
+    * cmd ⌘ -> ⌘ cmd
