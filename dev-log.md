@@ -3944,3 +3944,34 @@ ubuntu VM (since I'll have to go back and forth at times)
     * Ctrl ^ -> ^ ctrl
     * option(alt) -> option(alt)
     * cmd ⌘ -> ⌘ cmd
+
+## 5/6/19
+
+@#^!$!@!! The "mount shared host folder" steps I followed above caused my vm to boot into emergency
+mode! I had to, from there, edit `/etc/fstab` and remove the line I added. When I rebooted it came
+up fine.
+
+export git stash as patch
+
+    git stash show -p > ../git-stash-patch
+    
+import
+
+    git apply git-stash-patch
+    git stash
+    
+add self to `vboxsf` group
+
+    sudo usermod -aG vboxsf scott
+
+or 
+
+    sudo adduser scott vboxsf
+
+vbox shared folder auto-mounted to
+
+    /media/sf_<name_of_folder>
+    
+manually mount (not sure about the `uid` and `gid` flags)
+
+    sudo mount -t vboxsf -o uid=1000,gid=1000 sharename /home/<user>/vboxshare
