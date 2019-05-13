@@ -3949,7 +3949,7 @@ ubuntu VM (since I'll have to go back and forth at times)
 
 @#^!$!@!! The "mount shared host folder" steps I followed above caused my vm to boot into emergency
 mode! I had to, from there, edit `/etc/fstab` and remove the line I added. When I rebooted it came
-up fine.
+up fine. Don't believe everything you read on the internet!
 
 export git stash as patch
 
@@ -3975,3 +3975,5 @@ vbox shared folder auto-mounted to
 manually mount (not sure about the `uid` and `gid` flags)
 
     sudo mount -t vboxsf -o uid=1000,gid=1000 sharename /home/<user>/vboxshare
+
+increased CPU count from 1 to 4 for ubuntu vm
