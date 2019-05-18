@@ -3977,3 +3977,8 @@ manually mount (not sure about the `uid` and `gid` flags)
     sudo mount -t vboxsf -o uid=1000,gid=1000 sharename /home/<user>/vboxshare
 
 increased CPU count from 1 to 4 for ubuntu vm
+
+## 5/16/19
+
+show emacs line numbers in margin: `M-x linum-mode`
+(Not to be confused with `line-number-mode` and `column-number-mode`)
