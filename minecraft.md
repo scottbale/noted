@@ -103,3 +103,13 @@ start server notes
 * Forgot to install and run installer at first (see instructions above)
 * startup logging gave me a bunch of warnings about version mismatches (from D creating the world
   files with different mod versions installed)
+
+## 7/27/19
+
+debugging clients
+* `Unable to update the Minecraft Native Launcher`
+* binary installed at `/usr/Applications/Minecraft.app`
+* user local stuff installed at `~/Library/ApplicationSupport/minecraft/`
+* Aha... `nativeUpdaterLog.txt` - permissions problem 
+* decided to punt, installed copy for each user in their own `~/Applications/` folder, deleted shared copy at `/Applications/`
+
