@@ -2183,7 +2183,7 @@ TIL `S->|<` is sufficient to page up|down in `less`. (Am used to emacs `S-M->|<`
 
 ccm-create DSE 5.0 nightly
 
-    pushd ${TMPDIR:-/tmp/}; curl --insecure --location https://qa-automaton:3U8ib5na4mvAVY5y@downloads-qa.datastax.com/enterprise/dse-5.0.0-bin.tar.gz | tar xv; popd
+    pushd ${TMPDIR:-/tmp/}; curl --insecure --location https://[qa-uname]:[pwd]@downloads-qa.datastax.com/enterprise/dse-5.0.0-bin.tar.gz | tar xv; popd
     ccm create new-hotness --dse -n 3 --install-dir=${TMPDIR:-/tmp/}dse-5.0.0
 
 lein, cider, nrepl...here we go again
@@ -3982,3 +3982,11 @@ increased CPU count from 1 to 4 for ubuntu vm
 
 show emacs line numbers in margin: `M-x linum-mode`
 (Not to be confused with `line-number-mode` and `column-number-mode`)
+
+## 7/12/19
+
+JavaScript asynchronous module loading, import vs require
+
+## 9/6/19
+
+NVMe - Non Volatile Memory Express - host controller interface & protocol designed for interfacing SSD over PCIe bus (faster than SATA)
