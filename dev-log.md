@@ -3990,3 +3990,45 @@ JavaScript asynchronous module loading, import vs require
 ## 9/6/19
 
 NVMe - Non Volatile Memory Express - host controller interface & protocol designed for interfacing SSD over PCIe bus (faster than SATA)
+
+## 10/3/19
+
+Ubuntu Full Disk Encryption (FDE)
+* eCryptfs - claimed to be buggy now
+* fscrypt
+* LUKS (Linux Unified Key Setup) - only if erase hard disk on Ubuntu installation
+* LVM (logical volume management)
+
+### new Ubuntu 19.04 install
+
+prepare live SD card
+* download .iso, verify checksum
+
+        echo "2da6f8b5c65b71b040c5c510311eae1798545b8ba801c9b63e9e3fd3c0457cbe *ubuntu-19.04-desktop-amd64.iso" | shasum -a 256 --check
+
+* format SD card (from OS X, to be booted by PC) - results in (expected) error message "disk not readable"; eject SD
+
+        hdiutil convert ubuntu-19.04-desktop-amd64.iso -format UDRW -o ubuntu-19.04-desktop-amd64.img
+        diskutil list
+        diskutil unmountDisk /dev/disk2
+        sudo dd if=ubuntu-19.04-desktop-amd64.img.dmg  of=/dev/disk2 bs=1m
+
+installation
+* Dell Precision boot menu - F12
+
+        Boot mode is set to: UEFI; Secure Boot: ON
+    
+* UEFI (Unified Extensible Firmware Interface)
+* System settings - F2
+* Had to enable secure boot from card reader
+  * F2 - system settings
+  * in the BIOS, go to System Configuration, Miscellaneous Devices
+  * Enable Secure Digital (SD) Card Boot
+  * apply, exit
+  * F12 into one time boot menu
+
+Glossary
+* UEFI (Unified Extensible Firmware Interface)
+* GPT (GUID Partition Table) - disk partitioning scheme, alternative to PC's MBR (Master Boot Record)
+* GRUB (GNU GRand Unified Bootloader) - 2nd stage boot loader
+* NVMe disk
