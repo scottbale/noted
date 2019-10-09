@@ -4011,7 +4011,7 @@ prepare live SD card
         hdiutil convert ubuntu-19.04-desktop-amd64.iso -format UDRW -o ubuntu-19.04-desktop-amd64.img
         diskutil list
         diskutil unmountDisk /dev/disk2
-        sudo dd if=ubuntu-19.04-desktop-amd64.img.dmg  of=/dev/disk2 bs=1m
+        sudo dd if=ubuntu-19.04-desktop-amd64.img.dmg of=/dev/disk2 bs=1m
 
 installation
 * Dell Precision boot menu - F12
@@ -4032,3 +4032,24 @@ Glossary
 * GPT (GUID Partition Table) - disk partitioning scheme, alternative to PC's MBR (Master Boot Record)
 * GRUB (GNU GRand Unified Bootloader) - 2nd stage boot loader
 * NVMe disk
+
+## 10/7/19
+
+Dell Precision 5530, x64-based
+* intel i7 - 6 core, 2.60GHz
+* 32.0 GB RAM
+* secure boot on
+* BIOS mode - UEFI
+
+GPT partition
+* /boot partition unencrypted
+
+TIL
+* For disk name `sda`, sd stands for "SCSI device" for historical reasons. "a" is assigned to the
+  first disk. 2nd disk often named `sdb`, etc. Child partitions are named `sda1`, etc.
+
+## 10/8/19
+
+linux stuff
+* `swapon -s` to get summary of swap info
+* `lsblk` list block devices 
