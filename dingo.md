@@ -27,9 +27,9 @@ After this it was easy. Was prompted for a security key to encrypt|decrypt the i
 ![confirm](img/confirm.jpg)
 
 > The following partitions are going to be formatted:
-> LVM VG ubuntu-vg, LV root as ext4
-> LVM VG ubuntu-vg, LV swap_1 as swap
-> partition #1 of /dev/nvme0n1 as ESP
+> * LVM VG ubuntu-vg, LV root as ext4
+> * LVM VG ubuntu-vg, LV swap_1 as swap
+> * partition #1 of /dev/nvme0n1 as ESP
 
 And then the installatin proceeded. It's worth noting that, at least on my laptop, the "Encrypt..."
 and "Use LVM..." checkboxes were linked. That is, checking|unchecking one automatically
@@ -46,7 +46,43 @@ But getting to that screen took some doing. I had to
 * in BIOS (`F2` on bootup)
   * enable secure boot from SD card
   * change `SATA` setting to `AHCI`
+  
+### bootable SD card
 
+prepare live SD card
+* download .iso, verify checksum
+
+        echo "2da6f8b5c65b71b040c5c510311eae1798545b8ba801c9b63e9e3fd3c0457cbe *ubuntu-19.04-desktop-amd64.iso" | shasum -a 256 --check
+
+* format SD card (from OS X, to be booted by PC) - results in (expected) error message "disk not readable"; eject SD
+
+        hdiutil convert ubuntu-19.04-desktop-amd64.iso -format UDRW -o ubuntu-19.04-desktop-amd64.img
+        diskutil list
+        diskutil unmountDisk /dev/disk2
+        sudo dd if=ubuntu-19.04-desktop-amd64.img.dmg of=/dev/disk2 bs=1m
+
+
+### tweak system settings (aka BIOS)
+
+`F2` during bootup to enter BIOS
+
+To securely boot from the SD card:
+* `System Configuration`->`Miscellaneous Devices`
+* Enable `Secure Digital (SD) Card Boot`
+
+Because this laptop only has a PCIe based m2 drive 
+* `Settings`->`General`->`System Information` - under `Devices`, it's showing `M.2 SATA` and
+  `Primary Hard Drive` as `{none}`, and the SSD uuid is listed under `M.2 PCIe SSD-0`
+* Change the `SATA` setting to `AHCI`
+* see [this kbase](https://www.dell.com/support/article/au/en/aubsd1/sln299303/loading-ubuntu-on-systems-using-pcie-m2-drives?lang=en)
+
+### boot from installer
+
+Dell Precision boot menu - F12
+
+        Boot mode is set to: UEFI; Secure Boot: ON
+
+![SD boot](img/sd-boot.jpg)
 
 TIL
 ---
@@ -62,3 +98,5 @@ Along the way I learned (or was reaquainted with)
 * M.2
 * SATA
 * AHCI
+* LUKS (Linux Unified Key Setup) - only if erase hard disk on Ubuntu installation
+* eCryptfs - claimed to be buggy now
