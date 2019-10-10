@@ -76,6 +76,10 @@ Because this laptop only has a PCIe based m2 drive
 * Change the `SATA` setting to `AHCI`
 * see [this kbase](https://www.dell.com/support/article/au/en/aubsd1/sln299303/loading-ubuntu-on-systems-using-pcie-m2-drives?lang=en)
 
+![M.2](img/m2.jpg)
+
+![SATA](img/sata.jpg)
+
 ### boot from installer
 
 Dell Precision boot menu - F12
@@ -95,19 +99,38 @@ Soon after the first bootup I was prompted to upgrade the firmware.
 
 ![firmware](img/firmware.jpg)
 
+I did try disabling [secure boot](https://wiki.ubuntu.com/UEFI/SecureBoot). But when it was
+disabled, then the ubuntu SD card was no longer an option to boot from. IIRC, on this particular
+laptop, disabling secure boot implied changing the boot strategy from UEFI to classic/legacy MBR
+boot strategy, which the UEFI SD card was incompatible with. According to my manager, the two
+concepts (secure-boot and EFI) are not necessarily coupled, and there may be other BIOS settings to
+allow me to decouple them.
+
 TIL
 ---
 
 Along the way I learned (or was reaquainted with) 
 * UEFI (Unified Extensible Firmware Interface) aka EFI - specification for software interface
   between firmware and OS; replaces legacy BIOS. Works with newer GPT and older MBR partitioning
-  schemes.
+  schemes. You'll read about EFI firmware.
 * GPT (GUID Partition Table) - disk partitioning scheme, alternative to PC's MBR (Master Boot Record)
 * GRUB (GNU GRand Unified Bootloader) - 2nd stage boot loader
-* NVMe
-* PCIe
-* M.2
-* SATA
-* AHCI
+* NVMe (NVM Express, Non-Volatile Memory Host Controller Interface Spec) - spec for accessing a
+  non-volatile media attached via PCI Express bus. SSD drives are the common application. M.2 cards
+  also.
+* PCIe (PCI Express)
+* M.2 (aka Next Gen Form Factor (NGFF)) - spec for internally mounted expansion cards. Replaces
+  mSATA. Until I enabled AHCI, my laptop's SSD drive registered as an "M.2 PCIe" SSD (and not an M.2
+  SATA device). Supports both NVMe and (legacy) AHCI as logical device interfaces.
+* SATA (Serial ATA (AT Attachment)) - computer bus interface, connects host bust adapters to storage
+  devices.
+* AHCI (Advanced Host Controller Interface) - open host controller interface, by Intel, de facto
+  standard. If not enabled by the motherboard and chipset, SATA controllers may not provide the full
+  capability of SATA spec. (On my new laptop, the SSD SATA controller could be run in AHCI mode,
+  RAID mode, or "SATA disabled" - different modes of operation)
+* ACPI (Advanced Configuration and Power Interface) - open standard for OS to discover and configure
+  computer hardware, specifically for power management. Although it ended up not being necessary, a
+  teammate speculated I may need to pass flag to kernel at boot time to disable this. (The Dell
+  kbase article above describes how to pass kernel flags at boot time.)
 * LUKS (Linux Unified Key Setup) - only if erase hard disk on Ubuntu installation
 * eCryptfs - claimed to be buggy now
