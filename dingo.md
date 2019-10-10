@@ -84,6 +84,17 @@ Dell Precision boot menu - F12
 
 ![SD boot](img/sd-boot.jpg)
 
+What else?
+----------
+
+I had a few kernel panics along the way. No rhyme or reason to them that I could tell, just
+sometimes happened as I tried to boot from the SD card. I'd have to lean on the power button and try
+again.
+
+Soon after the first bootup I was prompted to upgrade the firmware.
+
+![firmware](img/firmware.jpg)
+
 TIL
 ---
 
