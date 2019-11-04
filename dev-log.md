@@ -4053,3 +4053,59 @@ TIL
 linux stuff
 * `swapon -s` to get summary of swap info
 * `lsblk` list block devices 
+
+## 10/14/19
+
+TIL ubuntu
+* `super` hotkey is equivalent to ubuntu "Activities" (upper-left corner)
+* `super-a` hotkey launches "Show Applications" (bottom-left corner) which is sort of like Spotlight or gnome-do
+* `super` takes you back to starting point
+
+## 10/15/19
+
+FHS - Filesystem Hierarchy Standard (standard linux directory structure)
+
+## 10/17/19
+
+TIL ubuntu
+* `super`+`up` maximizes window
+* `super`+`down` restores window
+* `super`+`left|right` splits view to left|right
+
+So I have complete spotlight|gnome-do like behavior just in stock ubuntu, using the `super` key.
+(Unfortunately, `super` is my xmonad meta key, so if I ever want to use xmonad again I'll have to
+figure out a new meta key.)
+
+Downloaded clojure boot
+
+    scott@scott-Precision-5530:~/dev/ripcord$ echo $PATH
+    /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+    scott@scott-Precision-5530:~/dev/ripcord$ sudo bash -c "cd /usr/local/bin && curl -fsSLo boot https://github.com/boot-clj/boot-bin/releases/download/latest/boot.sh && chmod 755 boot"
+    [sudo] password for scott: 
+    scott@scott-Precision-5530:~/dev/ripcord$ boot
+    Downloading https://github.com/boot-clj/boot/releases/download/2.7.2/boot.jar...
+    Running for the first time, BOOT_VERSION not set: updating to latest.
+    Retrieving clojure-1.8.0.pom from https://repo1.maven.org/maven2/ (8k)
+    Retrieving oss-parent-7.pom from https://repo1.maven.org/maven2/ (5k)
+    Retrieving maven-metadata.xml from https://repo.clojars.org/
+    Retrieving boot-2.8.3.pom from https://repo.clojars.org/ (2k)
+    Retrieving boot-2.8.3.jar from https://repo.clojars.org/ (2k)
+    Retrieving clojure-1.8.0.jar from https://repo1.maven.org/maven2/ (3538k)
+    #http://boot-clj.com
+    #Thu Oct 17 09:12:13 CDT 2019
+    BOOT_CLOJURE_NAME=org.clojure/clojure
+    BOOT_VERSION=2.8.3
+    BOOT_CLOJURE_VERSION=1.8.0
+
+## 10/23/19
+
+I realized today I'm used to the OS X scrolling, so in ubuntu settings I disabled "natural scrolling". Feel dirty, need a shower.
+
+## 10/24/19
+
+fix the emacs gnu package signature stuff
+
+    $ gpg --homedir ~/.emacs.d/elpa/gnupg  --keyserver keyserver.ubuntu.com --recv-keys 066DAFCB81E42C40
+
+http://elpa.gnu.org/packages/gnu-elpa-keyring-update.html
+https://www.reddit.com/r/emacs/comments/d9rchm/emacs_archivecontentssig_not_verifying/
