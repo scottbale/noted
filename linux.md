@@ -28,6 +28,12 @@ need to add repo
 dropbox: http://www.dropbox.com/downloading?os=lnx
 chrome: http://www.google.com/linuxrepositories/ 
 
+## screencaps screenshot
+
+`Prt Scrn` - take a screenshot of the desktop.
+`Alt` + `Prt Scrn` - take a screenshot of a window.
+`Shift` + `Prt Scrn` - take a screenshot of an area you select.
+
 ## screen
 
     screen

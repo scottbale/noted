@@ -4109,3 +4109,12 @@ fix the emacs gnu package signature stuff
 
 http://elpa.gnu.org/packages/gnu-elpa-keyring-update.html
 https://www.reddit.com/r/emacs/comments/d9rchm/emacs_archivecontentssig_not_verifying/
+
+## 11/7/19
+
+Can't get old ViewSonic monitor with DVI output to work on ubuntu 19.04 with DVI-to-HDMI cable
+https://superuser.com/a/1271463
+
+## 11/15/19
+
+TIL about `/sys/devices/system/cpu/vulnerabilities/` which contains a list of known CPU vulnerabilities and their mitigation statuses
