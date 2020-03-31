@@ -4118,3 +4118,4 @@ https://superuser.com/a/1271463
 ## 11/15/19
 
 TIL about `/sys/devices/system/cpu/vulnerabilities/` which contains a list of known CPU vulnerabilities and their mitigation statuses
+
