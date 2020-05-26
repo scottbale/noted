@@ -4119,3 +4119,9 @@ https://superuser.com/a/1271463
 
 TIL about `/sys/devices/system/cpu/vulnerabilities/` which contains a list of known CPU vulnerabilities and their mitigation statuses
 
+## 5/21/20
+
+ImageMagick
+
+    apt-get install imagemagick
+    convert -resize 50% -delay 100 -loop 0 *.jpg sm.gif
