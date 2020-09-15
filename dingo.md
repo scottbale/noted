@@ -122,7 +122,7 @@ Along the way I learned (or was reaquainted with)
 * M.2 (aka Next Gen Form Factor (NGFF)) - spec for internally mounted expansion cards. Replaces
   mSATA. Until I enabled AHCI, my laptop's SSD drive registered as an "M.2 PCIe" SSD (and not an M.2
   SATA device). Supports both NVMe and (legacy) AHCI as logical device interfaces.
-* SATA (Serial ATA (AT Attachment)) - computer bus interface, connects host bust adapters to storage
+* SATA (Serial ATA (AT Attachment)) - computer bus interface, connects host bus adapters to storage
   devices.
 * AHCI (Advanced Host Controller Interface) - open host controller interface, by Intel, de facto
   standard. If not enabled by the motherboard and chipset, SATA controllers may not provide the full
