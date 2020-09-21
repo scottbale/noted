@@ -314,3 +314,9 @@ investigate specific keybinding
 "describe bindings"
 
     C-h b
+
+## regex
+
+emacs swiper - whitespace `\s-` regex, e.g.
+
+    attempts\s-2
