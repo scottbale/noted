@@ -4125,3 +4125,110 @@ ImageMagick
 
     apt-get install imagemagick
     convert -resize 50% -delay 100 -loop 0 *.jpg sm.gif
+
+## 11/18/20
+
+From Clojurians #clojure 
+
+* brew tap for `clojure/tools/clojure` maintained by the Clojure team
+* homebrew core tap is now being kept up to date with stable releases from clojure/tools/clojure
+* `linuxbrew` tap tracks homebrew core tap, ~ couple day lag
+* debian clojure package just wraps clojure.jar, and has none of the cli features
+* https://clojure.org/guides/getting_started#_clojure_installer_and_cli_tools
+
+* `clojure`, `clj`
+
+        clojure -Sdescribe
+
+both `clojure`, `lein` use .m2 to cache deps
+
+`~/.clojure/deps.edn` https://clojure.org/reference/deps_and_cli#_deps_edn_sources
+
+## 11/22/20
+
+TIL in emacs, open a log file in a buffer then `M-x auto-revert-mode` set to true, to effectively
+tail the log. https://stackoverflow.com/a/19589885/2495576
+
+## 11/23/20
+
+TIL in tmux `Meta-s` brings up sort window (accidentally hit that while trying to chord `Meta :`
+then `swap-window`)
+
+## 11/30/20
+
+emacs TIL while debugging 
+
+    Error retrieving: https://elpa.gnu.org/packages/archive-contents (error http 400)
+
+while attempting package refresh
+
+Examine (`C-h v`) variables: 
+* `package-archives` - set|modified by my `setup-packages.el`
+* `package-check-signature` 
+* `system-configuration-features` (should have `GNUTLS` in it)
+  * `M-: (string-match-p "GNUTLS" system-configuration-features)`
+* `M-x toggle-debug-on-error` before `M-x package-list-packages`:
+
+  Result from `*Backtrace*` buffer:
+
+        url-http-generic-filter(#<process elpa.gnu.org> "HTTP/1.1 400 Bad Request\015
+        Date: Mon, 30 Nov 2020 15:43:38 GMT\015
+        Server: Apache/2.4.38 (Debian)\015
+        Content-Length: 441\015
+        Connection: close\015
+        Content-Type: text/html; charset=iso-8859-1\015
+        \015
+        <!DOCTYPE HTML PUBLIC \"-//IETF//DTD HTML 2.0//EN\">
+        <html><head>
+        <title>400 Bad Request</title>
+        </head><body>
+        <h1>Bad Request</h1>
+        <p>Your browser sent a request that this server could not understand.<br />
+        Reason: You're speaking plain HTTP to an SSL-enabled server port.<br />
+         Instead use the HTTPS scheme to access this URL, please.<br />
+        </p>
+        <hr>
+        <address>Apache/2.4.38 (Debian) Server at elpa.gnu.org Port 443</address>
+        </body></html>
+        ")
+
+## 12/1/20
+
+Trying to install `scala-mode` emacs package
+* first, complained about invalid PGP signature
+  * toggled debug error on, see above
+  * saw `package.el` was checking for a non-nil value of `package-check-signature`
+  * changed `package-check-signature` value to `nil` (was 'allow-unsigned')
+* now, complaining about invalid TAR header, I give up
+
+## 12/9/20
+
+emacs stuff
+
+Finally figured out my package install woes (attempting to install `scala-mode`): my melpa URL was out of date (in `setup-package.el`). https://melpa.org/#/getting-started has current URLs. Also removed the archive at `~/.emacs.d/elpa/archives/melpa/` and bounced emacs (not sure if that was necessary). Then either `M-x package-refresh-contents` or my usual `M-x package-list-packages`.
+
+Also, I first (not sure if this is necessary) installed `gnu-elpa-keyring-update` see https://stackoverflow.com/a/58211420/2495576. 
+
+Upgrade a bunch of other packages including `cider`. As a reminder to self, then had to go update version of `cider-nrepl` to match, in both `~/.lein/profiles.clj` and `~/.gradle/gradle.properties`.
+
+[later] reviewing all things nrepl:
+* ntoes 6/2/16 basic summary
+* notes 3/7/18 re: gradle clojure cider-nrepl support (became ticket OPSC-14321)
+* `tools.nrepl` successor is `nrepl` (`0.3.1` should be drop-in replacement for `0.2.13`)
+  * https://github.com/nrepl/nrepl
+* `reply` aka `REPL-y` - a replacement for stock Clojure repl, unrelated to nrepl (but with
+  integration)
+  * https://github.com/trptcolin/reply
+
+## 12/12/20
+
+https://clojurians.slack.com/archives/C03S1KBA2/p1607694968375800
+
+> https://clojure.org/reference/refs says Clojure refs implement snapshot isolation. Is somewhere
+> stated what kind of concurrency issues this isolation level (specifically in Clojure code) can
+> cause? Does anyone experienced such issues in practice?
+
+> The concurrency issue you are most likely to see with refs is write skew (because read-only refs
+> are not part of the default ref set that can cause a transaction to retry). But that’s easily
+> worked around when it’s an issue by using ensure instead of deref to add the ref to the ref set
+> even on read.
