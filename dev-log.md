@@ -4232,3 +4232,8 @@ https://clojurians.slack.com/archives/C03S1KBA2/p1607694968375800
 > are not part of the default ref set that can cause a transaction to retry). But that’s easily
 > worked around when it’s an issue by using ensure instead of deref to add the ref to the ref set
 > even on read.
+
+## 12/22/20
+
+Just accidentally learned, in markdown mode, you can place cursor on a header row, hit `tab` and
+collapse/expand the document tree. (Was trying to alt-tab between open windows I think.)
