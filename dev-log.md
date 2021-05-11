@@ -4212,7 +4212,7 @@ Also, I first (not sure if this is necessary) installed `gnu-elpa-keyring-update
 Upgrade a bunch of other packages including `cider`. As a reminder to self, then had to go update version of `cider-nrepl` to match, in both `~/.lein/profiles.clj` and `~/.gradle/gradle.properties`.
 
 [later] reviewing all things nrepl:
-* ntoes 6/2/16 basic summary
+* notes 6/2/16 basic summary
 * notes 3/7/18 re: gradle clojure cider-nrepl support (became ticket OPSC-14321)
 * `tools.nrepl` successor is `nrepl` (`0.3.1` should be drop-in replacement for `0.2.13`)
   * https://github.com/nrepl/nrepl
@@ -4237,3 +4237,18 @@ https://clojurians.slack.com/archives/C03S1KBA2/p1607694968375800
 
 Just accidentally learned, in markdown mode, you can place cursor on a header row, hit `tab` and
 collapse/expand the document tree. (Was trying to alt-tab between open windows I think.)
+
+## 1/31/21
+
+Concatenative languages
+* Factor
+* Gershwin https://github.com/gershwin/gershwin StrangeLoop '13
+* Factjor https://github.com/brandonbloom/factjor Clojure West '13
+* JKat http://slarba.kapsi.fi/jkat/doc/
+
+## 4/27/21
+
+Emacs `M-x package-list-packages`, "Waiting for refresh to finish..." hanging
+* TIL `M-x eww` RET `https://www.wikipedia.org/` to check whether TLS is working
+* `gnutls-algorithm-priority` variable, set to "normal:-vers-tls1.3"? Doesn't have any effect.
+* I give up

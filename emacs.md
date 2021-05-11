@@ -320,3 +320,7 @@ investigate specific keybinding
 emacs swiper - whitespace `\s-` regex, e.g.
 
     attempts\s-2
+
+trim trailing whitespace
+
+    M-x delete-trailing-whitespace
