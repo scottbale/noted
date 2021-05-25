@@ -113,3 +113,32 @@ debugging clients
 * Aha... `nativeUpdaterLog.txt` - permissions problem 
 * decided to punt, installed copy for each user in their own `~/Applications/` folder, deleted shared copy at `/Applications/`
 
+## 5/24/21
+
+minecraft 1.12.2 forge and mods
+* stashed jar files in `/usr/local/minecraft/`
+
+forge 1.12.2
+* [universal installer](https://maven.minecraftforge.net/net/minecraftforge/forge/1.12.2-14.23.5.2855/forge-1.12.2-14.23.5.2855-installer.jar)
+
+jar files (for server and client)
+* [dragon mounts 2](https://media.forgecdn.net/files/2750/96/DragonMounts2-1.12.2-1.6.3.jar)
+* [ancient warefare 2](https://media.forgecdn.net/files/3293/318/ancientwarfare-1.12.2-2.7.0.1038.jar)
+  * "requires codechickenlib 3.2.3 or above"
+  * [codechickenlib](https://media.forgecdn.net/files/2779/848/CodeChickenLib-1.12.2-3.2.3.358-universal.jar)
+* [animania](https://media.forgecdn.net/files/3213/136/animania-1.12.2-base-2.0.3.28.jar)
+  * "requires craftstudioapi any"
+  * [craftstudioapi](https://media.forgecdn.net/files/2661/859/CraftStudioAPI-universal-1.0.1.95-mc1.12-alpha.jar)
+
+TIL extended attributes
+* https://superuser.com/questions/28384/what-should-i-do-about-com-apple-quarantine
+* https://serverfault.com/questions/151997/what-does-the-symbol-mean-in-a-files-permission-settings
+
+Client: notes from 8/23/14 still work, starting with `java -jar forge-...-installer.jar`
+* launch ordinary minecraft, look for "forge" profile to launch game
+* added `.jar` files to `mods/` dir
+
+Server: Downloaded latest forge installer. Forgot to do the `--installServer` step which extracts the universal forge
+jar from the installer forge jar _and_ downloads a bunch of libraries to `libraries/` (had a missing class before that)
+
+Launching forge, first two tries caused OOM
