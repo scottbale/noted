@@ -1876,6 +1876,7 @@ Got it!
   * Profiles->Keys: Option should send `+Esc`
 
 Almost all the cmd keybindings I care about (cmd-w, cmd-q, cmd-c, cmd-v, cmd-x, cmd-tab) happen to be left command key chords. Likewise, almost all the tmux and terminal meta-key combos I care about happen to be right meta key chords (M-d, M-f, M-v). Notable exceptions: M-<, M->.
+*update 5/26/21* wat? aforementioned cmd keybindings are _right_ command key chords. [later] oh right 9/20/17
 
 ## 2/4/16 - Thu
 
@@ -3493,7 +3494,7 @@ to temporarily disable.
 
 can't remember in iTerm prefs why I mapped right command key to option. Going to revert back and see if I remember...
 
-Now I remember: 
+Now I remember (2/3/16): 
 * `opt-f`, `opf-b` forward backward navigation in terminal, e.g. editing command line.
 * tmux `opt-v` to page back through tmux history
 * navigation in `zile`
@@ -3505,7 +3506,7 @@ Now I remember:
 * install `exec-path-from-shell` package (related: `C-h v exec-path`)
 * stuff in `init.el`
 
-## 9/11/17
+## 9/17/17
 
 gulp watch
 
