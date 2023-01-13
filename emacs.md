@@ -123,6 +123,11 @@ http://emacswiki.org/emacs/DiredSearchAndReplace
     C-u M-x
     Dired listing switches: -lR
     
+https://www.gnu.org/software/emacs/manual/html_node/emacs/Subdirectories-in-Dired.html
+
+`i` (`dired-maybe-insert-subdir`) within dired buffer. `C-u i` (prefix arg) to edit flags to `ls`.
+`C-u C-space` to jump back to mark.
+
 in dired mode, mark directories:
 
     * /
@@ -324,3 +329,9 @@ emacs swiper - whitespace `\s-` regex, e.g.
 trim trailing whitespace
 
     M-x delete-trailing-whitespace
+
+## markdown mode
+
+https://jblevins.org/projects/markdown-mode/
+* `C-c C-c m` preview in another buffer
+* `C-c C-c p` preview in browser

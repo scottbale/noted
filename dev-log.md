@@ -4250,9 +4250,29 @@ Concatenative languages
 ## 4/27/21
 
 Emacs `M-x package-list-packages`, "Waiting for refresh to finish..." hanging
+
 * TIL `M-x eww` RET `https://www.wikipedia.org/` to check whether TLS is working
 * `gnutls-algorithm-priority` variable, set to "normal:-vers-tls1.3"? Doesn't have any effect.
 * I give up
+
+
+## 6/14/21
+
+Got a message that `cl` package is deprecated as of emacs 27.1. Found `cl-macs` package.
+TIL on macOS, emacs 27.2, libraries (source and compiled) are located in
+
+    /Applications/Emacs.app/Contents/Resources/lisp/emacs-lisp/
+
+e.g.
+
+    /Applications/Emacs.app/Contents/Resources/lisp/emacs-lisp/cl-macs.el.gz
+    /Applications/Emacs.app/Contents/Resources/lisp/obsolete/cl.el.gz
+
+compiled byte code
+
+    /Applications/Emacs.app/Contents/Resources/lisp/obsolete/cl.elc
+
+See usage of `cl` in my `setup-package.el`
 
 
 ## 1/12/23
