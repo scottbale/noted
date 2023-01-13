@@ -95,6 +95,10 @@ Require isn't thread-safe https://ask.clojure.org/index.php/9893/require-is-not-
 
 ## clojure|clj
 
+Install from the official tap (not the homebrew built-in formula)
+
+    brew install clojure/tools/clojure
+
 https://clojure.org/releases/tools
 
 installed `clj`, `rlwrap` https://clojure.org/guides/getting_started

@@ -4253,3 +4253,39 @@ Emacs `M-x package-list-packages`, "Waiting for refresh to finish..." hanging
 * TIL `M-x eww` RET `https://www.wikipedia.org/` to check whether TLS is working
 * `gnutls-algorithm-priority` variable, set to "normal:-vers-tls1.3"? Doesn't have any effect.
 * I give up
+
+
+## 1/12/23
+
+1password issue - other users can't open the app (electron ffmpeg)
+
+symptom is application fails to launch with a message
+> 1Password cannot be opened because of a problem.
+and `Ignore` and `Report` buttons
+
+report includes this clue:
+
+```
+Dyld Error Message:
+  dyld: Using shared cache: 1FF61C30-FB8C-36BE-B7E2-5D513370F4BB
+Library not loaded: @rpath/libffmpeg.dylib
+  Referenced from: /Applications/1Password.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Electron Framework
+  Reason: image not found
+```
+
+* version 8.9.12
+* Mac OS 11.7 Big Sur
+* https://1password.community/discussion/comment/666885
+* https://1password.community/discussion/133503/1password-8-not-working-in-some-mac-user-accounts-again
+* https://1password.community/discussion/132881/1password-8-not-working-in-some-mac-user-accounts
+
+workaround:
+
+``` shell
+cd /Applications/1Password.app/Contents/Frameworks/Electron\ Framework.framework
+sudo chmod -h 755 ./Electron\ Framework ./Helpers ./Libraries ./Resources
+cd Versions
+sudo chmod -h 755 ./Current
+```
+
+I did the workaround without the `sudo`

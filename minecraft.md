@@ -142,3 +142,18 @@ Server: Downloaded latest forge installer. Forgot to do the `--installServer` st
 jar from the installer forge jar _and_ downloads a bunch of libraries to `libraries/` (had a missing class before that)
 
 Launching forge, first two tries caused OOM
+
+## 5/25/21
+
+how do you increase RAM?
+
+    ~ $ grep "VM" /Applications/Minecraft.app/Contents/Info.plist
+    ~ $ ls -la /Applications/Minecraft.app/Contents/Info.plist
+    -rw-r--r--  1 corinne  admin  1261 May  8 16:49 /Applications/Minecraft.app/Contents/Info.plist
+    ~ $ sudo chmod 666 /Applications/Minecraft.app/Contents/Info.plist
+    Password:
+    ~ $ ls -la /Applications/Minecraft.app/Contents/Info.plist
+    -rw-rw-rw-  1 corinne  admin  1261 May  8 16:49 /Applications/Minecraft.app/Contents/Info.plist
+    ~ $ sudo chmod 644 /Applications/Minecraft.app/Contents/Info.plist
+    ~ $ ls -la /Applications/Minecraft.app/Contents/Info.plist
+    -rw-r--r--  1 corinne  admin  1327 May 25 07:36 /Applications/Minecraft.app/Contents/Info.plist
